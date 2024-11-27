@@ -1,0 +1,57 @@
+
+.sidebar_container {
+    position: fixed;
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 380px;
+    height: calc(100% - 40px);
+    transform: translateX(0px);
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar_container_close {
+    transform: translateX(-350px);
+}
+
+.sidebar_element {
+    background-color: rgb(243, 246, 247);
+    box-shadow: 4px 3px 4px rgb(185, 185, 185);
+}
+
+.menubar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 30px);
+    height: 100%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.drawer {
+    position: absolute;
+    width: 30px;
+    height: 70px;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drawer_button {
+    position: relative;
+    width: 25px;
+    height: 40px;
+    /* background-color: brown; */
+    z-index: 7;
+}
+
+.drawer_button:active {
+    /* background-color: aqua; */
+}
+
