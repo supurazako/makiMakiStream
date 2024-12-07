@@ -44,6 +44,10 @@
     border-radius: 2px;
 }
 
+.video_controller .play_control.is_playng {
+    background-color: lightcoral;
+}
+
 .video_controller .remove {
     margin-left: auto;
 }
