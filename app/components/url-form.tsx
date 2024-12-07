@@ -8,10 +8,9 @@ export default function UrlForm() {
         event.preventDefault();
         const data = new FormData(event.target as HTMLFormElement);
         // TODO: Add stream box
-        // Check start with https://www.twitch.tv/
+        // Check if the input text is a valid Twitch URL
         const inputText = data.get('inputText') as string;
-
-        if (inputText.startsWith('https://www.twitch.tv/')) {
+        if (/^(https:\/\/(www\.|m\.)?twitch\.tv\/|twitch\.tv\/)/.test(inputText)) {
             // Formatting sentences into embedding URL
             const formattedText = inputText.replace('https://www.twitch.tv/', 'https://player.twitch.tv/?channel=');
             // Add stream box
