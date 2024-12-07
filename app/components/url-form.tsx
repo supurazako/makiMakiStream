@@ -10,13 +10,14 @@ export default function UrlForm() {
         // TODO: Add stream box
         // Check if the input text is a valid Twitch URL
         const inputText = data.get('inputText') as string;
-        if (/^(https:\/\/(www\.|m\.)?twitch\.tv\/|twitch\.tv\/)/.test(inputText)) {
+        const match = inputText.match(/^(?:https:\/\/)?(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)/);
+        if (match) {
+            const channelName = match[1];
+            console.log(`channelName: ${channelName}`);
             // Formatting sentences into embedding URL
-            const formattedText = inputText.replace('https://www.twitch.tv/', 'https://player.twitch.tv/?channel=');
-            // Add stream box
-            setStreamUrl(formattedText);
+            setStreamUrl(`https://player.twitch.tv/?channel=${channelName}`);
         } else {
-            alert('Invalid URL, plaese enter a valid Twitch URL');
+            alert('Invalid URL, plaese enter a valid URL');
         }
     }
     return (
