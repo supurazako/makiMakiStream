@@ -5,6 +5,8 @@ export interface Video {
 
     isPlaying(): boolean;
     togglePlaying(): void;
+    getVolume(): number;
+    setVolume(v: number): void;
 }
 
 export class VideoTest implements Video {
@@ -16,11 +18,13 @@ export class VideoTest implements Video {
      * 実際のストリーム用クラスでは再生中かどうかや・音量といった情報はクラス内に保持せず、その都度APIで取得する感じになる（たぶん）はず。
      */
     isPlayingTest: boolean;
+    volume: number;
     id: number;
 
-    constructor(isPlayingTest: boolean, id: number) {
+    constructor(isPlayingTest: boolean, volume: number, id: number) {
         this.literal = ""
         this.isPlayingTest = isPlayingTest;
+        this.volume = volume;
         this.id = id;
     }
 
@@ -29,6 +33,15 @@ export class VideoTest implements Video {
     }
 
     togglePlaying(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    getVolume(): number {
+        return this.volume;
+    }
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setVolume(v: number): void {
         throw new Error("Method not implemented.");
     }
 }
