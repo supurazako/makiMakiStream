@@ -9,7 +9,10 @@ export const VideoListContext = createContext<{ videoList: Video[], setVideoList
 });
 
 export default function App(): JSX.Element {
-    const [videoList, setVideoList] = useState<Video[]>([new VideoTest(false, 0.3, 0)])
+    const [videoList, setVideoList] = useState<Video[]>([
+        new VideoTest(false, 0.3, 0),
+        new VideoTest(false, 0.3, 1),
+    ])
 
     return (
         <VideoListContext.Provider value={{ videoList, setVideoList }}>

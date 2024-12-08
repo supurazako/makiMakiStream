@@ -9,12 +9,12 @@ export function VideoControllersContainer(): JSX.Element {
 
     return (
         <div className="video_controllers_container">
-            {videoList.map((v, i) => <VideoController video={v} key={i} />)}
+            {videoList.map((v, i) => <VideoController video={v} index={i} key={i} />)}
         </div>
     );
 }
 
-function VideoController({ video }: { video: Video }): JSX.Element {
+function VideoController({ video, index }: { video: Video, index: number }): JSX.Element {
     return (
         <div className="video_controller">
             <p>{"isPlaying: " + video.isPlaying().toString() + " / volume: " + (video.getVolume())}</p>
@@ -22,7 +22,7 @@ function VideoController({ video }: { video: Video }): JSX.Element {
             <div className="controls">
                 <PlayControl video={video}></PlayControl>
                 <VolumeControl video={video} />
-                <button className="control remove"></button>
+                <RemoveControl index={index} />
             </div>
         </div>
     );
@@ -85,5 +85,17 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
                 onChange={handleSlideVolume}>
             </input>
         </div>
+    );
+}
+
+function RemoveControl({ index }: { index: number }): JSX.Element {
+    const { videoList, setVideoList } = useContext(VideoListContext);
+
+    function handleClick() {
+        setVideoList(videoList.filter((v, i) => i !== index))
+    }
+
+    return (
+        <button className="control_button remove_control" type="button" onClick={handleClick} />
     );
 }

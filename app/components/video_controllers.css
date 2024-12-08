@@ -48,10 +48,6 @@
     background-color: lightcoral;
 }
 
-.video_controller .remove {
-    margin-left: auto;
-}
-
 .video_controller .volume_control {
     width: fit-content;
     height: fit-content;
@@ -64,4 +60,8 @@
 .video_controller .volume_control:hover .volume_slider {
     width: 100px;
     background-color: aqua;
+}
+
+.video_controller .remove_control {
+    margin-left: auto;
 }
