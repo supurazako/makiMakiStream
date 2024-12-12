@@ -1,6 +1,7 @@
 
 import { FormEvent, useContext } from "react";
 import "~/components/common/modal.css"
+import { VideoTest } from "~/interfaces";
 import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
 
 export default function Modal({ isOpen, children }: { isOpen: boolean, children: JSX.Element }): JSX.Element {
@@ -27,7 +28,7 @@ export function AddVideoModal(): JSX.Element {
 
         const form = new FormData(event.target);
         const video_url = form.get("video_url");
-        alert("video" + video_url)
+        setVideoList([...videoList, new VideoTest(true, 0.5, 2)])
 
         closeModal();
     }

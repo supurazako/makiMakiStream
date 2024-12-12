@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import "~/components/video_controllers.css"
 import { Video, VideoTest } from "~/interfaces";
-import { VideoListContext } from "~/routes/dev.video_controllers";
-
-
+import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
 
 export function VideoControllersContainer(): JSX.Element {
     const { videoList } = useContext(VideoListContext);
@@ -11,6 +9,7 @@ export function VideoControllersContainer(): JSX.Element {
     return (
         <div className="video_controllers_container">
             {videoList.map((v, i) => <VideoController video={v} index={i} key={i} />)}
+            <AddVideoButton />
         </div>
     );
 }
@@ -98,5 +97,17 @@ function RemoveControl({ index }: { index: number }): JSX.Element {
 
     return (
         <button className="control_button remove_control" type="button" onClick={handleClick} />
+    );
+}
+
+function AddVideoButton(): JSX.Element {
+    const { setOpen } = useContext(AddVideoModalContext);
+
+    function handleClick() {
+        setOpen(true);
+    }
+
+    return (
+        <button className="add_video_button" type="button" onClick={handleClick}>+</button>
     );
 }

@@ -65,3 +65,8 @@
 .video_controller .remove_control {
     margin-left: auto;
 }
+
+.add_video_button {
+    width: 5rem;
+    height: 4rem;
+}

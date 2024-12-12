@@ -22,14 +22,13 @@ export default function App(): JSX.Element {
     const [isOpen, setOpen] = useState(false);
 
     return (
-        
         <div>
-        <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
-            <AddVideoModal />
-        </AddVideoModalContext.Provider>
-        <VideoListContext.Provider value={{ videoList, setVideoList }}>
-            <VideoControllersContainer />
-        </VideoListContext.Provider>
+            <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
+                <VideoListContext.Provider value={{ videoList, setVideoList }}>
+                    <AddVideoModal />
+                    <VideoControllersContainer />
+                </VideoListContext.Provider>
+            </AddVideoModalContext.Provider>
         </div>
     );
 }
