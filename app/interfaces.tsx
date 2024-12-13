@@ -6,7 +6,7 @@ export interface Video {
     isPlaying(): boolean;
     togglePlaying(): void;
     getVolume(): number;
-    setVolume(v: number): void;
+    setVolume(volume: number): void;
 }
 
 export class VideoTest implements Video {
@@ -39,9 +39,9 @@ export class VideoTest implements Video {
     getVolume(): number {
         return this.volume;
     }
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setVolume(v: number): void {
+    setVolume(volume: number): void {
         throw new Error("Method not implemented.");
     }
 }
