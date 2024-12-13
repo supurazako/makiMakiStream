@@ -12,7 +12,7 @@ export default function LayoutOptionsContainer() {
     );
 }
 
-export function LayoutOption({ layoutID }: {layoutID: number}) {
+export function LayoutOption({ layoutID }: { layoutID: number }) {
     const { layout, setLayout } = useContext(LayoutContext);
     const isSelected = layoutID === layout;
 

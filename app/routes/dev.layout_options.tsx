@@ -3,7 +3,7 @@ import LayoutOptionsContainer from "~/components/layout_options";
 
 export const LayoutContext = createContext({
     layout: 0,
-    setLayout: (n: number) => { }
+    setLayout: (n: number) => {}
 });
 
 export default function App(): JSX.Element {
@@ -14,5 +14,5 @@ export default function App(): JSX.Element {
             <p>Selected: {layout}</p>
             <LayoutOptionsContainer />
         </LayoutContext.Provider>
-    )
+    );
 }
