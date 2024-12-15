@@ -47,8 +47,13 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    transition: all 0.3s ease-out;
 }
 
 .drawer_button:hover {
     background-color: var(--background-color-hover);
+}
+
+.drawer_button:active {
+    background-color: var(--background-color-active);
 }
