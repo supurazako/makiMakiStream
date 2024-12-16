@@ -6,12 +6,12 @@ import { Video, VideoTest } from "~/interfaces";
 export const VideoListContext = createContext<{ videoList: Video[], setVideoList: (v: Video[]) => void }>({
     videoList: [],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setVideoList: (_l: Video[]) => { }
+    setVideoList: (_l: Video[]) => {}
 });
 export const AddVideoModalContext = createContext({
     isOpen: false,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setOpen: (_i: boolean) => { }
+    setOpen: (_i: boolean) => {}
 });
 
 export default function App(): JSX.Element {

@@ -26,7 +26,7 @@ export function AddVideoModal(): JSX.Element {
     function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
 
-        const form = new FormData(event.target);
+        const form = new FormData(event.currentTarget);
         const video_url = form.get("video_url");
         setVideoList([...videoList, new VideoTest(true, 0.5, 2)])
 
