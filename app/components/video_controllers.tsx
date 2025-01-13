@@ -2,6 +2,7 @@ import { useContext } from "react";
 import "~/components/video_controllers.css"
 import { Video, VideoTest } from "~/interfaces";
 import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
+import { PlayIcon, RemoveIcon, VolumeIcon } from "./common/icons";
 
 export function VideoControllersContainer(): JSX.Element {
     const { videoList } = useContext(VideoListContext);
@@ -17,8 +18,10 @@ export function VideoControllersContainer(): JSX.Element {
 function VideoController({ video, index }: { video: Video, index: number }): JSX.Element {
     return (
         <div className="video_controller">
-            <p>{"isPlaying: " + video.isPlaying().toString() + " / volume: " + (video.getVolume())}</p>
-            <input className="url"></input>
+            <div className="labels">
+                <div className="icon"></div>
+                <input className="url"></input>
+            </div>
             <div className="controls">
                 <PlayControl video={video}></PlayControl>
                 <VolumeControl video={video} />
@@ -49,11 +52,14 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
     }
 
     return (
-        <button
-            className={"control_button play_control" + (video.isPlaying() ? " is_playng" : "")}
-            type="button"
-            onClick={togglePlaying}>
-        </button>
+        <div className="control_item play_control">
+            <button
+                className={"control_button play_button" + (video.isPlaying() ? " is_playng" : "")}
+                type="button"
+                onClick={togglePlaying}>
+                <PlayIcon />
+            </button>
+        </div>
     );
 }
 
@@ -62,6 +68,9 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
     const { videoList, setVideoList } = useContext(VideoListContext);
 
     function handleSlideVolume(e: React.ChangeEvent<HTMLInputElement>) {
+        const ratio = e.currentTarget.value;
+        e.currentTarget.style.setProperty('--ratio', ratio);
+
         // テスト用コードここから
         const newList = videoList.map((v) => {
             if ((v as VideoTest).id === (video as VideoTest).id) {
@@ -76,12 +85,14 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
     }
 
     return (
-        <div className="volume_control">
-            <button className="control_button volume_button"></button>
+        <div className="control_item volume_control">
+            <button className="control_button volume_button">
+                <VolumeIcon />
+            </button>
             <input
                 className="volume_slider"
                 type="range"
-                max={1.0} min={0.0} step={0.1} defaultValue={video.getVolume()}
+                max={1.0} min={0.0} step={0.01} defaultValue={video.getVolume()}
                 onChange={handleSlideVolume}>
             </input>
         </div>
@@ -96,7 +107,11 @@ function RemoveControl({ index }: { index: number }): JSX.Element {
     }
 
     return (
-        <button className="control_button remove_control" type="button" onClick={handleClick} />
+        <div className="control_item remove_control">
+        <button className="control_button remove_button" type="button" onClick={handleClick}>
+            <RemoveIcon />
+        </button>
+        </div>
     );
 }
 
