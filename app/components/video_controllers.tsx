@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import "~/components/video_controllers.css"
 import { Video, VideoTest } from "~/interfaces";
 import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
@@ -66,6 +66,12 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
 function VolumeControl({ video }: { video: Video }): JSX.Element {
     // テスト用コード
     const { videoList, setVideoList } = useContext(VideoListContext);
+    const ref = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const slider = ref.current!;
+        slider.style.setProperty('--ratio', slider.value);
+    }, []);
 
     function handleSlideVolume(e: React.ChangeEvent<HTMLInputElement>) {
         const ratio = e.currentTarget.value;
@@ -93,7 +99,8 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
                 className="volume_slider"
                 type="range"
                 max={1.0} min={0.0} step={0.01} defaultValue={video.getVolume()}
-                onChange={handleSlideVolume}>
+                onChange={handleSlideVolume}
+                ref={ref}>
             </input>
         </div>
     );
