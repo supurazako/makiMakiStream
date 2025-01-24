@@ -1,34 +1,78 @@
+:root {
+    --background-color: #F5F5F5;
+    --background-gradient: linear-gradient(to bottom right, var(--background-color), #F1F1F1);
+    --background-color-hover: #D6D6D6;
+    --background-color-active: #B7B7B7;
+    --widget-color-primary: #D9D9D9;
+    --icon-color-primary: #5A5A5A;
+}
+
 .layout_options_container {
-    width: 300px;
+    width: 450px;
     height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 45px 0px;
+    column-gap: 20px;
+
+    & .layout_option {
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.25) 5px 5px 7px, rgba(255, 255, 255, 0.8) -5px -5px 7px;
+        background: var(--background-gradient);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.05s linear;
+
+        &::before {
+            display: none;
+        }
+
+        &:hover {
+            scale: 1.05;
+        }
+
+        &:active,
+        &.selected {
+            box-shadow: inset rgba(0, 0, 0, 0.25) 5px 5px 7px, inset rgba(255, 255, 255, 0.8) -5px -5px 7px;
+            transform: translateX(2px) translateY(2px);
+            scale: 1.0;
+
+            & svg.icon {
+                display: none;
+            }
+
+            &::before {
+                display: block;
+                clip-path: url(#icon_layout_option_clip);
+                content: "";
+                width: 90px;
+                height: 90px;
+                background-image: linear-gradient(to bottom right, #f36bca, #faf623);
+                background-size: 200% 200%;
+                animation-name: gradation;
+                animation-duration: 5.0s;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+                animation-timing-function: ease-in-out;
+            }
+        }
+
+        &:active {
+            transform: translateX(3px) translateY(3px);
+        }
+    }
 }
 
-.layout_option {
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    border-radius: 3px;
-}
+@keyframes gradation {
+    0% {
+        background-position: 0% 0%;
+    }
 
-.layout_option_selected {
-    border-color: red;
-}
-
-.layout_option_placeholder {
-    background-color: lightgray;
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    display: block;
-    border-radius: 3px;
-}
-
-.layout_option_selected .layout_option_placeholder {
-    background-color: lightcoral;
+    100% {
+        background-position: 100% 100%;
+    }
 }
