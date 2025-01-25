@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import "~/components/layout_options.css"
 import { LayoutContext } from "~/routes/dev.layout_options";
-import { IconLayoutOption2A, IconLayoutOption2AClip } from "./common/icons";
+import { IconLayoutOption2A, IconLayoutOption2AClip, IconLayoutOption2B, IconLayoutOption2BClip, IconLayoutOption2C, IconLayoutOption2CClip } from "./common/icons";
 
 export default function LayoutOptionsContainer() {
     return (
@@ -31,8 +31,10 @@ function getOptionIcon(id: string): [JSX.Element, JSX.Element] {
     let icons: [JSX.Element, JSX.Element];
 
     switch (id) {
-        case "2A": icons = [<IconLayoutOption2AClip key={id} />, <IconLayoutOption2A key={id} />]; break;
-        default: icons = [<IconLayoutOption2AClip key={id} />, <IconLayoutOption2A key={id} />];
+        case "2A": icons = [<IconLayoutOption2AClip key={0} />, <IconLayoutOption2A key={1} />]; break;
+        case "2B": icons = [<IconLayoutOption2BClip key={0} />, <IconLayoutOption2B key={1} />]; break;
+        case "2C": icons = [<IconLayoutOption2CClip key={0} />, <IconLayoutOption2C key={1} />]; break;
+        default: icons = [<IconLayoutOption2AClip key={0} />, <IconLayoutOption2A key={1} />];
     }
 
     return icons;

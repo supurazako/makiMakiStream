@@ -47,7 +47,6 @@
 
             &::before {
                 display: block;
-                clip-path: url(#icon_layout_option_clip);
                 content: "";
                 width: 90px;
                 height: 90px;
@@ -63,6 +62,27 @@
 
         &:active {
             transform: translateX(3px) translateY(3px);
+        }
+
+        &:nth-child(1):active,
+        &:nth-child(1).selected {
+            &::before {
+                clip-path: url(#icon_layout_option_clip_A);
+            }
+        }
+
+        &:nth-child(2):active,
+        &:nth-child(2).selected {
+            &::before {
+                clip-path: url(#icon_layout_option_clip_B);
+            }
+        }
+
+        &:nth-child(3):active,
+        &:nth-child(3).selected {
+            &::before {
+                clip-path: url(#icon_layout_option_clip_C);
+            }
         }
     }
 }
