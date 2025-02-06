@@ -7,7 +7,6 @@ export default function UrlForm() {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.target as HTMLFormElement);
-        // TODO: Add stream box
         // Check if the input text is a valid Twitch URL
         const inputText = data.get('inputText') as string;
         const match = inputText.match(/^(?:https:\/\/)?(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)/);
@@ -24,7 +23,6 @@ export default function UrlForm() {
         <>
             <form className='border-4 border-black' onSubmit={handleSubmit}>
                 <input type="text" name="inputText" />
-                {/* TODO: submitをonClickイベントにする */}
                 <button type="submit">Submit</button>
             </form>
             {streamUrl && <TwitchStreamBox url={streamUrl} />}
