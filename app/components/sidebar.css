@@ -1,57 +1,59 @@
+@import url(/app/common/common.css);
+
+:root {
+    --sidebar-width: 500px;
+    --drawer-width: 50px;
+}
 
 .sidebar_container {
     position: fixed;
     box-sizing: border-box;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 380px;
-    height: calc(100% - 40px);
+    width: var(--sidebar-width);
+    height: 100%;
     transform: translateX(0px);
     transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(5px 5px 4px #0000004D) drop-shadow(-5px -5px 4px #FFFFFFB8);
 }
 
-.sidebar_container_close {
-    transform: translateX(-350px);
+.sidebar_container.close {
+    transform: translateX(calc(var(--drawer-width) - var(--sidebar-width)));
 }
 
 .sidebar_element {
-    background-color: rgb(243, 246, 247);
-    box-shadow: 4px 3px 4px rgb(185, 185, 185);
+    background-color: var(--background-color);
 }
 
 .menubar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100% - 30px);
     height: 100%;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    flex-grow: 1;
 }
 
 .drawer {
-    position: absolute;
-    width: 30px;
-    height: 70px;
-    top: 50%;
-    right: 0px;
-    transform: translateY(-50%);
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    width: var(--drawer-width);
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0px 15px 15px 0px;
+    box-shadow: inset 2px 0px 4px #00000027;
 }
 
 .drawer_button {
-    position: relative;
-    width: 25px;
-    height: 40px;
-    /* background-color: brown; */
-    z-index: 7;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease-out;
+}
+
+.drawer_button:hover {
+    background-color: var(--background-color-hover);
 }
 
 .drawer_button:active {
-    /* background-color: aqua; */
+    background-color: var(--background-color-active);
 }
-
