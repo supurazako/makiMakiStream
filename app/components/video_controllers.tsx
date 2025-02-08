@@ -58,6 +58,7 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
 }
 
 function VolumeControl({ video }: { video: Video }): JSX.Element {
+    const [isMuted, setMuted] = useState(video.isMuted());
     const [value, setValue] = useState(video.getVolume());
 
     useEffect(() => {
@@ -67,6 +68,10 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
         })
     }, [video]);
 
+    function handleClick() {
+        video.setMuted(!video.isMuted());
+    }
+
     function handleSlide(e: React.ChangeEvent<HTMLInputElement>) {
         const volume = Number(e.target.value);
         video.setVolume(volume);
@@ -75,7 +80,7 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
 
     return (
         <div className="volume_control">
-            <button className="control_button volume_button" />
+            <button className="control_button volume_button" onClick={handleClick}/>
             <input
                 className="volume_slider"
                 type="range"

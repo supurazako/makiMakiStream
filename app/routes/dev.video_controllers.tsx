@@ -16,7 +16,7 @@ export const AddVideoModalContext = createContext({
 
 export default function App(): JSX.Element {
     const [videoList, setVideoList] = useState<Video[]>([
-        new TwitchVideo("shirona_shizuku")
+        new TwitchVideo("aoi_uii")
     ])
     const [isOpen, setOpen] = useState(false);
 
