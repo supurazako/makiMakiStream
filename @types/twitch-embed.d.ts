@@ -13,18 +13,12 @@ declare namespace Twitch {
 
 	class Player {
 		constructor(elementId: string, options: PlayerOptions);
-		setVolume(volumeLevel: number): void;
+		isPaused(): boolean;
 		play(): void;
 		pause(): void;
-		seek(timestamp: number): void;
-		getCurrentTime(): number;
-		getDuration(): number;
 		getMuted(): boolean;
 		setMuted(muted: boolean): void;
-		getPlaybackStats(): { [key: string]: number | string };
-		getQuality(): string;
-		setQuality(quality: string): void;
-		getQualities(): string[];
-		isPaused(): boolean;
+		getVolume(): number;
+		setVolume(volumeLevel: number): void;
 	}
 }
