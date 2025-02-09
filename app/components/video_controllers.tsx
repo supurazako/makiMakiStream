@@ -29,28 +29,16 @@ function VideoController({ video, index }: { video: Video, index: number }): JSX
 }
 
 function PlayControl({ video }: { video: Video }): JSX.Element {
-    // テスト用コード
-    const { videoList, setVideoList } = useContext(VideoListContext);
+    const [isPlaying, setPlaying] = useState(video.isPlaying());
 
     function togglePlaying() {
-        // video.togglePlaying();
-
-        // テスト用コード
-        const newList = videoList.map((v) => {
-            if ((v as VideoTest).id === (video as VideoTest).id) {
-                return new VideoTest(!v.isPlaying(), v.getVolume(), (v as VideoTest).id)
-            } else {
-                return v;
-            }
-        })
-
-        setVideoList(newList);
-        // テスト用コードここまで
+        video.togglePlaying();
+        setPlaying(video.isPlaying());
     }
 
     return (
         <button
-            className={"control_button play_control" + (video.isPlaying() ? " is_playng" : "")}
+            className={"control_button play_control" + (isPlaying ? " is_playng" : "")}
             type="button"
             onClick={togglePlaying}>
         </button>
@@ -58,7 +46,6 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
 }
 
 function VolumeControl({ video }: { video: Video }): JSX.Element {
-    const [isMuted, setMuted] = useState(video.isMuted());
     const [value, setValue] = useState(video.getVolume());
 
     useEffect(() => {
