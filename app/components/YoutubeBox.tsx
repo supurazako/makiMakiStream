@@ -7,7 +7,7 @@ interface YoutubePlayerProps {
 declare global {
     interface Window {
         YT: typeof YT;
-        onYoutubeIframeAPIReady: () => void;
+        onYouTubeIframeAPIReady: () => void;
     }
 }
 
@@ -20,8 +20,7 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
             script.src = 'https://www.youtube.com/iframe_api';
             script.async = true;
             document.body.appendChild(script);
-
-            window.onYoutubeIframeAPIReady = createPlayer;
+            window.onYouTubeIframeAPIReady = createPlayer;
         } else {
             createPlayer();
         }
