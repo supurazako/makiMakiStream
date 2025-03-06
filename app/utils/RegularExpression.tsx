@@ -6,8 +6,14 @@ export const detectSite = (url: string): "youtube" | "twitch" | null => {
 
 export const getYoutubeVideoId = (url: string): string | null => {
     // TODO: Support "youtube.com/live/XXXX" URLs
-    const regExp = /(?:youtube\.com\/(?:[^/]+\/.*|(?:v|e(?:mbed)?)\/|.*[?&]v=))([^"&?/\s]{11})(?:[?&]|$)/;
-    const match = url.match(regExp);
+    let match;
+
+    if (url.includes("youtube.com/live/")) {
+        match = url.match(/(?:youtube\.com\/live\/)([a-zA-Z0-9_-]+)/);
+    } else {
+        match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
+    }
+    // const match = url.match(regExp);
     return match ? match[1] : null;
 }
 
