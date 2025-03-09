@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "~/components/video_controllers.css"
 import { Video, VideoTest } from "~/interfaces";
 import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
@@ -29,28 +29,16 @@ function VideoController({ video, index }: { video: Video, index: number }): JSX
 }
 
 function PlayControl({ video }: { video: Video }): JSX.Element {
-    // テスト用コード
-    const { videoList, setVideoList } = useContext(VideoListContext);
+    const [isPlaying, setPlaying] = useState(video.isPlaying());
 
     function togglePlaying() {
-        // video.togglePlaying();
-
-        // テスト用コード
-        const newList = videoList.map((v) => {
-            if ((v as VideoTest).id === (video as VideoTest).id) {
-                return new VideoTest(!v.isPlaying(), v.getVolume(), (v as VideoTest).id)
-            } else {
-                return v;
-            }
-        })
-
-        setVideoList(newList);
-        // テスト用コードここまで
+        video.togglePlaying();
+        setPlaying(video.isPlaying());
     }
 
     return (
         <button
-            className={"control_button play_control" + (video.isPlaying() ? " is_playng" : "")}
+            className={"control_button play_control" + (isPlaying ? " is_playng" : "")}
             type="button"
             onClick={togglePlaying}>
         </button>
@@ -58,31 +46,33 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
 }
 
 function VolumeControl({ video }: { video: Video }): JSX.Element {
-    // テスト用コード
-    const { videoList, setVideoList } = useContext(VideoListContext);
+    const [value, setValue] = useState(video.getVolume());
 
-    function handleSlideVolume(e: React.ChangeEvent<HTMLInputElement>) {
-        // テスト用コードここから
-        const newList = videoList.map((v) => {
-            if ((v as VideoTest).id === (video as VideoTest).id) {
-                return new VideoTest(v.isPlaying(), Number(e.target.value), (v as VideoTest).id)
-            } else {
-                return v;
-            }
+    useEffect(() => {
+        const playerElement = document.getElementById("player");
+        playerElement?.addEventListener("mousemove", () => {
+            setValue(video.getVolume());
         })
+    }, [video]);
 
-        setVideoList(newList);
-        // テスト用コードここまで
+    function handleClick() {
+        video.setMuted(!video.isMuted());
+    }
+
+    function handleSlide(e: React.ChangeEvent<HTMLInputElement>) {
+        const volume = Number(e.target.value);
+        video.setVolume(volume);
+        setValue(volume);
     }
 
     return (
         <div className="volume_control">
-            <button className="control_button volume_button"></button>
+            <button className="control_button volume_button" onClick={handleClick}/>
             <input
                 className="volume_slider"
                 type="range"
-                max={1.0} min={0.0} step={0.1} defaultValue={video.getVolume()}
-                onChange={handleSlideVolume}>
+                max={1.0} min={0.0} step={0.1} value={value}
+                onChange={handleSlide}>
             </input>
         </div>
     );
