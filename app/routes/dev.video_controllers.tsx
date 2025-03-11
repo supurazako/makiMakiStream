@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { AddVideoModal } from "~/components/common/modal";
 import { VideoControllersContainer } from "~/components/video_controllers";
-import { Video, VideoTest } from "~/interfaces";
+import { TwitchVideo, Video } from "~/interfaces";
 
 export const VideoListContext = createContext<{ videoList: Video[], setVideoList: (v: Video[]) => void }>({
     videoList: [],
@@ -16,8 +16,7 @@ export const AddVideoModalContext = createContext({
 
 export default function App(): JSX.Element {
     const [videoList, setVideoList] = useState<Video[]>([
-        new VideoTest(false, 0.3, 0),
-        new VideoTest(false, 0.3, 1),
+        new TwitchVideo("aoi_uii")
     ])
     const [isOpen, setOpen] = useState(false);
 
@@ -29,6 +28,8 @@ export default function App(): JSX.Element {
                     <VideoControllersContainer />
                 </VideoListContext.Provider>
             </AddVideoModalContext.Provider>
+
+            {videoList[0].createElement("player")}
         </div>
     );
 }

@@ -1,12 +1,69 @@
 // TODO: インターフェースの構造、場所など要検討
 
-export interface Video {
-    literal: string;
+import { TwitchStreamContainer } from "./components/twitchStreamContainer";
 
+export interface Video {
     isPlaying(): boolean;
+    play(): void;
+    pause(): void;
     togglePlaying(): void;
+    isMuted(): boolean;
+    setMuted(muted: boolean): void;
+    toggleMuted(): void;
     getVolume(): number;
     setVolume(volume: number): void;
+    createElement(elementID: string): JSX.Element;
+}
+
+export class TwitchVideo implements Video {
+    private channel: string;
+    private instance: Twitch.Player | null = null;
+
+    constructor(channel: string) {
+        this.channel = channel;
+    }
+
+    isPlaying(): boolean {
+        return !(this.instance?.isPaused() ?? false);
+    }
+
+    play(): void {
+        this.instance?.play();
+    }
+    
+    pause(): void {
+        this.instance?.pause();
+    }
+
+    togglePlaying(): void {
+        this.isPlaying() ? this.pause() : this.play();
+    }
+
+    isMuted(): boolean {
+        return this.instance?.getMuted() ?? false;
+    }
+
+    setMuted(muted: boolean): void {
+        this.instance?.setMuted(muted);
+    }
+
+    toggleMuted(): void {
+        this.setMuted(!this.isMuted());
+    }
+
+    getVolume(): number {
+        return this.instance?.getVolume() ?? 0.0;
+    }
+
+    setVolume(volume: number): void {
+        this.instance?.setVolume(volume);
+    }
+
+    createElement(): JSX.Element {
+        return <TwitchStreamContainer channel={this.channel} onLoad={(player: Twitch.Player) => {
+            this.instance = player;
+        }} />;
+    }
 }
 
 export class VideoTest implements Video {
@@ -26,6 +83,22 @@ export class VideoTest implements Video {
         this.isPlayingTest = isPlayingTest;
         this.volume = volume;
         this.id = id;
+    }
+    isMuted(): boolean {
+        throw new Error("Method not implemented.");
+    }
+    setMuted(muted: boolean): void {
+        throw new Error("Method not implemented.");
+    }
+    play(): void {
+        throw new Error("Method not implemented.");
+    }
+    pause(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    createElement(elementID: string): JSX.Element {
+        return (<div style={{ border: "3px black solid", width: "50px", height: "50px" }}></div>)
     }
 
     isPlaying(): boolean {
