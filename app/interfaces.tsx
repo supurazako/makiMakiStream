@@ -64,6 +64,13 @@ export class TwitchVideo implements Video {
             this.instance = player;
         }} />;
     }
+
+    toJSON() {
+        return {
+            type: "TwitchVideo",
+            channel: this.channel
+        }
+    }
 }
 
 export class VideoTest implements Video {
@@ -97,7 +104,7 @@ export class VideoTest implements Video {
         throw new Error("Method not implemented.");
     }
 
-    createElement(elementID: string): JSX.Element {
+    createElement(): JSX.Element {
         return (<div style={{ border: "3px black solid", width: "50px", height: "50px" }}></div>)
     }
 
@@ -116,5 +123,14 @@ export class VideoTest implements Video {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setVolume(volume: number): void {
         throw new Error("Method not implemented.");
+    }
+
+    toJSON() {
+        return {
+            type: "VideoTest",
+            isPlayingTest: this.isPlayingTest,
+            volume: this.volume,
+            id: this.id
+        }
     }
 }
