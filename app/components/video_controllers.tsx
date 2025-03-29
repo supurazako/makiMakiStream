@@ -1,10 +1,12 @@
+import { useAtomValue } from "jotai";
 import { useContext, useEffect, useState } from "react";
-import "~/components/video_controllers.css"
-import { Video, VideoTest } from "~/interfaces";
+import { videoListAtom } from "~/atoms";
+import "~/components/video_controllers.css";
+import { Video } from "~/interfaces";
 import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
 
 export function VideoControllersContainer(): JSX.Element {
-    const { videoList } = useContext(VideoListContext);
+    const videoList = useAtomValue(videoListAtom);
 
     return (
         <div className="video_controllers_container">
@@ -67,7 +69,7 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
 
     return (
         <div className="volume_control">
-            <button className="control_button volume_button" onClick={handleClick}/>
+            <button className="control_button volume_button" onClick={handleClick} />
             <input
                 className="volume_slider"
                 type="range"
