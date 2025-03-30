@@ -21,7 +21,13 @@ export default function App(): JSX.Element {
     const [isOpen, setOpen] = useState(false);
 
     return (
-        <div>
+        <div className="sidebar_placeholder" style={{
+            width: "450px",
+            height: "100%",
+            padding: "30px",
+            border: "1px solid black",
+            background: "#F5F5F5"
+        }}>
             <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
                 <VideoListContext.Provider value={{ videoList, setVideoList }}>
                     <AddVideoModal />
