@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useContext, useEffect, useState } from "react";
 import { videoListAtom } from "~/atoms";
-import "~/components/video_controllers.css";
+import { PlayIcon, RemoveIcon, VolumeIcon } from "~/components/common/icons";
 import { Video } from "~/interfaces";
 import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
 
