@@ -49,7 +49,7 @@ export default function App(): JSX.Element {
 
             {videoList[0] && videoList[0].createElement("player")}
             {videoList[1] && videoList[1].createElement("player1")}
-            <button onClick={() => console.log(videoList)}>Button</button>
+            <button onClick={() => setVideoList(l => l.concat(new TwitchVideo("darkmasuotv")))}>{"[test] Add twitch video"}</button>
         </div>
     );
 }
