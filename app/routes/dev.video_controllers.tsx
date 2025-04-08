@@ -39,13 +39,19 @@ export default function App(): JSX.Element {
     }, []);
 
     return (
-        <div>
-                <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
-                    <VideoListContext.Provider value={{ videoList, setVideoList }}>
-                        <AddVideoModal />
-                        <VideoControllersContainer />
-                    </VideoListContext.Provider>
-                </AddVideoModalContext.Provider>
+        <div className="sidebar_placeholder" style={{
+            width: "450px",
+            height: "100%",
+            padding: "30px",
+            border: "1px solid black",
+            background: "#F5F5F5"
+        }}>
+            <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
+                <VideoListContext.Provider value={{ videoList, setVideoList }}>
+                    <AddVideoModal />
+                    <VideoControllersContainer />
+                </VideoListContext.Provider>
+            </AddVideoModalContext.Provider>
 
             {videoList[0] && videoList[0].createElement("player")}
             {videoList[1] && videoList[1].createElement("player1")}
