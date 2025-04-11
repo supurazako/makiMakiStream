@@ -1,8 +1,7 @@
 
 import { FormEvent, useContext } from "react";
-import "~/components/common/modal.css"
-import { VideoTest } from "~/interfaces";
-import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
+import "~/components/common/modal.css";
+import { AddVideoModalContext } from "~/routes/dev.video_controllers";
 
 export default function Modal({ isOpen, children }: { isOpen: boolean, children: JSX.Element }): JSX.Element {
     if (isOpen) {
@@ -18,9 +17,8 @@ export default function Modal({ isOpen, children }: { isOpen: boolean, children:
     }
 }
 
-
 export function AddVideoModal(): JSX.Element {
-    const { videoList, setVideoList } = useContext(VideoListContext);
+    // TODO: 実装
     const { isOpen, setOpen } = useContext(AddVideoModalContext);
 
     function handleSubmit(event: FormEvent<HTMLFormElement>): void {
@@ -28,7 +26,6 @@ export function AddVideoModal(): JSX.Element {
 
         const form = new FormData(event.currentTarget);
         const video_url = form.get("video_url");
-        setVideoList([...videoList, new VideoTest(true, 0.5, 2)])
 
         closeModal();
     }
