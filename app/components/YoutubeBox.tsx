@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 interface YoutubePlayerProps {
     videoId: string;
+    onReady: (event: YT.PlayerEvent) => void;
 }
 
 declare global {
@@ -11,7 +12,7 @@ declare global {
     }
 }
 
-const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
+const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId, onReady }) => {
     const playerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -30,15 +31,18 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
                 new window.YT.Player(playerRef.current, {
                     videoId: videoId,
                     events: {
-                        onReady: (event) => event.target.playVideo(),
+                        onReady: (event) => {
+                            event.target.playVideo();
+                            onReady(event);
+                        },
                     },
                 });
             }
         }
-    }, [videoId]);
+    }, [onReady, videoId]);
 
     return (
-        <div ref={playerRef} />
+        <div id='player' ref={playerRef} />
     );
 };
 
