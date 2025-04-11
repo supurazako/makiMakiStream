@@ -1,3 +1,7 @@
 export type VideoDataModel = {
-	platform: "twitch" | "youtube";
+	platform: "twitch";
+	channel: string;
+} | {
+	platform: "youtube";
+	videoId: string;
 }
