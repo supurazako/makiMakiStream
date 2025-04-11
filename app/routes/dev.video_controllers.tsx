@@ -1,42 +1,19 @@
 import { useAtom } from "jotai";
-import { createContext, useEffect, useState } from "react";
-import { videoListAtom } from "~/atoms";
+import { createContext, useState } from "react";
+import { videoDataListAtom } from "~/atoms";
 import { AddVideoModal } from "~/components/common/modal";
+import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
-import { TwitchVideo, Video, VideoTest } from "~/interfaces";
 
-export const VideoListContext = createContext<{ videoList: Video[], setVideoList: (v: Video[]) => void }>({
-    videoList: [],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setVideoList: (_l: Video[]) => { }
-});
 export const AddVideoModalContext = createContext({
     isOpen: false,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setOpen: (_i: boolean) => { }
+    setOpen: (_i: boolean) => {}
 });
 
 export default function App(): JSX.Element {
-    const [videoList, setVideoList] = useAtom<Video[]>(videoListAtom);
     const [isOpen, setOpen] = useState(false);
-
-    useEffect(() => {
-        try {
-            const item = JSON.parse(localStorage.getItem("videoList") || "[]");
-            setVideoList(item.map((v: object & { type: string }) => {
-                switch (v.type) {
-                    case "VideoTest":
-                        return Object.assign(new VideoTest(false, 0, 0), v);
-                    case "TwitchVideo":
-                        return Object.assign(new TwitchVideo(""), v);
-                    default:
-                        throw new Error("Invalid video type");
-                }
-            }));
-        } catch (e) {
-            console.error(e);
-        }
-    }, []);
+    const [videoDataList, setVideoDataList] = useAtom(videoDataListAtom);
 
     return (
         <div className="sidebar_placeholder" style={{
@@ -47,15 +24,21 @@ export default function App(): JSX.Element {
             background: "#F5F5F5"
         }}>
             <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
-                <VideoListContext.Provider value={{ videoList, setVideoList }}>
-                    <AddVideoModal />
-                    <VideoControllersContainer />
-                </VideoListContext.Provider>
+                <AddVideoModal />
+                <VideoControllersContainer />
             </AddVideoModalContext.Provider>
 
-            {videoList[0] && videoList[0].createElement("player")}
-            {videoList[1] && videoList[1].createElement("player1")}
-            <button onClick={() => setVideoList(l => l.concat(new TwitchVideo("darkmasuotv")))}>{"[test] Add twitch video"}</button>
+            {
+                videoDataList.map((v, i) => {
+                    switch (v.platform) {
+                        case "twitch":
+                            return <TwitchStreamContainer data={v} elementId={`player_${i}`} key={i} />;
+                        default:
+                            throw new Error("Unsupported platform: " + v.platform);
+                    }
+                })
+            }
+            <button onClick={() => setVideoDataList(l => l.concat({ platform: "twitch", channel: "akamikarubi" }))}>{"[test] Add twitch video"}</button>
         </div>
     );
 }
