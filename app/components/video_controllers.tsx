@@ -67,9 +67,16 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
 
         // TODO: プレーヤーにイベントリスナーを登録して値を更新するようにするべき。再生・停止ボタンも同様。
         // stateではなくjotaiを使うなりuseSyncExternalStoreを使うなりして状態を管理するべき。
-        ref.current?.addEventListener("mousemove", () => {
+        function handleMouseMove() {
             setValue(video.getVolume());
-        });
+        }
+
+        const element = ref.current;
+        element?.addEventListener("mousemove", handleMouseMove);
+
+        return () => {
+            element?.removeEventListener("mousemove", handleMouseMove);
+        }
     }, [video]);
 
     function handleClick() {
