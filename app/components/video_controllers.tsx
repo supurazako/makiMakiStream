@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { videoListAtom } from "~/atoms";
 import { PlayIcon, RemoveIcon, VolumeIcon } from "~/components/common/icons";
 import { Video } from "~/interfaces";
@@ -56,13 +56,20 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
 
 function VolumeControl({ video }: { video: Video }): JSX.Element {
     const [value, setValue] = useState(video.getVolume());
+    const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const playerElement = document.getElementById("player");
-        playerElement?.addEventListener("mousemove", () => {
-            setValue(video.getVolume());
+        // const playerElement = document.getElementById("player");
+        // playerElement?.addEventListener("mousemove", () => {
+        //     setValue(video.getVolume());
 
-        })
+        // })
+
+        // TODO: プレーヤーにイベントリスナーを登録して値を更新するようにするべき。再生・停止ボタンも同様。
+        // stateではなくjotaiを使うなりuseSyncExternalStoreを使うなりして状態を管理するべき。
+        ref.current?.addEventListener("mousemove", () => {
+            setValue(video.getVolume());
+        });
     }, [video]);
 
     function handleClick() {
@@ -76,7 +83,7 @@ function VolumeControl({ video }: { video: Video }): JSX.Element {
     }
 
     return (
-        <div className="control_item volume_control">
+        <div className="control_item volume_control" ref={ref}>
             <button className="control_button volume_button" onClick={handleClick} >
                 <VolumeIcon />
             </button>

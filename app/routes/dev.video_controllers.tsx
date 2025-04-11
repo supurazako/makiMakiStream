@@ -4,6 +4,7 @@ import { videoListAtom } from "~/atoms";
 import { AddVideoModal } from "~/components/common/modal";
 import { VideoControllersContainer } from "~/components/video_controllers";
 import { TwitchVideo, Video, VideoTest } from "~/interfaces";
+import { YoutubeVideoModel } from "~/models/youtubeVideoModel";
 
 export const VideoListContext = createContext<{ videoList: Video[], setVideoList: (v: Video[]) => void }>({
     videoList: [],
@@ -56,6 +57,8 @@ export default function App(): JSX.Element {
             {videoList[0] && videoList[0].createElement("player")}
             {videoList[1] && videoList[1].createElement("player1")}
             <button onClick={() => setVideoList(l => l.concat(new TwitchVideo("darkmasuotv")))}>{"[test] Add twitch video"}</button>
+            <br />
+            <button onClick={() => setVideoList(l => l.concat(new YoutubeVideoModel("KLBZ5s8w6lw")))}>{"[test] Add YouTube video"}</button>
         </div>
     );
 }
