@@ -1,24 +1,136 @@
-import { atomWithStorage, createJSONStorage, } from "jotai/utils";
-import { TwitchVideo, Video, VideoTest } from "~/interfaces";
+import { atom } from "jotai";
+import { atomFamily, atomWithObservable, atomWithStorage } from "jotai/utils";
+import { PlayerEvent, PlayerModel } from "./models/playerModel";
+import { VideoDataModel } from "./models/videoDataModel";
 
-const videoListStorage = createJSONStorage<Video[]>(
-    () => localStorage,
-    {
-        reviver: (_k, value) => {
-            if (typeof value !== "object" || value === null) {
-                return value;
-            }
-
-            switch ((value as { type: string }).type) {
-                case "VideoTest":
-                    return Object.assign(new VideoTest(false, 0, 0), value);
-                case "TwitchVideo":
-                    return Object.assign(new TwitchVideo(""), value);
-                default:
-                    throw new Error("Invalid video type");
-            }
+/**
+ * 追加されている動画のデータを保持するatom。
+ * 自動でローカルストレージに保存・読み込みされます。
+ */
+export const videoDataListAtom = atomWithStorage<VideoDataModel[]>("videoDataList", []);
+videoDataListAtom.onMount = (set) => {
+    const savedData = localStorage.getItem("videoDataList");
+    if (savedData) {
+        try {
+            const parsedData = JSON.parse(savedData) as VideoDataModel[];
+            set(parsedData);
+        } catch (error) {
+            console.error("Failed to parse video data list from localStorage:", error);
         }
     }
-);
+}
 
-export const videoListAtom = atomWithStorage<Video[]>("videoList", [], videoListStorage,);
+/**
+ * 動画のPromiseとそのResolverを保持するatom。
+ * コンポーネントは直接使用できません。
+ */
+const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
+    let resolve: (v: PlayerModel) => void;
+    const promise = new Promise<PlayerModel>((r) => {
+        resolve = r;
+    });
+
+    return atom({
+        data: data,
+        promise: promise,
+        resolve: resolve!,
+    });
+});
+
+/**
+ * 各プレーヤーのインスタンスを生成するコンポーネントはこのatomを使用してください。
+ * 生成したインスタンスを該当するresolverに渡してください。Read-onlyです。
+ */
+export const resolverAtom = atomFamily((data: VideoDataModel) => {
+    return atom((get) => {
+        const promiseList = get(videoPromiseAtom(data));
+        return promiseList.resolve;
+    });
+})
+
+/**
+ * 動画のプレーヤーを取得する必要がある場合はこのatomを使用してください。
+ * 再生・停止、音量変更などの操作(write)にはこのatomを使用してください。
+ * それらの値を読み取り(read)UIを更新する場合は、playStateAtomやvolumeStateAtomを使用してください。
+ */
+export const playerModelAtom = atomFamily((data: VideoDataModel) => {
+    return atom(async (get) => {
+        const promiseList = get(videoPromiseAtom(data));
+        return await promiseList.promise;
+    });
+});
+
+/**
+ * 動画のプレーヤーの再生・停止状態を取得するatom。
+ * PlayerModelからの操作、ユーザーによる埋め込みの操作など、プレーヤーのインスタンスの状態更新を感知し、値を更新します。
+ * プレーヤーのインスタンスを変更する必要がある場合は、直接PlayerModelインスタンスのメソッドを使用してください。
+ */
+export const playStateAtom = atomFamily((player: PlayerModel) => atomWithObservable<boolean>(() => {
+    return {
+        subscribe(observer: { next: (value: boolean) => void }) {
+            observer.next(player.isPlaying());
+
+            const onPlay = () => observer.next(true);
+            const onPause = () => observer.next(false);
+
+            player.addEventListener(PlayerEvent.PLAY, onPlay);
+            player.addEventListener(PlayerEvent.PAUSE, onPause);
+
+            return {
+                unsubscribe: () => {
+                    player.removeEventListener(PlayerEvent.PLAY, onPlay);
+                    player.removeEventListener(PlayerEvent.PAUSE, onPause);
+                }
+            };
+        }
+    }
+}));
+
+/**
+ * 動画のプレーヤーのミュート状態を取得するatom。
+ * PlayerModelからの操作、ユーザーによる埋め込みの操作など、プレーヤーのインスタンスの状態更新を感知し、値を更新します。
+ * プレーヤーのインスタンスを変更する必要がある場合は、直接PlayerModelインスタンスのメソッドを使用してください。
+ */
+export const muteStateAtom = atomFamily((player: PlayerModel) => atomWithObservable<boolean>(() => {
+    return {
+        subscribe(observer: { next: (value: boolean) => void }) {
+            observer.next(player.isMuted());
+
+            const onMute = () => observer.next(true);
+            const onUnmute = () => observer.next(false);
+
+            player.addEventListener(PlayerEvent.MUTE, onMute);
+            player.addEventListener(PlayerEvent.UNMUTE, onUnmute);
+
+            return {
+                unsubscribe: () => {
+                    player.removeEventListener(PlayerEvent.MUTE, onMute);
+                    player.removeEventListener(PlayerEvent.UNMUTE, onUnmute);
+                }
+            };
+        }
+    }
+}));
+
+/**
+ * 動画のプレーヤーの音量を取得するatom。
+ * PlayerModelからの操作、ユーザーによる埋め込みの操作など、プレーヤーのインスタンスの状態更新を感知し、値を更新します。
+ * プレーヤーのインスタンスを変更する必要がある場合は、直接PlayerModelインスタンスのメソッドを使用してください。
+ */
+export const volumeStateAtom = atomFamily((player: PlayerModel) => atomWithObservable<number>(() => {
+    return {
+        subscribe(observer: { next: (value: number) => void }) {
+            observer.next(player.getVolume());
+
+            const onVolumeChange = () => observer.next(player.getVolume());
+
+            player.addEventListener(PlayerEvent.CHANGE_VOLUME, onVolumeChange);
+
+            return {
+                unsubscribe: () => {
+                    player.removeEventListener(PlayerEvent.CHANGE_VOLUME, onVolumeChange);
+                }
+            };
+        }
+    }
+}));
