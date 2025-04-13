@@ -1,18 +1,15 @@
 import { useSetAtom } from "jotai";
-import { FormEvent, useContext, useMemo, useState } from "react";
-import { videoDataListAtom } from "~/atoms";
-import Modal from "~/components/common/modal";
+import { FormEvent, useState } from "react";
+import { modalContentAtom, videoDataListAtom } from "~/atoms";
 import { VideoDataModel } from "~/models/videoDataModel";
-import { AddVideoModalContext } from "~/routes/dev.video_controllers";
 import { detectSite, getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
 
 export function AddVideoModal(): JSX.Element {
-	const { isOpen, setOpen } = useContext(AddVideoModalContext);
 	const [platform, setPlatform] = useState<string | undefined>("");
 	const [videoTarget, setVideoTarget] = useState<string>("");
 	const setVideoDataList = useSetAtom(videoDataListAtom);
 
-	const closeModal = useMemo(() => () => setOpen(false), [setOpen]);
+	const dispatchModalContent = useSetAtom(modalContentAtom);
 
 	function handleSubmit(event: FormEvent<HTMLFormElement>): void {
 		event.preventDefault();
@@ -56,34 +53,32 @@ export function AddVideoModal(): JSX.Element {
 
 		setVideoDataList((prev) => [...prev, data]);
 
-		closeModal();
+		dispatchModalContent({ type: "close" });
 
 	}
 
 	function handleClose(): void {
 		setPlatform(undefined);
 		setVideoTarget("");
-		closeModal();
+		dispatchModalContent({ type: "close" });
 	}
 
 	return (
-		<Modal isOpen={isOpen}>
-			<form onSubmit={handleSubmit}>
-				<label>
-					{"プラットフォーム:"}
-					<select value={platform} onChange={(e) => setPlatform(e.target.value)}>
-						<option value="" hidden disabled>{"Select Platform (Optional)"}</option>
-						<option value="twitch">Twitch</option>
-						<option value="youtube">YouTube</option>
-					</select>
-				</label>
-				<label>
-					{"URLや動画のID、チャンネルIDなど:"}
-					<input type="text" name="videoTarget" value={videoTarget} onChange={e => setVideoTarget(e.target.value)} />
-				</label>
-				<button type="button" onClick={handleClose}>Close</button>
-				<button type="submit">Submit</button>
-			</form>
-		</Modal>
+		<form onSubmit={handleSubmit}>
+			<label>
+				{"プラットフォーム:"}
+				<select value={platform} onChange={(e) => setPlatform(e.target.value)}>
+					<option value="" hidden disabled>{"Select Platform (Optional)"}</option>
+					<option value="twitch">Twitch</option>
+					<option value="youtube">YouTube</option>
+				</select>
+			</label>
+			<label>
+				{"URLや動画のID、チャンネルIDなど:"}
+				<input type="text" name="videoTarget" value={videoTarget} onChange={e => setVideoTarget(e.target.value)} />
+			</label>
+			<button type="button" onClick={handleClose}>Close</button>
+			<button type="submit">Submit</button>
+		</form>
 	);
 }
