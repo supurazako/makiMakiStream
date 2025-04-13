@@ -1,58 +1,58 @@
 export function IconArrowLeft(): JSX.Element {
-    return (
-        <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_ii_153_159)">
-                <path d="M27.1875 13.125L17.8125 22.5L27.1875 31.875V13.125Z" fill="#5A5A5A" />
-            </g>
-            <defs>
-                <filter id="filter0_ii_153_159" x="-2" y="-2" width="49" height="49" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                    <feOffset dx="-2" dy="-2" />
-                    <feGaussianBlur stdDeviation="2" />
-                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
-                    <feBlend mode="normal" in2="shape" result="effect1_innerShadow_153_159" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                    <feOffset dx="2" dy="2" />
-                    <feGaussianBlur stdDeviation="2" />
-                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                    <feBlend mode="normal" in2="effect1_innerShadow_153_159" result="effect2_innerShadow_153_159" />
-                </filter>
-            </defs>
-        </svg>
+	return (
+		<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_153_159)">
+				<path d="M27.1875 13.125L17.8125 22.5L27.1875 31.875V13.125Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_153_159" x="-2" y="-2" width="49" height="49" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_153_159" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_153_159" result="effect2_innerShadow_153_159" />
+				</filter>
+			</defs>
+		</svg>
 
-    );
+	);
 }
 
 export function IconArrowRight(): JSX.Element {
-    return (
-        <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_ii_153_176)">
-                <path d="M17.8125 31.875L27.1875 22.5L17.8125 13.125V31.875Z" fill="#5A5A5A" />
-            </g>
-            <defs>
-                <filter id="filter0_ii_153_176" x="-2" y="-2" width="49" height="49" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                    <feOffset dx="-2" dy="-2" />
-                    <feGaussianBlur stdDeviation="2" />
-                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
-                    <feBlend mode="normal" in2="shape" result="effect1_innerShadow_153_176" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                    <feOffset dx="2" dy="2" />
-                    <feGaussianBlur stdDeviation="2" />
-                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                    <feBlend mode="normal" in2="effect1_innerShadow_153_176" result="effect2_innerShadow_153_176" />
-                </filter>
-            </defs>
-        </svg>
-    )
+	return (
+		<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_153_176)">
+				<path d="M17.8125 31.875L27.1875 22.5L17.8125 13.125V31.875Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_153_176" x="-2" y="-2" width="49" height="49" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_153_176" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_153_176" result="effect2_innerShadow_153_176" />
+				</filter>
+			</defs>
+		</svg>
+	)
 }
 export function IconLayoutOption2A(): JSX.Element {
 	return (
@@ -264,105 +264,105 @@ export function IconLayoutOption2B(): JSX.Element {
 
 export function IconLayoutOption2C(): JSX.Element {
 	return (
-	<svg
-		width="90"
-		height="90"
-		viewBox="0 0 90 90"
-		fill="none"
-		version="1.1"
-		id="svg5"
-		xmlns="http://www.w3.org/2000/svg" className="icon">
-		<g
-			filter="url(#filter0_ii_197_151)"
-			id="g2">
-			<path
-				style={{ fill: "#757575" }}
-				d="M 56.25,45 A 3.750375,3.750375 0 0 0 52.5,48.75 V 67.5 a 3.750375,3.750375 0 0 0 3.75,3.75 h 22.5 A 3.750375,3.750375 0 0 0 82.5,67.5 V 48.75 A 3.750375,3.750375 0 0 0 78.75,45 Z M 60,52.5 H 75 V 63.75 H 60 Z"
-				id="rect1" />
-			<path
-				style={{ fill: "#757575" }}
-				d="M 11.25,18.75 A 3.750375,3.750375 0 0 0 7.5,22.5 v 30 a 3.750375,3.750375 0 0 0 3.75,3.75 h 35.625 a 3.750375,3.750375 0 0 0 3.75,-3.75 v -30 a 3.750375,3.750375 0 0 0 -3.75,-3.75 z m 3.75,7.5 h 28.125 v 22.5 H 15 Z"
-				id="rect2" />
-		</g>
-		<defs
-			id="defs5">
-			<filter
-				id="filter0_ii_197_151"
-				x="-2"
-				y="-2"
-				width="94"
-				height="94"
-				filterUnits="userSpaceOnUse"
-				colorInterpolationFilters="sRGB">
-				<feFlood
-					floodOpacity="0"
-					result="BackgroundImageFix"
-					id="feFlood2" />
-				<feBlend
-					mode="normal"
-					in="SourceGraphic"
-					in2="BackgroundImageFix"
-					result="shape"
-					id="feBlend2" />
-				<feColorMatrix
-					in="SourceAlpha"
-					type="matrix"
-					values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-					result="hardAlpha"
-					id="feColorMatrix2" />
-				<feOffset
-					dx="-2"
-					dy="-2"
-					id="feOffset2" />
-				<feGaussianBlur
-					stdDeviation="2"
-					id="feGaussianBlur2" />
-				<feComposite
-					in2="hardAlpha"
-					operator="arithmetic"
-					k2="-1"
-					k3="1"
-					id="feComposite2" />
-				<feColorMatrix
-					type="matrix"
-					values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"
-					id="feColorMatrix3" />
-				<feBlend
-					mode="normal"
-					in2="shape"
-					result="effect1_innerShadow_197_151"
-					id="feBlend3" />
-				<feColorMatrix
-					in="SourceAlpha"
-					type="matrix"
-					values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-					result="hardAlpha"
-					id="feColorMatrix4" />
-				<feOffset
-					dx="2"
-					dy="2"
-					id="feOffset4" />
-				<feGaussianBlur
-					stdDeviation="2"
-					id="feGaussianBlur4" />
-				<feComposite
-					in2="hardAlpha"
-					operator="arithmetic"
-					k2="-1"
-					k3="1"
-					id="feComposite4" />
-				<feColorMatrix
-					type="matrix"
-					values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-					id="feColorMatrix5" />
-				<feBlend
-					mode="normal"
-					in2="effect1_innerShadow_197_151"
-					result="effect2_innerShadow_197_151"
-					id="feBlend5" />
-			</filter>
-		</defs>
-	</svg>
+		<svg
+			width="90"
+			height="90"
+			viewBox="0 0 90 90"
+			fill="none"
+			version="1.1"
+			id="svg5"
+			xmlns="http://www.w3.org/2000/svg" className="icon">
+			<g
+				filter="url(#filter0_ii_197_151)"
+				id="g2">
+				<path
+					style={{ fill: "#757575" }}
+					d="M 56.25,45 A 3.750375,3.750375 0 0 0 52.5,48.75 V 67.5 a 3.750375,3.750375 0 0 0 3.75,3.75 h 22.5 A 3.750375,3.750375 0 0 0 82.5,67.5 V 48.75 A 3.750375,3.750375 0 0 0 78.75,45 Z M 60,52.5 H 75 V 63.75 H 60 Z"
+					id="rect1" />
+				<path
+					style={{ fill: "#757575" }}
+					d="M 11.25,18.75 A 3.750375,3.750375 0 0 0 7.5,22.5 v 30 a 3.750375,3.750375 0 0 0 3.75,3.75 h 35.625 a 3.750375,3.750375 0 0 0 3.75,-3.75 v -30 a 3.750375,3.750375 0 0 0 -3.75,-3.75 z m 3.75,7.5 h 28.125 v 22.5 H 15 Z"
+					id="rect2" />
+			</g>
+			<defs
+				id="defs5">
+				<filter
+					id="filter0_ii_197_151"
+					x="-2"
+					y="-2"
+					width="94"
+					height="94"
+					filterUnits="userSpaceOnUse"
+					colorInterpolationFilters="sRGB">
+					<feFlood
+						floodOpacity="0"
+						result="BackgroundImageFix"
+						id="feFlood2" />
+					<feBlend
+						mode="normal"
+						in="SourceGraphic"
+						in2="BackgroundImageFix"
+						result="shape"
+						id="feBlend2" />
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+						id="feColorMatrix2" />
+					<feOffset
+						dx="-2"
+						dy="-2"
+						id="feOffset2" />
+					<feGaussianBlur
+						stdDeviation="2"
+						id="feGaussianBlur2" />
+					<feComposite
+						in2="hardAlpha"
+						operator="arithmetic"
+						k2="-1"
+						k3="1"
+						id="feComposite2" />
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"
+						id="feColorMatrix3" />
+					<feBlend
+						mode="normal"
+						in2="shape"
+						result="effect1_innerShadow_197_151"
+						id="feBlend3" />
+					<feColorMatrix
+						in="SourceAlpha"
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+						result="hardAlpha"
+						id="feColorMatrix4" />
+					<feOffset
+						dx="2"
+						dy="2"
+						id="feOffset4" />
+					<feGaussianBlur
+						stdDeviation="2"
+						id="feGaussianBlur4" />
+					<feComposite
+						in2="hardAlpha"
+						operator="arithmetic"
+						k2="-1"
+						k3="1"
+						id="feComposite4" />
+					<feColorMatrix
+						type="matrix"
+						values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+						id="feColorMatrix5" />
+					<feBlend
+						mode="normal"
+						in2="effect1_innerShadow_197_151"
+						result="effect2_innerShadow_197_151"
+						id="feBlend5" />
+				</filter>
+			</defs>
+		</svg>
 	)
 
 }
@@ -475,4 +475,32 @@ export function RemoveIcon() {
 			</filter>
 		</defs>
 	</svg>
+}
+
+export function CloseIcon(): JSX.Element {
+	return (
+		<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_224_206)">
+				<path d="M24 26.1L13.5 36.6C13.2 36.9 12.85 37.05 12.45 37.05C12.05 37.05 11.7 36.9 11.4 36.6C11.1 36.3 10.95 35.95 10.95 35.55C10.95 35.15 11.1 34.8 11.4 34.5L21.9 24L11.4 13.5C11.1 13.2 10.95 12.85 10.95 12.45C10.95 12.05 11.1 11.7 11.4 11.4C11.7 11.1 12.05 10.95 12.45 10.95C12.85 10.95 13.2 11.1 13.5 11.4L24 21.9L34.5 11.4C34.8 11.1 35.15 10.95 35.55 10.95C35.95 10.95 36.3 11.1 36.6 11.4C36.9 11.7 37.05 12.05 37.05 12.45C37.05 12.85 36.9 13.2 36.6 13.5L26.1 24L36.6 34.5C36.9 34.8 37.05 35.15 37.05 35.55C37.05 35.95 36.9 36.3 36.6 36.6C36.3 36.9 35.95 37.05 35.55 37.05C35.15 37.05 34.8 36.9 34.5 36.6L24 26.1Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_224_206" x="-2" y="-2" width="52" height="52" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_224_206" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_224_206" result="effect2_innerShadow_224_206" />
+				</filter>
+			</defs>
+		</svg>
+	);
 }
