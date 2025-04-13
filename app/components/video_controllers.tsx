@@ -1,24 +1,36 @@
-import { useAtomValue } from "jotai";
-import { useContext, useEffect, useState } from "react";
-import { videoListAtom } from "~/atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import { Suspense, useContext, useEffect, useState } from "react";
+import { muteStateAtom, playerModelAtom, playStateAtom, videoDataListAtom, volumeStateAtom } from "~/atoms";
 import { PlayIcon, RemoveIcon, VolumeIcon } from "~/components/common/icons";
-import { Video } from "~/interfaces";
-import { AddVideoModalContext, VideoListContext } from "~/routes/dev.video_controllers";
+import { VideoDataModel } from "~/models/videoDataModel";
+import { AddVideoModalContext } from "~/routes/dev.video_controllers";
 
 import "~/components/video_controllers.css";
+import { PlayerModel } from "~/models/playerModel";
 
 export function VideoControllersContainer(): JSX.Element {
-    const videoList = useAtomValue(videoListAtom);
+    const videoDataList = useAtomValue(videoDataListAtom);
 
+    // TODO: サスペンス中のコントローラーのスタイルを実装する
     return (
         <div className="video_controllers_container">
-            {videoList.map((v, i) => <VideoController video={v} index={i} key={i} />)}
+            {
+                videoDataList.map((v, i) => {
+                    return (
+                        <Suspense key={i} fallback={"Loading..."}>
+                            <VideoController data={v} />
+                        </Suspense>
+                    );
+                })
+            }
             <AddVideoButton />
         </div>
     );
 }
 
-function VideoController({ video, index }: { video: Video, index: number }): JSX.Element {
+function VideoController({ data }: { data: VideoDataModel }): JSX.Element {
+    const player = useAtomValue(playerModelAtom(data));
+
     return (
         <div className="video_controller">
             <div className="labels">
@@ -26,20 +38,24 @@ function VideoController({ video, index }: { video: Video, index: number }): JSX
                 <input className="url"></input>
             </div>
             <div className="controls">
-                <PlayControl video={video}></PlayControl>
-                <VolumeControl video={video} />
-                <RemoveControl index={index} />
+                <PlayControl player={player}></PlayControl>
+                <VolumeControl player={player} />
+                <RemoveControl data={data} />
             </div>
         </div>
     );
 }
 
-function PlayControl({ video }: { video: Video }): JSX.Element {
-    const [isPlaying, setPlaying] = useState(video.isPlaying());
+function PlayControl({ player }: { player: PlayerModel }): JSX.Element {
+    const [isPlaying, setPlaying] = useState(player.isPlaying());
+    const actualPlaying = useAtomValue(playStateAtom(player));
+
+    useEffect(() => {
+        setPlaying(actualPlaying);
+    }, [actualPlaying]);
 
     function togglePlaying() {
-        video.togglePlaying();
-        setPlaying(video.isPlaying());
+        player.togglePlaying();
     }
 
     return (
@@ -49,52 +65,61 @@ function PlayControl({ video }: { video: Video }): JSX.Element {
                 type="button"
                 onClick={togglePlaying}>
                 <PlayIcon />
+                {isPlaying ? "Pause" : "Play"}
             </button>
         </div>
     );
 }
 
-function VolumeControl({ video }: { video: Video }): JSX.Element {
-    const [value, setValue] = useState(video.getVolume());
+function VolumeControl({ player }: { player: PlayerModel }): JSX.Element {
+    const [isMuted, setMuted] = useState(player.isMuted());
+    const actualMuted = useAtomValue(muteStateAtom(player));
+    const [volume, setVolume] = useState(player.getVolume());
+    const actualVolume = useAtomValue(volumeStateAtom(player));
 
     useEffect(() => {
-        const playerElement = document.getElementById("player");
-        playerElement?.addEventListener("mousemove", () => {
-            setValue(video.getVolume());
+        setMuted(actualMuted);
+    }, [actualMuted]);
 
-        })
-    }, [video]);
+    useEffect(() => {
+        setVolume(actualVolume);
+    }, [actualVolume]);
 
-    function handleClick() {
-        video.setMuted(!video.isMuted());
+    function toggleMuted() {
+        player.toggleMuted();
+        setMuted((prev) => !prev);
     }
 
     function handleSlide(e: React.ChangeEvent<HTMLInputElement>) {
-        const volume = Number(e.target.value);
-        video.setVolume(volume);
-        setValue(volume);
+        const value = Number(e.target.value);
+        player.setVolume(value);
+        setVolume(value);
+        player.unmute();
+        setMuted(false);
     }
 
     return (
         <div className="control_item volume_control">
-            <button className="control_button volume_button" onClick={handleClick} >
+            <button className="control_button volume_button" onClick={toggleMuted} >
                 <VolumeIcon />
             </button>
             <input
                 className="volume_slider"
                 type="range"
-                max={1.0} min={0.0} step={0.01} value={value}
+                max={1.0} min={0.0} step={0.01} value={isMuted ? 0 : volume}
                 onChange={handleSlide}>
             </input>
         </div>
     );
 }
 
-function RemoveControl({ index }: { index: number }): JSX.Element {
-    const { videoList, setVideoList } = useContext(VideoListContext);
+function RemoveControl({ data }: { data: VideoDataModel }): JSX.Element {
+    const setVideoDataList = useSetAtom(videoDataListAtom);
 
     function handleClick() {
-        setVideoList(videoList.filter((v, i) => i !== index))
+        setVideoDataList((prev) => {
+            return prev.filter((v) => v !== data);
+        });
     }
 
     return (
