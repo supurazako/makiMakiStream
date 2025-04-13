@@ -4,6 +4,7 @@ import { videoDataListAtom } from "~/atoms";
 import { AddVideoModal } from "~/components/common/modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
+import YoutubePlayer from "~/components/YoutubeBox";
 
 export const AddVideoModalContext = createContext({
     isOpen: false,
@@ -31,14 +32,19 @@ export default function App(): JSX.Element {
             {
                 videoDataList.map((v, i) => {
                     switch (v.platform) {
-                        case "twitch":
+                        case "twitch": {
                             return <TwitchStreamContainer data={v} elementId={`player_${i}`} key={i} />;
-                        default:
-                            throw new Error("Unsupported platform: " + v.platform);
+                        } case "youtube": {
+                            return <YoutubePlayer data={v} key={i} />;
+                        } default: {
+                            return <div key={i}>{"Unsupported platform🥺"}</div>;
+                        }
                     }
                 })
             }
             <button onClick={() => setVideoDataList(l => l.concat({ platform: "twitch", channel: "akamikarubi" }))}>{"[test] Add twitch video"}</button>
+            <br />
+            <button onClick={() => setVideoDataList(l => l.concat({ platform: "youtube", videoId: "KLBZ5s8w6lw" }))}>{"[test] Add youtube video"}</button>
         </div>
     );
 }
