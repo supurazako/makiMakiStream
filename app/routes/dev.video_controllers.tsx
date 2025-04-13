@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { createContext, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
-import { AddVideoModal } from "~/components/common/modal";
+import { AddVideoModal } from "~/components/modal/AddVideoModal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
 
