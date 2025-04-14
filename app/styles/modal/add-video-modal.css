@@ -1,0 +1,148 @@
+.add-video-modal {
+	font-family: "BIZ UDPGothic", sans-serif;
+	color: rgb(30, 31, 30);
+
+	display: flex;
+	flex-direction: column;
+	row-gap: 2rem;
+
+	& .modal-description {
+		margin-inline: 0.7rem;
+		font-size: 0.9em;
+	}
+
+	& .modal-separator {
+		height: 5px;
+		border-radius: 99px;
+		background-color: #D9D9D9;
+		box-shadow: inset 3px 3px 4px #0000004D, inset -3px -3px 4px #FFFFFFB8;
+	}
+
+	& form {
+		display: flex;
+		flex-direction: column;
+		row-gap: 1.2rem;
+		margin-inline: 0.7rem;
+
+		& label {
+			display: flex;
+			flex-direction: column;
+			row-gap: 0.5rem;
+		}
+
+		/* select要素のスタイリングは実験中らしい。TODO: もっといい感じにする */
+		& select {
+			appearance: base-select;
+			width: fit-content;
+			transition: all 0.1s ease;
+			background-color: transparent;
+			border-radius: 99px;
+			box-shadow: 3px 3px 4px #0000004D, -3px -3px 4px #FFFFFFB8;
+			cursor: pointer;
+
+			& button {
+				display: flex;
+				height: 2.6em;
+				width: fit-content;
+				column-gap: 0.15em;
+
+				& .selected-content {
+					padding-inline-start: 1em;
+					padding-inline-end: 0.5em;
+					display: flex;
+					align-items: center;
+					height: 100%;
+					border-radius: 99px 0 0 99px;
+					background-image: linear-gradient(to bottom, #F5F5F5, #EEEEEE);
+					box-shadow: 3px 3px 4px #0000004D, -3px -3px 4px #FFFFFFB8;
+				}
+
+				& .picker-icon {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					height: 100%;
+					border-radius: 0 99px 99px 0;
+					background-image: linear-gradient(to bottom, #F5F5F5, #EEEEEE);
+					box-shadow: 3px 3px 4px #0000004D, 0 -3px 4px #FFFFFFB8;
+					padding-inline-end: 0.5em;
+					padding-inline-start: 0.2em;
+
+					& svg {
+						width: 2em;
+						height: 2em;
+						color: var(--icon-color-primary);
+					}
+				}
+			}
+
+			&::picker-icon {
+				display: none;
+			}
+		}
+
+		& input[type="text"] {
+			width: 100%;
+			padding-block: 0.5rem;
+			padding-inline: 1rem;
+			border-radius: 0.7rem;
+			background-color: var(--widget-color-primary);
+			transition: all 0.2s ease;
+
+			&:focus {
+				outline: none;
+				box-shadow: inset 3px 3px 4px #0000004D, inset -3px -3px 4px #FFFFFF70;
+			}
+
+			/* 戦争と、CSSが嫌いです。 */
+			&:-webkit-autofill {
+				background-color: #444444 !important;
+				transition: background-color 9999s ease-in-out 0s;
+			}
+		}
+	}
+
+	& .modal-bottom {
+		display: flex;
+		flex-direction: row-reverse;
+		column-gap: 1rem;
+
+		& button {
+			width: 6rem;
+			height: 2.5rem;
+			border-radius: 3rem;
+			background-image: linear-gradient(to bottom right, #F5F5F5, #F1F1F1);
+			box-shadow: 3px 3px 4px #0000004D, -3px -3px 4px #FFFFFFB8;
+			transition: all 0.2s ease;
+
+			&.modal-confirm-button {
+				background-image: linear-gradient(to bottom right, #faf623, #f36bca);
+				background-size: 200% 200%;
+				color: var(--background-color);
+				animation-name: gradation;
+				animation-iteration-count: infinite;
+				animation-direction: alternate;
+				animation-timing-function: ease-in-out;
+				animation-duration: 2.0s;
+				animation-play-state: paused;
+				animation-delay: -1.0s;
+			}
+
+			&:hover {
+				scale: 1.05;
+				box-shadow: 1px 1px 8px #00000040, -1px -1px 8px #FFFFFFB8;
+				animation-play-state: running;
+			}
+		}
+	}
+}
+
+@keyframes gradation {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: 100% 100%;
+	}
+}
