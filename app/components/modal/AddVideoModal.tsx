@@ -8,7 +8,7 @@ import "~/styles/modal/add-video-modal.css";
 import { ArrowDownIcon } from "../common/icons";
 
 export function AddVideoModal(): JSX.Element {
-	const [platform, setPlatform] = useState<string | undefined>("");
+	const [platform, setPlatform] = useState<string>("");
 	const [videoTarget, setVideoTarget] = useState<string>("");
 	const setVideoDataList = useSetAtom(videoDataListAtom);
 
@@ -61,7 +61,7 @@ export function AddVideoModal(): JSX.Element {
 	}
 
 	function handleClose(): void {
-		setPlatform(undefined);
+		setPlatform("");
 		setVideoTarget("");
 		dispatchModalContent({ type: "close" });
 	}
