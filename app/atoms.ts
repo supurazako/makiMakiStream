@@ -134,3 +134,14 @@ export const volumeStateAtom = atomFamily((player: PlayerModel) => atomWithObser
         }
     }
 }));
+
+export const allPlayerModelsAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    return await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+});
+
+export const allPlayStateAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+    return await Promise.all(players.map((player) => get(playStateAtom(player))));
+});
