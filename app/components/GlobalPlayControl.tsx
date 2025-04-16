@@ -21,13 +21,14 @@ export function GlobalPlayControl(): JSX.Element {
 	}
 
 	return (
-		<button
-			className="control-item"
+		<button className="control-item"
 			data-type="play"
 			data-state={isPlaying ? "playing" : "paused"}
 			type="button"
 			onClick={togglePlaying}>
-			{isPlaying ? <PauseIcon /> : <PlayIcon />}
+			{
+				isPlaying ? <PauseIcon /> : <PlayIcon />
+			}
 		</button>
 	);
 }
