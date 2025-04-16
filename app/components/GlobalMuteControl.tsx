@@ -1,10 +1,10 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { allMuteStateAtom } from "~/atoms";
-import { PlayerModel } from "~/models/playerModel";
+import { allMuteStateAtom, allPlayerModelsAtom } from "~/atoms";
 import { MuteIcon, VolumeIcon } from "./common/icons";
 
-export function GlobalMuteControl({ players }: { players: PlayerModel[] }): JSX.Element {
+export function GlobalMuteControl(): JSX.Element {
+	const players = useAtomValue(allPlayerModelsAtom);
 	const [isMuted, setMuted] = useState(players.every(v => v.isMuted()));
 	const muteState = useAtomValue(allMuteStateAtom);
 	const actualMuted = muteState.every(v => v);

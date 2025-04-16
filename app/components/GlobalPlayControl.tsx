@@ -1,10 +1,10 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { allPlayStateAtom } from "~/atoms";
-import { PlayerModel } from "~/models/playerModel";
+import { allPlayerModelsAtom, allPlayStateAtom } from "~/atoms";
 import { PauseIcon, PlayIcon } from "./common/icons";
 
-export function GlobalPlayControl({ players }: { players: PlayerModel[] }): JSX.Element {
+export function GlobalPlayControl(): JSX.Element {
+	const players = useAtomValue(allPlayerModelsAtom);
 	const [isPlaying, setPlaying] = useState(players.every(v => v.isPlaying()));
 	const playStates = useAtomValue(allPlayStateAtom);
 	const actualPlaying = playStates.every(v => v);
