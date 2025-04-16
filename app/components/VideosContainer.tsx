@@ -15,7 +15,7 @@ export function VideosContainer(): JSX.Element {
 						case "twitch":
 							return (
 								<section className="video-container" key={i}>
-									<TwitchStreamContainer data={v} elementId={`player_${i}`} key={i} />
+									<TwitchStreamContainer data={v} elementId={`player_${i}`} />
 								</section>
 							);
 						default:
