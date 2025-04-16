@@ -21,13 +21,13 @@ export function GlobalPlayControl({ players }: { players: PlayerModel[] }): JSX.
 	}
 
 	return (
-		<div className="control_item play_control">
-			<button
-				className={"control_button play_button" + (isPlaying ? " is_playng" : "")}
-				type="button"
-				onClick={togglePlaying}>
-				{isPlaying ? <PauseIcon /> : <PlayIcon />}
-			</button>
-		</div>
+		<button
+			className="control-item"
+			data-type="play"
+			data-state={isPlaying ? "playing" : "paused"}
+			type="button"
+			onClick={togglePlaying}>
+			{isPlaying ? <PauseIcon /> : <PlayIcon />}
+		</button>
 	);
 }

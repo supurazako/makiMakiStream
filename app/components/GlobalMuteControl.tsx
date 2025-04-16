@@ -4,6 +4,8 @@ import { allMuteStateAtom } from "~/atoms";
 import { PlayerModel } from "~/models/playerModel";
 import { MuteIcon, VolumeIcon } from "./common/icons";
 
+import "~/styles/global-controller.css";
+
 export function GlobalMuteControl({ players }: { players: PlayerModel[] }): JSX.Element {
 	const [isMuted, setMuted] = useState(players.every(v => v.isMuted()));
 	const muteState = useAtomValue(allMuteStateAtom);
@@ -21,15 +23,14 @@ export function GlobalMuteControl({ players }: { players: PlayerModel[] }): JSX.
 	}
 
 	return (
-		<div className="control_item volume_control">
-			<button className="control_button volume_button"
-				type="button"
-				onClick={toggleMuted} 
-				style={{width: "50px", height: "50px",}}>
-				{
-					isMuted ? <MuteIcon /> : <VolumeIcon />
-				}
-			</button>
-		</div>
+		<button className="control-item"
+			data-type="mute"
+			data-state={isMuted ? "muted" : "unmuted"}
+			type="button"
+			onClick={toggleMuted}>
+			{
+				isMuted ? <MuteIcon /> : <VolumeIcon />
+			}
+		</button>
 	);
 }
