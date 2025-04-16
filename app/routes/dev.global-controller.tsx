@@ -1,5 +1,4 @@
 import { useAtom } from "jotai";
-import { Suspense } from "react";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/GlobalController";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
@@ -17,9 +16,7 @@ export default function Index(): JSX.Element {
 			border: "1px solid black",
 			background: "#F5F5F5"
 		}}>
-			<Suspense fallback={"Loading..."}>
-				<GlobalController />
-			</Suspense>
+			<GlobalController />
 			<VideoControllersContainer />
 			{
 				videoDataList.map((v, i) => {
