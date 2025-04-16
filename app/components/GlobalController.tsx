@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import { GlobalMuteControl } from "./GlobalMuteControl";
-import { GlobalPlayControl } from "./GlobalPlayControl";
+import { ControlItemSkeleton } from "~/components/ControlItemSkeleton";
+import { GlobalMuteControl } from "~/components/GlobalMuteControl";
+import { GlobalPlayControl } from "~/components/GlobalPlayControl";
 
 import "~/styles/global-controller.css";
-import { ControlItemSkeleton } from "./ControlItemSkeleton";
 
 export function GlobalController(): JSX.Element {
 	return (

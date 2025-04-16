@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { allPlayerModelsAtom, allPlayStateAtom } from "~/atoms";
-import { PauseIcon, PlayIcon } from "./common/icons";
+import { PauseIcon, PlayIcon } from "~/components/common/icons";
 
 export function GlobalPlayControl(): JSX.Element {
 	const players = useAtomValue(allPlayerModelsAtom);
