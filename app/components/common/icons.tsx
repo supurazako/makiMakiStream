@@ -479,6 +479,34 @@ export function VolumeIcon() {
 	</svg>
 }
 
+export function MuteIcon(): JSX.Element {
+	return (
+		<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_235_6)">
+				<path d="M7.26 7.26C6.48 8.04 6.48 9.3 7.26 10.08L14.58 17.4L14 18H8C6.9 18 6 18.9 6 20V28C6 29.1 6.9 30 8 30H14L20.58 36.58C21.84 37.84 24 36.94 24 35.16V26.82L32.36 35.18C31.38 35.92 30.32 36.54 29.16 37C28.44 37.3 28 38.06 28 38.84C28 40.28 29.46 41.2 30.78 40.66C32.38 40 33.88 39.12 35.22 38.04L37.9 40.72C38.68 41.5 39.94 41.5 40.72 40.72C41.5 39.94 41.5 38.68 40.72 37.9L10.1 7.26C9.32 6.48 8.06 6.48 7.26 7.26ZM38 24C38 25.64 37.7 27.22 37.18 28.68L40.24 31.74C41.36 29.4 42 26.78 42 24C42 16.34 37.2 9.78 30.44 7.2C29.26 6.74 28 7.66 28 8.92V9.3C28 10.06 28.5 10.72 29.22 11C34.36 13.08 38 18.12 38 24ZM20.58 11.42L20.24 11.76L24 15.52V12.82C24 11.04 21.84 10.16 20.58 11.42ZM33 24C33 20.46 30.96 17.42 28 15.94V19.52L32.96 24.48C32.98 24.32 33 24.16 33 24Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_235_6" x="-2" y="-2" width="52" height="52" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_235_6" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_235_6" result="effect2_innerShadow_235_6" />
+				</filter>
+			</defs>
+		</svg>
+	)
+}
+
 export function RemoveIcon() {
 	return <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g filter="url(#filter0_ii_173_156)">

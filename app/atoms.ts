@@ -145,3 +145,9 @@ export const allPlayStateAtom = atom(async (get) => {
     const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
     return await Promise.all(players.map((player) => get(playStateAtom(player))));
 });
+
+export const allMuteStateAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+    return await Promise.all(players.map((player) => get(muteStateAtom(player))));
+});
