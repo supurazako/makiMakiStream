@@ -13,6 +13,8 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 25px;
+	overflow-y: auto;
+	padding: 30px;
 
 	& .video_controller {
 		width: 100%;
