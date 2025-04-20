@@ -4,6 +4,9 @@ import { modalContentAtom, videoDataListAtom } from "~/atoms";
 import { VideoDataModel } from "~/models/videoDataModel";
 import { detectSite, getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
 
+import "~/styles/modal/add-video-modal.css";
+import { ArrowDownIcon } from "../common/icons";
+
 export function AddVideoModal(): JSX.Element {
 	const [platform, setPlatform] = useState<string>("");
 	const [videoTarget, setVideoTarget] = useState<string>("");
@@ -64,21 +67,40 @@ export function AddVideoModal(): JSX.Element {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label>
-				{"プラットフォーム:"}
-				<select value={platform} onChange={(e) => setPlatform(e.target.value)}>
-					<option value="" hidden disabled>{"Select Platform (Optional)"}</option>
-					<option value="twitch">Twitch</option>
-					<option value="youtube">YouTube</option>
-				</select>
-			</label>
-			<label>
-				{"URLや動画のID、チャンネルIDなど:"}
-				<input type="text" name="videoTarget" value={videoTarget} onChange={e => setVideoTarget(e.target.value)} />
-			</label>
-			<button type="button" onClick={handleClose}>Close</button>
-			<button type="submit">Submit</button>
-		</form>
+		<div className="add-video-modal">
+			<p className="modal-description">
+				{/* TODO: 説明これでいい？ */}
+				{"https://www.twitch.tv/xxxx のようなURLの場合、プラットフォームを選択する必要はありません。"}
+				<br />
+				{"xxxxのように、アカウントIDや動画のIDを直接入力する場合は、プラットフォームを選択してください。"}
+			</p>
+			<hr className="modal-separator" />
+			<form id="add-video" onSubmit={handleSubmit}>
+				<label>
+					{"プラットフォーム:"}
+					<select value={platform} onChange={(e) => setPlatform(e.target.value)}>
+						<button>
+							<div className="selected-content">
+								<selectedcontent />
+							</div>
+							<div className="picker-icon">
+								<ArrowDownIcon />
+							</div>
+						</button>
+						<option value="" hidden disabled>{"Select Platform (Optional)"}</option>
+						<option value="twitch">Twitch</option>
+						<option value="youtube">YouTube</option>
+					</select>
+				</label>
+				<label>
+					{"URLや動画のID、チャンネルIDなど:"}
+					<input type="text" name="videoTarget" value={videoTarget} onChange={e => setVideoTarget(e.target.value)} />
+				</label>
+			</form>
+			<div className="modal-bottom">
+				<button className="modal-confirm-button" type="submit" form="add-video">OK</button>
+				<button className="modal-cancel-button" type="button" onClick={handleClose}>キャンセル</button>
+			</div>
+		</div>
 	);
 }

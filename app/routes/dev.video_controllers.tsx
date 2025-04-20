@@ -1,9 +1,20 @@
+import { LinksFunction } from "@remix-run/node";
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
 import { Modal } from "~/components/common/Modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
 import YoutubePlayer from "~/components/YoutubeBox";
+
+export const links: LinksFunction = () => {
+    return [
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" }
+    ];
+}
 
 export default function App(): JSX.Element {
     const [videoDataList, setVideoDataList] = useAtom(videoDataListAtom);
