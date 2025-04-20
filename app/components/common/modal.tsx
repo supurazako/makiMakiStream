@@ -1,52 +1,42 @@
 
-import { FormEvent, useContext } from "react";
-import "~/components/common/modal.css";
-import { AddVideoModalContext } from "~/routes/dev.video_controllers";
+import { useAtom } from "jotai";
+import { createPortal } from "react-dom";
+import { modalContentAtom } from "~/atoms";
 
-export default function Modal({ isOpen, children }: { isOpen: boolean, children: JSX.Element }): JSX.Element {
-    if (isOpen) {
-        return (
-            <div className="overlay">
-                <div className="modal_container">
-                    {children}
-                </div>
+import "~/styles/common/modal.css";
+
+export function Modal(): JSX.Element | null {
+    const [modalContent, dispatchModalContent] = useAtom(modalContentAtom);
+
+    if (!modalContent) return null;
+
+    return createPortal(
+        <>
+            <Overlay closeModal={() => dispatchModalContent({ type: "close" })} />
+            <div className="modal-content">
+                {modalContent}
             </div>
-        );
-    } else {
-        return <></>
-    }
+        </>,
+        document.body
+    )
 }
 
-export function AddVideoModal(): JSX.Element {
-    // TODO: 実装
-    const { isOpen, setOpen } = useContext(AddVideoModalContext);
-
-    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-        event.preventDefault();
-
-        const form = new FormData(event.currentTarget);
-        const video_url = form.get("video_url");
-
+function Overlay({ closeModal }: { closeModal: () => void }): JSX.Element {
+    function handleClick(): void {
         closeModal();
     }
 
-    function handleClose(): void {
-        closeModal();
-    }
-
-    function closeModal() {
-        setOpen(false);
+    function handleKeyDown(e: React.KeyboardEvent): void {
+        if (e.key === "Escape") {
+            closeModal();
+        }
     }
 
     return (
-        <Modal isOpen={isOpen}>
-            <form method="post" onSubmit={handleSubmit}>
-                <label>
-                    URL: <input type="text" name="video_url" />
-                </label>
-                <button type="button" onClick={handleClose}>Close</button>
-                <button type="submit">Submit</button>
-            </form>
-        </Modal>
+        <div className="modal-overlay"
+            onClick={handleClick}
+            role="button"
+            tabIndex={0}
+            onKeyDown={handleKeyDown} />
     );
 }

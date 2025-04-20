@@ -1,19 +1,11 @@
 import { useAtom } from "jotai";
-import { createContext, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
-import { AddVideoModal } from "~/components/common/modal";
+import { Modal } from "~/components/common/Modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
 import YoutubePlayer from "~/components/YoutubeBox";
 
-export const AddVideoModalContext = createContext({
-    isOpen: false,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setOpen: (_i: boolean) => {}
-});
-
 export default function App(): JSX.Element {
-    const [isOpen, setOpen] = useState(false);
     const [videoDataList, setVideoDataList] = useAtom(videoDataListAtom);
 
     return (
@@ -24,10 +16,8 @@ export default function App(): JSX.Element {
             border: "1px solid black",
             background: "#F5F5F5"
         }}>
-            <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
-                <AddVideoModal />
-                <VideoControllersContainer />
-            </AddVideoModalContext.Provider>
+            <Modal />
+            <VideoControllersContainer />
 
             {
                 videoDataList.map((v, i) => {
