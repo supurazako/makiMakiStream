@@ -1,7 +1,11 @@
+import { useAtomValue } from 'jotai';
 import React, { useEffect, useRef } from 'react';
+import { resolverAtom } from '~/atoms';
+import { VideoDataModel } from '~/models/videoDataModel';
+import { YoutubePlayerModel } from '~/models/youtubePlayerModel';
 
 interface YoutubePlayerProps {
-    videoId: string;
+    data: VideoDataModel & { platform: 'youtube' };
 }
 
 declare global {
@@ -11,7 +15,9 @@ declare global {
     }
 }
 
-const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
+// TODO: 関数型コンポーネントに書き換えよう
+const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ data }) => {
+    const resolve = useAtomValue(resolverAtom(data));
     const playerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -28,17 +34,21 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ videoId }) => {
         function createPlayer() {
             if (playerRef.current && window.YT) {
                 new window.YT.Player(playerRef.current, {
-                    videoId: videoId,
+                    videoId: data.videoId,
                     events: {
-                        onReady: (event) => event.target.playVideo(),
+                        onReady: (event) => {
+                            event.target.playVideo();
+                            resolve(new YoutubePlayerModel(event.target));
+                        },
                     },
                 });
             }
         }
-    }, [videoId]);
+        // TODO: クリーンアップがうまくできてなさそう！
+    }, [data.videoId, resolve]);
 
     return (
-        <div ref={playerRef} />
+        <div id='player' ref={playerRef} />
     );
 };
 
