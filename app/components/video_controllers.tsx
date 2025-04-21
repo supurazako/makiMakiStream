@@ -1,12 +1,12 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { Suspense, useContext, useEffect, useState } from "react";
-import { muteStateAtom, playerModelAtom, playStateAtom, videoDataListAtom, volumeStateAtom } from "~/atoms";
+import { Suspense, useEffect, useState } from "react";
+import { modalContentAtom, muteStateAtom, playerModelAtom, playStateAtom, videoDataListAtom, volumeStateAtom } from "~/atoms";
 import { PlayIcon, RemoveIcon, VolumeIcon } from "~/components/common/icons";
-import { VideoDataModel } from "~/models/videoDataModel";
-import { AddVideoModalContext } from "~/routes/dev.video_controllers";
-
-// import "~/components/video_controllers.css";
+import { AddVideoModal } from "~/components/modal/AddVideoModal";
 import { PlayerModel } from "~/models/playerModel";
+import { VideoDataModel } from "~/models/videoDataModel";
+
+import "~/components/video_controllers.css";
 
 export function VideoControllersContainer(): JSX.Element {
     const videoDataList = useAtomValue(videoDataListAtom);
@@ -131,11 +131,11 @@ function RemoveControl({ data }: { data: VideoDataModel }): JSX.Element {
     );
 }
 
-export function AddVideoButton(): JSX.Element {
-    const { setOpen } = useContext(AddVideoModalContext);
+function AddVideoButton(): JSX.Element {
+    const dispatchModalContent = useSetAtom(modalContentAtom);
 
     function handleClick() {
-        setOpen(true);
+        dispatchModalContent({ type: "open", content: <AddVideoModal /> });
     }
 
     return (
