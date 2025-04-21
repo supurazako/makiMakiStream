@@ -5,7 +5,7 @@ import { PlayIcon, RemoveIcon, VolumeIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
 import { AddVideoModalContext } from "~/routes/dev.video_controllers";
 
-import "~/components/video_controllers.css";
+// import "~/components/video_controllers.css";
 import { PlayerModel } from "~/models/playerModel";
 
 export function VideoControllersContainer(): JSX.Element {
@@ -131,7 +131,7 @@ function RemoveControl({ data }: { data: VideoDataModel }): JSX.Element {
     );
 }
 
-function AddVideoButton(): JSX.Element {
+export function AddVideoButton(): JSX.Element {
     const { setOpen } = useContext(AddVideoModalContext);
 
     function handleClick() {

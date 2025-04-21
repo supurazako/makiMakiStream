@@ -1,0 +1,122 @@
+.video-controller {
+	width: 100%;
+	height: fit-content;
+	box-sizing: border-box;
+	padding-block: 17px;
+	padding-inline: 20px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	box-shadow: 3px 3px 4px #0000004D, -3px -3px 4px #FFFFFFB8;
+	transition: all 0.2s ease;
+	background-image: linear-gradient(to bottom right var(--background-color), #F1F1F1);
+
+	& .labels {
+		display: flex;
+		flex-direction: row;
+		column-gap: 10px;
+
+		& .icon {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-color: var(--widget-color-primary);
+		}
+
+		& .url {
+			flex-grow: 1;
+			height: 50px;
+			border-radius: 0 8px 8px 0;
+			background-color: var(--widget-color-primary);
+		}
+	}
+
+	& .controls {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		column-gap: 5px;
+
+		& .control-item {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-color: var(--widget-color-primary);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			&:hover {
+				background-color: var(--background-color-hover);
+			}
+
+			&:active {
+				background-color: var(--background-color-active);
+			}
+
+			&[data-type="play"] {
+				&[data-state="playing"] {
+					& svg {
+						width: 50px;
+						height: 50px;
+					}
+				}
+
+				&[data-state="paused"] {
+					& svg {
+						width: 50px;
+						height: 50px;
+						transform: translateX(2px);
+					}
+				}
+			}
+
+			&[data-type="mute"] {
+				& svg {
+					width: 45px;
+					height: 45px;
+				}
+			}
+
+			&[data-type="remove"] {
+				margin-inline-start: auto;
+			}
+		}
+
+		& .volume-control-container {
+			cursor: pointer;
+			display: flex;
+			flex-direction: row;
+			column-gap: 5px;
+			align-items: center;
+
+			& .volume-slider {
+				appearance: none;
+				width: 0;
+				opacity: 0.0;
+				transition: all 0.1s ease;
+				height: 6px;
+				border-radius: 99px;
+				background: linear-gradient(90deg, var(--icon-color-primary) calc(var(--ratio) * 100%), #dddddd calc(var(--ratio) * 100%));
+				box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25), inset -2px -2px 4px rgba(255, 255, 255, 0.15);
+				cursor: pointer;
+
+				&::-webkit-slider-thumb {
+					-webkit-appearance: none;
+					appearance: none;
+					width: 12px;
+					height: 12px;
+					border-radius: 50%;
+					background: var(--icon-color-primary);
+					box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), -2px -2px 4px rgba(255, 255, 255, 0.15);
+				}
+			}
+
+			&:hover .volume-slider {
+				width: 100px;
+				opacity: 1.0;
+			}
+		}
+	}
+}
