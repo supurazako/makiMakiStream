@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
+import { Modal } from "~/components/common/modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 
@@ -16,6 +17,7 @@ export default function App(): JSX.Element {
 			background: "#F5F5F5"
 		}}>
 			<VideoControllersContainer />
+			<Modal />
 
 			{
 				videoDataList.map((v, i) => {
