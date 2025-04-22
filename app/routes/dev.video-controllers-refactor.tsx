@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
-import { Modal } from "~/components/common/modal";
+import { Modal } from "~/components/common/Modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 
