@@ -1,1 +1,1 @@
-export type LayoutOption = "A" | "B" | "C";
+export type LayoutType = "A" | "B" | "C";

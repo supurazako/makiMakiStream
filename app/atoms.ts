@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { atomFamily, atomWithObservable, atomWithReducer, atomWithStorage } from "jotai/utils";
-import { LayoutOption } from "./models/layoutOption";
+import { LayoutType } from "./models/layoutOption";
 import { PlayerEvent, PlayerModel } from "./models/playerModel";
 import { VideoDataModel } from "./models/videoDataModel";
 
@@ -171,4 +171,4 @@ export const modalContentAtom = atomWithReducer<JSX.Element | null, ModalAction>
     }
 });
 
-export const layoutOptionAtom = atom<LayoutOption>("A");
+export const selectedLayoutTypeAtom = atom<LayoutType>("A");
