@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { atomFamily, atomWithObservable, atomWithReducer, atomWithStorage } from "jotai/utils";
+import { LayoutOption } from "./models/layoutOption";
 import { PlayerEvent, PlayerModel } from "./models/playerModel";
 import { VideoDataModel } from "./models/videoDataModel";
 
@@ -169,3 +170,5 @@ export const modalContentAtom = atomWithReducer<JSX.Element | null, ModalAction>
             throw new Error("Unknown action type");
     }
 });
+
+export const layoutOptionAtom = atom<LayoutOption>("A");
