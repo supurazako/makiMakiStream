@@ -67,7 +67,7 @@
         &:nth-child(1):active,
         &:nth-child(1).selected {
             &::before {
-                clip-path: url("/icons/layout-option-clip-2A.svg#icon_layout_option_clip_A");
+                clip-path: url(/icons/layout-option-2A.svg#clip-path);
             }
         }
 
