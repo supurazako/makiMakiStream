@@ -1,8 +1,10 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useSetAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
+import { GlobalController } from "~/components/GlobalController";
+import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/sidebar";
-import { VideoControllersContainer } from "~/components/video_controllers";
+import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 import { VideosContainer } from "~/components/VideosContainer";
 
 export const meta: MetaFunction = () => {
@@ -18,6 +20,8 @@ export default function Index() {
         <main>
             <aside>
                 <Sidebar>
+                    <LayoutSelector />
+                    <GlobalController />
                     <VideoControllersContainer />
                     {
                         /* テスト用ボタン。Modalの修正がマージされたら消してね */
