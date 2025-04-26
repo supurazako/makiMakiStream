@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { atomFamily, atomWithObservable, atomWithReducer, atomWithStorage } from "jotai/utils";
+import { LayoutType } from "./models/layoutOption";
 import { PlayerEvent, PlayerModel } from "./models/playerModel";
 import { VideoDataModel } from "./models/videoDataModel";
 
@@ -135,6 +136,23 @@ export const volumeStateAtom = atomFamily((player: PlayerModel) => atomWithObser
     }
 }));
 
+export const allPlayerModelsAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    return await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+});
+
+export const allPlayStateAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+    return await Promise.all(players.map((player) => get(playStateAtom(player))));
+});
+
+export const allMuteStateAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+    return await Promise.all(players.map((player) => get(muteStateAtom(player))));
+});
+
 type ModalAction = {
     type: "open";
     content: JSX.Element;
@@ -152,3 +170,5 @@ export const modalContentAtom = atomWithReducer<JSX.Element | null, ModalAction>
             throw new Error("Unknown action type");
     }
 });
+
+export const selectedLayoutTypeAtom = atom<LayoutType>("A");
