@@ -589,3 +589,186 @@ export function ArrowDownIcon(): JSX.Element {
 
 	)
 }
+
+export function LayoutOption3AIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_295_17)">
+				<rect x="2.00024" y="13.4998" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="2.00024" y="3.5" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="13.5" y="8.50024" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_295_17" x="-0.499756" y="-0.5" width="25" height="25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-0.5" dy="-0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_295_17" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="0.5" dy="0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_295_17" result="effect2_innerShadow_295_17" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
+
+export function LayoutOption3BIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_295_10)">
+				<rect x="7.49976" y="13.4998" width="9" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="2" y="3.5" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="13.4998" y="3.5" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_295_10" x="-0.5" y="-0.5" width="25" height="25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-0.5" dy="-0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_295_10" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="0.5" dy="0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_295_10" result="effect2_innerShadow_295_10" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
+
+export function LayoutOption3CIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_295_6)">
+				<rect x="16" y="14.9998" width="6" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="16" y="7.00024" width="6" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="1.99976" y="5" width="11" height="9" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_295_6" x="-0.500244" y="-0.5" width="25" height="25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-0.5" dy="-0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_295_6" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="0.5" dy="0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_295_6" result="effect2_innerShadow_295_6" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
+
+export function LayoutOption4AIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_295_35)">
+				<rect x="2.00024" y="13.4998" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="2.00024" y="3.5" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="13.5" y="3.5" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="13.5" y="13.4998" width="8.5" height="7" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_295_35" x="-0.499756" y="-0.5" width="25" height="25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-0.5" dy="-0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_295_35" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="0.5" dy="0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_295_35" result="effect2_innerShadow_295_35" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
+
+export function LayoutOption4BIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_295_29)">
+				<rect x="6.5" y="2.99976" width="11" height="9" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="2" y="14.9998" width="5" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="9.5" y="14.9998" width="5" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="17" y="14.9998" width="5" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_295_29" x="-0.5" y="-0.5" width="25" height="25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-0.5" dy="-0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_295_29" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="0.5" dy="0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_295_29" result="effect2_innerShadow_295_29" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
+
+export function LayoutOption4CIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_295_24)">
+				<rect x="16" y="2" width="6" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="16" y="17" width="6" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="16" y="9.5" width="6" height="5" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+				<rect x="1.99976" y="7.49976" width="11" height="9" stroke="#757575" strokeWidth="2" strokeLinejoin="round" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_295_24" x="-0.500244" y="-0.5" width="25" height="25" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-0.5" dy="-0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_295_24" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="0.5" dy="0.5" />
+					<feGaussianBlur stdDeviation="0.5" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_295_24" result="effect2_innerShadow_295_24" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
