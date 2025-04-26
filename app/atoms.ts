@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { atomFamily, atomWithObservable, atomWithStorage } from "jotai/utils";
+import { atomFamily, atomWithObservable, atomWithReducer, atomWithStorage } from "jotai/utils";
 import { PlayerEvent, PlayerModel } from "./models/playerModel";
 import { VideoDataModel } from "./models/videoDataModel";
 
@@ -134,3 +134,38 @@ export const volumeStateAtom = atomFamily((player: PlayerModel) => atomWithObser
         }
     }
 }));
+
+export const allPlayerModelsAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    return await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+});
+
+export const allPlayStateAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+    return await Promise.all(players.map((player) => get(playStateAtom(player))));
+});
+
+export const allMuteStateAtom = atom(async (get) => {
+    const dataList = get(videoDataListAtom);
+    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+    return await Promise.all(players.map((player) => get(muteStateAtom(player))));
+});
+
+type ModalAction = {
+    type: "open";
+    content: JSX.Element;
+} | {
+    type: "close";
+};
+
+export const modalContentAtom = atomWithReducer<JSX.Element | null, ModalAction>(null, (_prev: JSX.Element | null, action: ModalAction) => {
+    switch (action.type) {
+        case "open":
+            return action.content;
+        case "close":
+            return null;
+        default:
+            throw new Error("Unknown action type");
+    }
+});

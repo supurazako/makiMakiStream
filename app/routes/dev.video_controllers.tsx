@@ -1,18 +1,21 @@
+import { LinksFunction } from "@remix-run/node";
 import { useAtom } from "jotai";
-import { createContext, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
-import { AddVideoModal } from "~/components/common/modal";
+import { Modal } from "~/components/common/Modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
 
-export const AddVideoModalContext = createContext({
-    isOpen: false,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setOpen: (_i: boolean) => {}
-});
+export const links: LinksFunction = () => {
+    return [
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" }
+    ];
+}
 
 export default function App(): JSX.Element {
-    const [isOpen, setOpen] = useState(false);
     const [videoDataList, setVideoDataList] = useAtom(videoDataListAtom);
 
     return (
@@ -23,10 +26,8 @@ export default function App(): JSX.Element {
             border: "1px solid black",
             background: "#F5F5F5"
         }}>
-            <AddVideoModalContext.Provider value={{ isOpen, setOpen }}>
-                <AddVideoModal />
-                <VideoControllersContainer />
-            </AddVideoModalContext.Provider>
+            <Modal />
+            <VideoControllersContainer />
 
             {
                 videoDataList.map((v, i) => {
