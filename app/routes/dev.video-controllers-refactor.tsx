@@ -29,7 +29,7 @@ export default function App(): JSX.Element {
 					}
 				})
 			}
-			<button onClick={() => setVideoDataList(l => l.concat({ platform: "twitch", channel: "akamikarubi" }))}>{"[test] Add twitch video"}</button>
+			<button onClick={() => setVideoDataList(l => l.concat({ platform: "twitch", channel: "akamikarubi", id: crypto.randomUUID()}))}>{"[test] Add twitch video"}</button>
 		</div>
 	);
 }

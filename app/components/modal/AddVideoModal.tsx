@@ -20,11 +20,11 @@ export function AddVideoModal(): JSX.Element {
 		let data: VideoDataModel;
 		switch (platform) {
 			case "twitch": {
-				data = { platform: "twitch", channel: videoTarget };
+				data = { platform: "twitch", channel: videoTarget, id: crypto.randomUUID() };
 				break;
 			}
 			case "youtube": {
-				data = { platform: "youtube", videoId: videoTarget };
+				data = { platform: "youtube", videoId: videoTarget, id: crypto.randomUUID() };
 				break;
 			}
 			default: {
@@ -35,7 +35,7 @@ export function AddVideoModal(): JSX.Element {
 						if (!videoId) {
 							return;
 						}
-						data = { platform: "youtube", videoId: videoId };
+						data = { platform: "youtube", videoId: videoId, id: crypto.randomUUID() };
 						break;
 					}
 					case "twitch": {
@@ -43,7 +43,7 @@ export function AddVideoModal(): JSX.Element {
 						if (!channel) {
 							return;
 						}
-						data = { platform: "twitch", channel: channel };
+						data = { platform: "twitch", channel: channel, id: crypto.randomUUID() };
 						break;
 					}
 					default: {

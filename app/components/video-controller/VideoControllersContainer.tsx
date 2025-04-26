@@ -11,7 +11,7 @@ export function VideoControllersContainer(): JSX.Element {
 	return (
 		<div className="video-controllers-container">
 			{
-				videoDataList.map((v, i) => <VideoController key={i} data={v} />)
+				videoDataList.map(v => <VideoController key={v.id} data={v} />)
 			}
 			<AddVideoButton />
 		</div>
