@@ -1,6 +1,8 @@
 .video-controllers-container {
 	width: 100%;
 	height: fit-content;
+	padding-block: 20px;
+	padding-inline: 30px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

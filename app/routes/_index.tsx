@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useSetAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
+import { Modal } from "~/components/common/Modal";
 import { GlobalController } from "~/components/GlobalController";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/sidebar";
@@ -21,17 +22,20 @@ export default function Index() {
             <aside>
                 <Sidebar>
                     <LayoutSelector />
+                    <hr className="separator" />
                     <GlobalController />
+                    <hr className="separator" />
                     <VideoControllersContainer />
                     {
                         /* テスト用ボタン。Modalの修正がマージされたら消してね */
-                        <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "akamikarubi" }])}>
+                        <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "akamikarubi", id: crypto.randomUUID() }])}>
                             {"[test] Add twitch video"}
                         </button>
                     }
                 </Sidebar>
             </aside>
             <VideosContainer />
+            <Modal />
         </main>
     );
 }

@@ -13,7 +13,9 @@ export function Sidebar({ children }: { children?: React.ReactNode }): JSX.Eleme
     return (
         <div className={"sidebar_container" + (open ? "" : " close")}>
             <div className="sidebar_element menubar">
-                {children}
+                <div className="menubar-container">
+                    {children}
+                </div>
             </div>
             <div className="sidebar_element drawer">
                 <button type="button" className="drawer_button" onClick={toggle}>
