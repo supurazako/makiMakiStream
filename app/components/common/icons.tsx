@@ -532,3 +532,60 @@ export function RemoveIcon() {
 		</defs>
 	</svg>
 }
+
+export function CloseIcon(): JSX.Element {
+	return (
+		<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_224_206)">
+				<path d="M24 26.1L13.5 36.6C13.2 36.9 12.85 37.05 12.45 37.05C12.05 37.05 11.7 36.9 11.4 36.6C11.1 36.3 10.95 35.95 10.95 35.55C10.95 35.15 11.1 34.8 11.4 34.5L21.9 24L11.4 13.5C11.1 13.2 10.95 12.85 10.95 12.45C10.95 12.05 11.1 11.7 11.4 11.4C11.7 11.1 12.05 10.95 12.45 10.95C12.85 10.95 13.2 11.1 13.5 11.4L24 21.9L34.5 11.4C34.8 11.1 35.15 10.95 35.55 10.95C35.95 10.95 36.3 11.1 36.6 11.4C36.9 11.7 37.05 12.05 37.05 12.45C37.05 12.85 36.9 13.2 36.6 13.5L26.1 24L36.6 34.5C36.9 34.8 37.05 35.15 37.05 35.55C37.05 35.95 36.9 36.3 36.6 36.6C36.3 36.9 35.95 37.05 35.55 37.05C35.15 37.05 34.8 36.9 34.5 36.6L24 26.1Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_224_206" x="-2" y="-2" width="52" height="52" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_224_206" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_224_206" result="effect2_innerShadow_224_206" />
+				</filter>
+			</defs>
+		</svg>
+	);
+}
+
+export function ArrowDownIcon(): JSX.Element {
+	return (
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_228_205)">
+				<path d="M12 14.975C11.8667 14.975 11.7417 14.9542 11.625 14.9125C11.5083 14.8708 11.4 14.8 11.3 14.7L6.7 10.1C6.51667 9.91667 6.425 9.68333 6.425 9.4C6.425 9.11667 6.51667 8.88333 6.7 8.7C6.88334 8.51667 7.11667 8.425 7.4 8.425C7.68334 8.425 7.91667 8.51667 8.1 8.7L12 12.6L15.9 8.7C16.0833 8.51667 16.3167 8.425 16.6 8.425C16.8833 8.425 17.1167 8.51667 17.3 8.7C17.4833 8.88333 17.575 9.11667 17.575 9.4C17.575 9.68333 17.4833 9.91667 17.3 10.1L12.7 14.7C12.6 14.8 12.4917 14.8708 12.375 14.9125C12.2583 14.9542 12.1333 14.975 12 14.975Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_228_205" x="-2" y="-2" width="28" height="28" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_228_205" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_228_205" result="effect2_innerShadow_228_205" />
+				</filter>
+			</defs>
+		</svg>
+
+	)
+}
