@@ -37,6 +37,7 @@ export const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
     });
 });
 
+// TODO: プレーヤーのインスタンスを生成するコンポーネントがresolver使えるようなカスタムフック作りたいかも
 /**
  * 各プレーヤーのインスタンスを生成するコンポーネントはこのatomを使用してください。
  * 生成したインスタンスを該当するresolverに渡してください。Read-onlyです。
