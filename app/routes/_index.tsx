@@ -32,6 +32,9 @@ export default function Index() {
                             {"[test] Add twitch video"}
                         </button>
                     }
+                    <button onClick={() => setVideoList(prev => [...prev, { platform: "youtube", videoId: "NnKVD-DZmYQ", id: crypto.randomUUID() }])}>
+                        {"[test] Add youtube video"}
+                    </button>
                 </Sidebar>
             </aside>
             <VideosContainer />
