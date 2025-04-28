@@ -44,7 +44,10 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ data }) => {
                 });
             }
         }
+
         // TODO: クリーンアップがうまくできてなさそう！
+        // TODO: YouTubePlayerにはリサイズメソッドがありそうなので、マウントごとにインスタンスを再生成するんじゃなくて、
+        //       マウント時にインスタンスがすでに存在する場合はリサイズする...みたいにするとよさそう
     }, [data.videoId, resolve]);
 
     return (

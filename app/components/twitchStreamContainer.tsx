@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { resolverAtom } from "~/atoms";
+import { resolverAtom, videoPromiseAtom } from "~/atoms";
 import { TwitchPlayerModel } from "~/models/twitchPlayerModel";
 import { VideoDataModel } from "~/models/videoDataModel";
 
@@ -45,8 +45,10 @@ export function TwitchStreamContainer({ data, elementId }: { data: VideoDataMode
 			// メモ：onloadが走ったあとにアンマウントされた場合は、すでにiframeが生成されているため、iframeを削除します。
 			document.getElementById(elementId)?.getElementsByTagName("iframe")[0]?.remove();
 			script.remove();
+			// Promiseをリセットし、次回マウント時に新しいインスタンスを生成するようにします。これは、Twitch.Playerの生成後にリサイズすることができないためです。
+			videoPromiseAtom.remove(data);
 		};
-	}, [data.channel, elementId, resolve]);
+	}, [data, data.channel, elementId, resolve]);
 
 	return (
 		<div id={elementId} ref={containerRef} />
