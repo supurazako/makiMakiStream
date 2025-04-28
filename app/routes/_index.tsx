@@ -28,7 +28,7 @@ export default function Index() {
                     <VideoControllersContainer />
                     {
                         /* テスト用ボタン。Modalの修正がマージされたら消してね */
-                        <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "akamikarubi", id: crypto.randomUUID() }])}>
+                        <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "amakipururu", id: crypto.randomUUID() }])}>
                             {"[test] Add twitch video"}
                         </button>
                     }

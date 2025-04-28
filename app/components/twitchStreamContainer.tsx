@@ -1,12 +1,40 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { resolverAtom, videoPromiseAtom } from "~/atoms";
+import { resolverAtom } from "~/atoms";
 import { TwitchPlayerModel } from "~/models/twitchPlayerModel";
 import { VideoDataModel } from "~/models/videoDataModel";
 
 export function TwitchStreamContainer({ data, elementId }: { data: VideoDataModel & { platform: "twitch" }, elementId: string }): JSX.Element {
 	const resolve = useAtomValue(resolverAtom(data));
 	const containerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const observer = new ResizeObserver(entries => {
+			entries.forEach(entry => {
+				const { width, height } = entry.contentRect;
+				const aspectRatio = 16 / 9;
+				let newWidth = width;
+				let newHeight = newWidth / aspectRatio;
+
+				if (newHeight > height) {
+					newHeight = height;
+					newWidth = newHeight * aspectRatio;
+				}
+
+				const iframe = containerRef.current?.getElementsByTagName("iframe")[0];
+				if (iframe) {
+					iframe.width = `${newWidth}px`;
+					iframe.height = `${newHeight}px`;
+				}
+			});
+		})
+
+		observer.observe(containerRef.current!.parentElement!);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
 
 	useEffect(() => {
 		const script = document.createElement("script");
@@ -39,14 +67,14 @@ export function TwitchStreamContainer({ data, elementId }: { data: VideoDataMode
 			});
 		};
 
+
+
 		return () => {
 			// メモ：onloadが走る前にアンマウントされた場合、ココよりあとにiframeが生成されるため、onloadを削除することで対応します。
 			script.onload = null;
 			// メモ：onloadが走ったあとにアンマウントされた場合は、すでにiframeが生成されているため、iframeを削除します。
 			document.getElementById(elementId)?.getElementsByTagName("iframe")[0]?.remove();
 			script.remove();
-			// Promiseをリセットし、次回マウント時に新しいインスタンスを生成するようにします。これは、Twitch.Playerの生成後にリサイズすることができないためです。
-			videoPromiseAtom.remove(data);
 		};
 	}, [data, data.channel, elementId, resolve]);
 

@@ -28,8 +28,7 @@ export function VideosContainer(): JSX.Element {
 					}
 
 					return (
-						// プレーヤーのリサイズのため、レンダーごとに再マウントしたい。ので、randomUUIDをキーにしています
-						<section className="video-container" key={crypto.randomUUID()}>
+						<section className="video-container" key={v.id}>
 							{videoElement}
 						</section>
 					);

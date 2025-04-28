@@ -24,7 +24,7 @@ videoDataListAtom.onMount = (set) => {
 /**
  * 動画のPromiseとそのResolverを保持するatom。
  */
-export const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
+const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
     let resolve: (v: PlayerModel) => void;
     const promise = new Promise<PlayerModel>((r) => {
         resolve = r;
