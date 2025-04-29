@@ -31,11 +31,11 @@ export function VideoController({ data }: { data: VideoDataModel }): JSX.Element
 			}}>
 
 			<div className="labels">
-				<Suspense fallback={null}>
+				<Suspense fallback={<div className="video-title-skeleton" />}>
 					<VideoTitleLabel data={data} />
 				</Suspense>
 
-				<Suspense fallback={null}>
+				<Suspense fallback={<div className="channel-name-skeleton" />}>
 					<ChannelNameLabel data={data} />
 				</Suspense>
 			</div>

@@ -41,16 +41,42 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
-		column-gap: 5px;
+		row-gap: 5px;
 
 		& .video-title {
-			font-size: 1.125em;
+			height: 25px;
+			font-size: 1.125rem;
 			color: #323332
 		}
 
 		& .channel-name {
-			font-size: 0.875em;
+			height: 20px;
+			font-size: 0.875rem;
 			color: #5A5A5A;
+		}
+
+		& .video-title-skeleton {
+			width: 100%;
+			height: 25px;
+			background: linear-gradient(135deg,
+					#e0e0e0 25%,
+					#f0f0f0 50%,
+					#e0e0e0 75%);
+			background-size: 200% 100%;
+			border-radius: 10px;
+			animation: shimmer 1.2s infinite linear;
+		}
+
+		& .channel-name-skeleton {
+			width: 100%;
+			height: 20px;
+			background: linear-gradient(135deg,
+					#e0e0e0 25%,
+					#f0f0f0 50%,
+					#e0e0e0 75%);
+			background-size: 200% 100%;
+			border-radius: 10px;
+			animation: shimmer 1.2s infinite linear;
 		}
 	}
 
@@ -188,5 +214,15 @@
 	100% {
 		transform: scale(0);
 		opacity: 0;
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+
+	100% {
+		background-position: 200% 0;
 	}
 }
