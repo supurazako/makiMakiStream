@@ -47,6 +47,16 @@ export class YoutubePlayerModel implements PlayerModel {
 		this._player.setVolume(volume * 100.0);
 	}
 
+	public getTitle(): string {
+		// 内部的には存在するけどドキュメントには載ってなさそう。YouTube Data APIで取得するほうがよいかも
+		return this._player.videoTitle;
+	}
+
+	public getChannelName(): string {
+		// YouTube Data APIで取得する以外方法がなさそう。
+		return "TODO: YouTube Data APIから取得するようにする";
+	}
+
 	private _cleanupMap = new Map<string, () => void>();
 
 	public addEventListener(event: string, callback: () => void): void {

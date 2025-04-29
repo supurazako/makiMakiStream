@@ -5,5 +5,5 @@ import { VideoDataModel } from "~/models/videoDataModel";
 export function ChannelNameLabel({ data }: { data: VideoDataModel }): JSX.Element {
 	const player = useAtomValue(playerModelAtom(data));
 
-	return <p className="channel-name">{"placeholder"}</p>;
+	return <p className="channel-name">{player.getChannelName()}</p>;
 }

@@ -5,5 +5,5 @@ import { VideoDataModel } from "~/models/videoDataModel";
 export function VideoTitleLabel({ data }: { data: VideoDataModel }): JSX.Element {
 	const player = useAtomValue(playerModelAtom(data));
 
-	return <p className="video-title">{"placeholder"}</p>;
+	return <p className="video-title">{player.getTitle()}</p>;
 }
