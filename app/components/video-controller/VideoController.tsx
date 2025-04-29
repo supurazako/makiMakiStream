@@ -21,6 +21,7 @@ export function VideoController({ data }: { data: VideoDataModel }): JSX.Element
 
 	return (
 		<div className={`video-controller${isDisappearing ? " disappearing" : ""}`}
+			data-platform={data.platform}
 			onAnimationEnd={() => {
 				if (isDisappearing) {
 					setVideoDataList((prev) => {
