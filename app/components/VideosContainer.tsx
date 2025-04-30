@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { selectedLayoutTypeAtom, videoDataListAtom } from "~/atoms";
+import { YouTubeVideoEmbed } from "~/components/embed/YouTubeVideoEmbed";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
-import YoutubePlayer from "~/components/YoutubeBox";
 
 import "~/styles/videos-container.css";
 
@@ -21,7 +21,7 @@ export function VideosContainer(): JSX.Element {
 							videoElement = <TwitchStreamContainer data={v} elementId={`player_${i}`} />
 							break;
 						case "youtube":
-							videoElement = <YoutubePlayer data={v} />
+							videoElement = <YouTubeVideoEmbed data={v} elementId={`player_${i}`} />
 							break;
 						default:
 							throw new Error("Unsupported platform 🥲");
