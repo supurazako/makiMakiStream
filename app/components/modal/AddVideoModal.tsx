@@ -1,100 +1,48 @@
-import { useSetAtom } from "jotai";
-import { FormEvent, RefObject, useState } from "react";
-import { videoDataListAtom } from "~/atoms";
-import { ArrowDownIcon } from "~/components/common/icons";
-import { VideoDataModel } from "~/models/videoDataModel";
-import { detectSite, getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
+import { RefObject, useState } from "react";
 
 import "~/styles/modal/add-video-modal.css";
 
+type Tab = "youtube" | "twitch" | "other";
+
 export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }): JSX.Element {
-	const [platform, setPlatform] = useState<string>("");
-	const [videoTarget, setVideoTarget] = useState<string>("");
-	const setVideoDataList = useSetAtom(videoDataListAtom);
+	const [selectedTab, setSelectedTab] = useState<Tab>("youtube");
 
-	function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-		event.preventDefault();
-
-		let data: VideoDataModel;
-		switch (platform) {
-			case "twitch": {
-				data = { platform: "twitch", channel: videoTarget, id: crypto.randomUUID() };
-				break;
-			}
-			case "youtube": {
-				data = { platform: "youtube", videoId: videoTarget, id: crypto.randomUUID() };
-				break;
-			}
-			default: {
-				const detectedPlatform = detectSite(videoTarget);
-				switch (detectedPlatform) {
-					case "youtube": {
-						const videoId = getYoutubeVideoId(videoTarget);
-						if (!videoId) {
-							return;
-						}
-						data = { platform: "youtube", videoId: videoId, id: crypto.randomUUID() };
-						break;
-					}
-					case "twitch": {
-						const channel = getTwitchChannelName(videoTarget);
-						if (!channel) {
-							return;
-						}
-						data = { platform: "twitch", channel: channel, id: crypto.randomUUID() };
-						break;
-					}
-					default: {
-						alert("Unsupported platform or invalid URL.");
-						return;
-					}
-				}
-			}
-		}
-
-		setVideoDataList((prev) => [...prev, data]);
+	function handleConfirm(): void {
 		dialogRef.current?.close();
 	}
 
 	function handleClose(): void {
-		setPlatform("");
-		setVideoTarget("");
 		dialogRef.current?.close();
 	}
 
 	return (
 		<div className="add-video-modal">
-			<p className="modal-description">
-				{/* TODO: 説明これでいい？ */}
-				{"https://www.twitch.tv/xxxx のようなURLの場合、プラットフォームを選択する必要はありません。"}
-				<br />
-				{"xxxxのように、アカウントIDや動画のIDを直接入力する場合は、プラットフォームを選択してください。"}
-			</p>
-			<hr className="modal-separator" />
-			<form id="add-video" onSubmit={handleSubmit}>
-				<label>
-					{"プラットフォーム:"}
-					<select value={platform} onChange={(e) => setPlatform(e.target.value)}>
-						<button>
-							<div className="selected-content">
-								<selectedcontent />
-							</div>
-							<div className="picker-icon">
-								<ArrowDownIcon />
-							</div>
-						</button>
-						<option value="" hidden disabled>{"Select Platform (Optional)"}</option>
-						<option value="twitch">Twitch</option>
-						<option value="youtube">YouTube</option>
-					</select>
-				</label>
-				<label>
-					{"URLや動画のID、チャンネルIDなど:"}
-					<input type="text" name="videoTarget" value={videoTarget} onChange={e => setVideoTarget(e.target.value)} />
-				</label>
-			</form>
+			<div className="tab-container">
+				<button className={`tab${selectedTab === "youtube" ? " selected" : ""}`}
+					type="button"
+					onClick={() => setSelectedTab("youtube")}>
+					YouTube
+				</button>
+				<button className={`tab${selectedTab === "twitch" ? " selected" : ""}`}
+					type="button"
+					onClick={() => setSelectedTab("twitch")}>
+					Twitch
+				</button>
+				<button className={`tab${selectedTab === "other" ? " selected" : ""}`}
+					type="button"
+					onClick={() => setSelectedTab("other")}>
+					その他
+				</button>
+			</div>
+			<div className="search-bar-container">
+				{/* TODO */}
+			</div>
+			<div className="video-list-container">
+				{/* TODO */}
+			</div>
+
 			<div className="modal-bottom">
-				<button className="modal-confirm-button" type="submit" form="add-video">OK</button>
+				<button className="modal-confirm-button" type="button" onClick={handleConfirm}>動画を追加</button>
 				<button className="modal-cancel-button" type="button" onClick={handleClose}>キャンセル</button>
 			</div>
 		</div>
