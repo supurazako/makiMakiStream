@@ -1,50 +1,36 @@
-
-import { useAtom } from "jotai";
-import { createPortal } from "react-dom";
-import { modalContentAtom } from "~/atoms";
+import { RefObject } from "react";
+import { CloseIcon } from "~/components/common/icons";
 
 import "~/styles/common/modal.css";
-import { CloseIcon } from "./icons";
 
-export function Modal(): JSX.Element | null {
-    const [modalContent, dispatchModalContent] = useAtom(modalContentAtom);
+export function Modal({ dialogRef, children }: { dialogRef: RefObject<HTMLDialogElement>, children: React.ReactNode }): JSX.Element {
+	const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+		if (e.target === dialogRef.current) {
+			dialogRef.current?.close();
+		}
+	};
 
-    if (!modalContent) return null;
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDialogElement>) => {
+		if (e.key === "Escape") {
+			dialogRef.current?.close();
+		}
+	};
 
-    return createPortal(
-        <>
-            <Overlay closeModal={() => dispatchModalContent({ type: "close" })} />
-            <div className="modal-container">
-                <div className="modal-header">
-                    <button className="modal-close-button" onClick={() => dispatchModalContent({ type: "close" })}>
-                        <CloseIcon />
-                    </button>
-                </div>
-                <div className="modal-content">
-                    {modalContent}
-                </div>
-            </div>
-        </>,
-        document.body
-    )
-}
-
-function Overlay({ closeModal }: { closeModal: () => void }): JSX.Element {
-    function handleClick(): void {
-        closeModal();
-    }
-
-    function handleKeyDown(e: React.KeyboardEvent): void {
-        if (e.key === "Escape") {
-            closeModal();
-        }
-    }
-
-    return (
-        <div className="modal-overlay"
-            onClick={handleClick}
-            role="button"
-            tabIndex={0}
-            onKeyDown={handleKeyDown} />
-    );
+	return (
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+		<dialog ref={dialogRef}
+			onClick={handleClick}
+			onKeyDown={handleKeyDown}>
+			<div className="modal-container">
+				<div className="modal-header">
+					<button className="modal-close-button" onClick={() => dialogRef.current?.close()}>
+						<CloseIcon />
+					</button>
+				</div>
+				<div className="modal-content">
+					{children}
+				</div>
+			</div>
+		</dialog>
+	);
 }

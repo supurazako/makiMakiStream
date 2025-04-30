@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
-import { Modal } from "~/components/common/Modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 
@@ -17,7 +16,6 @@ export default function App(): JSX.Element {
 			background: "#F5F5F5"
 		}}>
 			<VideoControllersContainer />
-			<Modal />
 
 			{
 				videoDataList.map((v, i) => {
@@ -29,7 +27,7 @@ export default function App(): JSX.Element {
 					}
 				})
 			}
-			<button onClick={() => setVideoDataList(l => l.concat({ platform: "twitch", channel: "akamikarubi", id: crypto.randomUUID()}))}>{"[test] Add twitch video"}</button>
+			<button onClick={() => setVideoDataList(l => l.concat({ platform: "twitch", channel: "akamikarubi", id: crypto.randomUUID() }))}>{"[test] Add twitch video"}</button>
 		</div>
 	);
 }

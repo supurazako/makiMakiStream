@@ -1,18 +1,16 @@
 import { useSetAtom } from "jotai";
-import { FormEvent, useState } from "react";
-import { modalContentAtom, videoDataListAtom } from "~/atoms";
+import { FormEvent, RefObject, useState } from "react";
+import { videoDataListAtom } from "~/atoms";
+import { ArrowDownIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
 import { detectSite, getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
 
 import "~/styles/modal/add-video-modal.css";
-import { ArrowDownIcon } from "../common/icons";
 
-export function AddVideoModal(): JSX.Element {
+export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }): JSX.Element {
 	const [platform, setPlatform] = useState<string>("");
 	const [videoTarget, setVideoTarget] = useState<string>("");
 	const setVideoDataList = useSetAtom(videoDataListAtom);
-
-	const dispatchModalContent = useSetAtom(modalContentAtom);
 
 	function handleSubmit(event: FormEvent<HTMLFormElement>): void {
 		event.preventDefault();
@@ -55,15 +53,13 @@ export function AddVideoModal(): JSX.Element {
 		}
 
 		setVideoDataList((prev) => [...prev, data]);
-
-		dispatchModalContent({ type: "close" });
-
+		dialogRef.current?.close();
 	}
 
 	function handleClose(): void {
 		setPlatform("");
 		setVideoTarget("");
-		dispatchModalContent({ type: "close" });
+		dialogRef.current?.close();
 	}
 
 	return (

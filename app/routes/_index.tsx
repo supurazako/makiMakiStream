@@ -1,7 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useSetAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
-import { Modal } from "~/components/common/Modal";
 import { GlobalController } from "~/components/GlobalController";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/sidebar";
@@ -38,7 +37,6 @@ export default function Index() {
                 </Sidebar>
             </aside>
             <VideosContainer />
-            <Modal />
         </main>
     );
 }

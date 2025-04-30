@@ -1,59 +1,55 @@
-.modal-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0.0, 0.0, 0.0, 0.4);
-	cursor: default;
-}
-
-.modal-container {
-	position: fixed;
-	width: 420px;
-	height: fit-content;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 15px;
-	box-shadow: 10px 10px 20px #00000054, -10px -10px 20px #46464642;
-	background-image: linear-gradient(to bottom right, #F5F5F5, #F1F1F1);
-
-	& .modal-header {
-		display: flex;
-		justify-content: right;
-		padding: 0.7rem;
-
-		& .modal-close-button {
-			position: relative;
-			width: 45px;
-			height: 45px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			right: 0;
-			color: var(--text-color);
-			border-radius: 50%;
-			transition: background-color 0.3s ease;
-			background-color: var(--background-color);
-
-			&:hover {
-				background-color: var(--background-color-hover);
-			}
-
-			&:active {
-				background-color: var(--background-color-active);
-			}
-
-			& svg {
-				width: 35px;
-				height: 35px;
-			}
-		}
+dialog {
+	&::backdrop {
+		background-color: rgba(0.0, 0.0, 0.0, 0.4);
 	}
 
-	& .modal-content {
-		padding-inline: 2rem;
-		padding-block-end: 1.7rem;
+	& .modal-container {
+		position: fixed;
+		width: 420px;
+		height: fit-content;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: 15px;
+		box-shadow: 10px 10px 20px #00000054, -10px -10px 20px #46464642;
+		background-image: linear-gradient(to bottom right, #F5F5F5, #F1F1F1);
+
+		& .modal-header {
+			display: flex;
+			justify-content: right;
+			padding: 0.7rem;
+
+			& .modal-close-button {
+				position: relative;
+				width: 45px;
+				height: 45px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				right: 0;
+				color: var(--text-color);
+				border-radius: 50%;
+				transition: background-color 0.3s ease;
+				background-color: var(--background-color);
+
+				&:hover {
+					background-color: var(--background-color-hover);
+				}
+
+				&:active {
+					background-color: var(--background-color-active);
+				}
+
+				& svg {
+					width: 35px;
+					height: 35px;
+				}
+			}
+		}
+
+		& .modal-content {
+			padding-inline: 2rem;
+			padding-block-end: 1.7rem;
+		}
 	}
 }
