@@ -30,32 +30,57 @@ export async function action({ request }: ActionFunctionArgs) {
     const platform = formData.get("platform") as string;
     switch (platform) {
         case "youtube": return {};
-        case "twitch": return json<SearchActionResult>({ contents: [
-            {
-                value: "akamikarubi",
-                title: "Test Video",
-                channel: "Test Channel",
-                thumbnail: "https://example.com/thumbnail.jpg"
-            },
-            {
-                value: "akamikarubi",
-                title: "Another Video",
-                channel: "Another Channel",
-                thumbnail: "https://example.com/thumbnail2.jpg"
-            },
-            {
-                value: "akamikarubi",
-                title: "Test Video",
-                channel: "Test Channel",
-                thumbnail: "https://example.com/thumbnail.jpg"
-            },
-            {
-                value: "akamikarubi",
-                title: "Another Video",
-                channel: "Another Channel",
-                thumbnail: "https://example.com/thumbnail2.jpg"
-            },
-        ] });
+        case "twitch": {
+
+            const tokenRes = await fetch("https://id.twitch.tv/oauth2/token", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    client_id: process.env.TWITCH_CLIENT_ID!,
+                    client_secret: process.env.TWITCH_CLIENT_SECRET!,
+                    grant_type: "client_credentials",
+                }),
+            });
+
+            const accessToken = (await tokenRes.json()).access_token;
+
+            if (!accessToken) {
+                return json({ error: "Failed to get access token" }, { status: 500 });
+            }
+
+            const channelsResponse = await fetch(`https://api.twitch.tv/helix/search/channels?query=${formData.get("param")}`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                    "Client-ID": process.env.TWITCH_CLIENT_ID!,
+                }
+            });
+            const channelJson = await channelsResponse.json();
+            const logins: string[] = channelJson.data.map((ch: any) => ch.broadcaster_login);
+
+            console.log(channelJson.data);
+
+            const loginParams = logins.map((login) => `user_login=${encodeURIComponent(login)}`).join("&");
+            const streamsResponse = await fetch(`https://api.twitch.tv/helix/streams?${loginParams}`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                    "Client-ID": process.env.TWITCH_CLIENT_ID!,
+                },
+            });
+            const streamsJson = await streamsResponse.json();
+
+            const contents: VideoContent[] = streamsJson.data.map((item: any) => {
+                return {
+                    value: item.user_id,
+                    title: item.title,
+                    channel: item.user_name,
+                    thumbnail: item.thumbnail_url.replace("{width}", "320").replace("{height}", "180")
+                };
+            });
+
+            return json<SearchActionResult>({
+                contents: contents
+            });
+        }
         case "other": return {};
         default: return { error: "Invalid platform" };
     }

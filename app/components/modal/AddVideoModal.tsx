@@ -41,7 +41,7 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		tabIndicatorRef.current!.style.width = `${e.currentTarget.offsetWidth}px`;
 
 		if (e.currentTarget.value.length > 0) {
-			updateFetcherData(activeTab, e.currentTarget.value);
+			updateFetcherData(activeTab, searchText);
 		}
 	}
 
