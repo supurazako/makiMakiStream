@@ -39,15 +39,25 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		setActiveTab(tab);
 		tabIndicatorRef.current!.style.left = `${e.currentTarget.offsetLeft}px`;
 		tabIndicatorRef.current!.style.width = `${e.currentTarget.offsetWidth}px`;
+
+		if (e.currentTarget.value.length > 0) {
+			updateFetcherData(activeTab, e.currentTarget.value);
+		}
 	}
 
 	function handleSearchTextChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		setSearchText(e.currentTarget.value);
 
 		// _index.tsxのactionを呼び出す🪄
+		if (e.currentTarget.value.length > 0) {
+			updateFetcherData(activeTab, e.currentTarget.value);
+		}
+	}
+
+	function updateFetcherData(platform: string, param: string): void {
 		fetcher.submit({
-			platform: activeTab,
-			param: e.currentTarget.value
+			platform: platform,
+			param: param
 		}, {
 			method: "post"
 		});
