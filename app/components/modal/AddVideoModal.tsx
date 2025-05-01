@@ -1,4 +1,5 @@
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
+import { ClearIcon } from "~/components/common/icons";
 
 import "~/styles/modal/add-video-modal.css";
 
@@ -6,6 +7,7 @@ type Tab = "youtube" | "twitch" | "other";
 
 export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }): JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>("youtube");
+	const [searchText, setSearchText] = useState<string>("");
 	const tabIndicatorRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -61,7 +63,18 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 					<div className="tab-indicator" ref={tabIndicatorRef} />
 				</div>
 				<div className="search-bar-container">
-					{/* TODO */}
+					<input className="search-bar"
+						type="text"
+						placeholder="URL、動画のID、キーワードなど"
+						value={searchText}
+						onChange={e => setSearchText(e.currentTarget.value)} />
+					{
+						searchText.length === 0 && (
+							<button className="clear-button" type="button" onClick={() => setSearchText("")}>
+								<ClearIcon />
+							</button>
+						)
+					}
 				</div>
 				<div className="video-list-container">
 					{/* TODO */}

@@ -6,6 +6,10 @@
 	color: #1E1F1E;
 
 	& .modal-main {
+		display: flex;
+		flex-direction: column;
+		row-gap: 8px;
+
 		& .tab-container {
 			position: relative;
 			width: 100%;
@@ -38,6 +42,43 @@
 				background-image: linear-gradient(to right, #faf623, #f36bca);
 				transition: left 0.2s ease,
 					width 0.2s ease;
+			}
+		}
+
+		& .search-bar-container {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: fit-content;
+			padding-inline: 8px;
+
+			& input.search-bar {
+				width: 100%;
+				height: 36px;
+				padding-inline: 12px;
+				border-radius: 4px;
+				outline: none;
+				background-color: #D9D9D9;
+				font-size: 0.875em;
+				color: #757575;
+
+				&::placeholder {
+					color: #757575;
+				}
+			}
+
+			& .clear-button {
+				position: absolute;
+				width: 24px;
+				height: 24px;
+				right: 16px;
+
+				& svg {
+					width: 100%;
+					height: 100%;
+				}
 			}
 		}
 	}
