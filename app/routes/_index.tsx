@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import { json, type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { useSetAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/GlobalController";
@@ -12,6 +12,54 @@ export const meta: MetaFunction = () => {
         { title: "Maki-Maki-Stream（仮）" }
     ];
 };
+
+export type VideoContent = {
+    value: string;
+    title: string;
+    channel: string;
+    thumbnail: string;
+}
+
+export type SearchActionResult = {
+    contents: VideoContent[];
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+    const formData = await request.formData();
+
+    const platform = formData.get("platform") as string;
+    switch (platform) {
+        case "youtube": return {};
+        case "twitch": return json<SearchActionResult>({ contents: [
+            {
+                value: "akamikarubi",
+                title: "Test Video",
+                channel: "Test Channel",
+                thumbnail: "https://example.com/thumbnail.jpg"
+            },
+            {
+                value: "akamikarubi",
+                title: "Another Video",
+                channel: "Another Channel",
+                thumbnail: "https://example.com/thumbnail2.jpg"
+            },
+            {
+                value: "akamikarubi",
+                title: "Test Video",
+                channel: "Test Channel",
+                thumbnail: "https://example.com/thumbnail.jpg"
+            },
+            {
+                value: "akamikarubi",
+                title: "Another Video",
+                channel: "Another Channel",
+                thumbnail: "https://example.com/thumbnail2.jpg"
+            },
+        ] });
+        case "other": return {};
+        default: return { error: "Invalid platform" };
+    }
+}
 
 export default function Index() {
     const setVideoList = useSetAtom(videoDataListAtom);
