@@ -1,5 +1,6 @@
 import { json, type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { useSetAtom } from "jotai";
+import { getTwitchAccessToken } from "~/.server/utils";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/GlobalController";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
@@ -31,22 +32,7 @@ export async function action({ request }: ActionFunctionArgs) {
     switch (platform) {
         case "youtube": return {};
         case "twitch": {
-
-            const tokenRes = await fetch("https://id.twitch.tv/oauth2/token", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({
-                    client_id: process.env.TWITCH_CLIENT_ID!,
-                    client_secret: process.env.TWITCH_CLIENT_SECRET!,
-                    grant_type: "client_credentials",
-                }),
-            });
-
-            const accessToken = (await tokenRes.json()).access_token;
-
-            if (!accessToken) {
-                return json({ error: "Failed to get access token" }, { status: 500 });
-            }
+            const accessToken = await getTwitchAccessToken();
 
             const channelsResponse = await fetch(`https://api.twitch.tv/helix/search/channels?query=${formData.get("param")}`, {
                 headers: {
