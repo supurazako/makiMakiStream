@@ -4,7 +4,7 @@ import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
 import { ClearIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
-import { SearchActionResult, VideoContent } from "~/routes/_index";
+import { ChannelContent, SearchActionResult, VideoContent } from "~/routes/_index";
 
 import "~/styles/modal/add-video-modal.css";
 
@@ -14,7 +14,7 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 	const [activeTab, setActiveTab] = useState<Tab>("youtube");
 	const [searchText, setSearchText] = useState<string>("");
 	const fetcher = useFetcher<SearchActionResult>();
-	const [selectedItem, setSelectedItem] = useState<VideoContent | null>(null);
+	const [selectedItem, setSelectedItem] = useState<VideoContent | ChannelContent | null>(null);
 	const setVideoDataList = useSetAtom(videoDataListAtom);
 	const tabIndicatorRef = useRef<HTMLDivElement>(null);
 
@@ -135,6 +135,38 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 					}
 				</div>
 				<div className="search-result-container">
+					{
+						fetcher.data?.exact_match?.type === "Video" && (
+							<button className={`exact-match search-result-item${selectedItem === fetcher.data.exact_match ? " selected" : ""}`}
+								type="button"
+								onClick={() => setSelectedItem(fetcher.data?.exact_match ?? null)}>
+								<img className="thumbnail" src={fetcher.data.exact_match.thumbnail} alt="" />
+								<div className="video-info">
+									<p className="title">{fetcher.data.exact_match.title}</p>
+									<p className="channel">{fetcher.data.exact_match.channel}</p>
+								</div>
+							</button>
+						)
+					}
+					{
+						fetcher.data?.exact_match?.type === "Channel" && (
+							<button className={`exact-match search-result-item${selectedItem === fetcher.data.exact_match ? " selected" : ""}`}
+								type="button"
+								onClick={() => setSelectedItem(fetcher.data?.exact_match ?? null)}>
+								<div className="channel-icon-container">
+									<img className="channel-icon" src={fetcher.data.exact_match.icon} alt="" />
+								</div>
+								<div className="channel-info">
+									<p className="name">{fetcher.data.exact_match.name}</p>
+								</div>
+							</button>
+						)
+					}
+					{
+						fetcher.state === "submitting" && (
+							<p className="loading-text">Loading...</p>
+						)
+					}
 					{
 						fetcher.data?.contents?.map((content, i) => (
 							<button className={`search-result-item${selectedItem === content ? " selected" : ""}`}

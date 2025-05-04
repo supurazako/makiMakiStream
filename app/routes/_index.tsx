@@ -1,12 +1,13 @@
-import { json, type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { useSetAtom } from "jotai";
-import { getTwitchAccessToken } from "~/.server/utils";
+import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/GlobalController";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/sidebar";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 import { VideosContainer } from "~/components/VideosContainer";
+import { getTwitchChannelName } from "~/utils/RegularExpression";
 
 export const meta: MetaFunction = () => {
     return [
@@ -15,55 +16,69 @@ export const meta: MetaFunction = () => {
 };
 
 export type VideoContent = {
+    type: "Video";
     value: string;
     title: string;
     channel: string;
     thumbnail: string;
 }
 
+export type ChannelContent = {
+    type: "Channel";
+    value: string;
+    name: string;
+    icon: string;
+}
+
 export type SearchActionResult = {
+    exact_match?: ChannelContent | VideoContent;
     contents: VideoContent[];
 }
 
 export async function action({ request }: ActionFunctionArgs) {
     const formData = await request.formData();
+    const query = formData.get("param") as string;
 
     const platform = formData.get("platform") as string;
     switch (platform) {
         case "youtube": return {};
         case "twitch": {
+            let exactMatch: ChannelContent | VideoContent | undefined = undefined;
+            const contents = [] as VideoContent[];
             const accessToken = await getTwitchAccessToken();
 
-            const channelsResponse = await fetch(`https://api.twitch.tv/helix/search/channels?query=${formData.get("param")}`, {
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`,
-                    "Client-ID": process.env.TWITCH_CLIENT_ID!,
-                }
-            });
-            const channelJson = await channelsResponse.json();
-            const logins: string[] = channelJson.data.map((ch: any) => ch.broadcaster_login);
+            // 完全一致するチャンネルがあれば取得する。urlが渡された場合チャンネル名を取得したうえで検索する。
+            const channelName = getTwitchChannelName(query) ?? query;
+            const channelsResponse = await searchChannels(accessToken, channelName, { first: 1 });
+            const exactMatchChannel = channelsResponse.data.find(ch => ch.broadcaster_login === channelName);
+            if (exactMatchChannel) {
+                exactMatch = {
+                    type: "Channel",
+                    value: exactMatchChannel.broadcaster_login,
+                    name: exactMatchChannel.display_name,
+                    icon: exactMatchChannel.thumbnail_url.replace("{width}", "320").replace("{height}", "320")
+                };
+            }
 
-            console.log(channelJson.data);
+            // その他、queryから検索したチャンネルから配信を取得する。
+            const onlineChannelsResponse = await searchChannels(accessToken, query as string, { liveOnly: true, first: 20 });
 
-            const loginParams = logins.map((login) => `user_login=${encodeURIComponent(login)}`).join("&");
-            const streamsResponse = await fetch(`https://api.twitch.tv/helix/streams?${loginParams}`, {
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`,
-                    "Client-ID": process.env.TWITCH_CLIENT_ID!,
-                },
-            });
-            const streamsJson = await streamsResponse.json();
+            const streamsJson = await getStreams(accessToken, { userId: onlineChannelsResponse.data.map(ch => ch.id)});
 
-            const contents: VideoContent[] = streamsJson.data.map((item: any) => {
+            streamsJson.data.map(item => {
                 return {
+                    type: "Video",
                     value: item.user_id,
                     title: item.title,
                     channel: item.user_name,
                     thumbnail: item.thumbnail_url.replace("{width}", "320").replace("{height}", "180")
-                };
+                } as VideoContent;
+            }).forEach(item => {
+                contents.push(item);
             });
 
-            return json<SearchActionResult>({
+            return Response.json({
+                exact_match: exactMatch,
                 contents: contents
             });
         }
