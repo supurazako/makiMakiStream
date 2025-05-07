@@ -8,7 +8,7 @@ import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/sidebar";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 import { VideosContainer } from "~/components/VideosContainer";
-import { getTwitchChannelName } from "~/utils/RegularExpression";
+import { getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
 
 export const meta: MetaFunction = () => {
     return [
@@ -48,6 +48,23 @@ export async function action({ request }: ActionFunctionArgs) {
                 auth: process.env.GOOGLE_API_KEY
             });
 
+            let exactMatch: VideoContent | undefined = undefined;
+            const exactMatchVideo = await youtube.videos.list({
+                part: ["snippet"],
+                id: [getYoutubeVideoId(query) ?? query],
+                maxResults: 1
+            });
+            if (exactMatchVideo.data.items?.length) {
+                const item = exactMatchVideo.data.items[0];
+                exactMatch = {
+                    type: "Video",
+                    value: item.id ?? "",
+                    title: item.snippet?.title ?? "",
+                    channel: item.snippet?.channelTitle ?? "",
+                    thumbnail: item.snippet?.thumbnails?.default?.url ?? ""
+                } as VideoContent;
+            }
+
             const response = await youtube.search.list({
                 part: ["snippet"],
                 q: query,
@@ -68,6 +85,7 @@ export async function action({ request }: ActionFunctionArgs) {
             }) ?? [];
 
             return {
+                exact_match: exactMatch,
                 contents: contents
             };
         }
