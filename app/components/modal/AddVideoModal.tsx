@@ -18,6 +18,10 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 	const setVideoDataList = useSetAtom(videoDataListAtom);
 	const tabIndicatorRef = useRef<HTMLDivElement>(null);
 
+	const data: SearchActionResult | null = searchText.length > 0
+		? (fetcher.data ?? null)
+		: null;
+
 	useEffect(() => {
 		const resizeObserver = new ResizeObserver(entries => {
 			const activeTabElement = entries.map(e => e.target)
@@ -40,8 +44,8 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		tabIndicatorRef.current!.style.left = `${e.currentTarget.offsetLeft}px`;
 		tabIndicatorRef.current!.style.width = `${e.currentTarget.offsetWidth}px`;
 
-		if (e.currentTarget.value.length > 0) {
-			updateFetcherData(activeTab, searchText);
+		if (searchText.length > 0) {
+			updateFetcherData(tab, searchText);
 		}
 	}
 
@@ -61,6 +65,8 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		}, {
 			method: "post"
 		});
+
+		setSelectedItem(null);
 	}
 
 	function handleConfirm(): void {
@@ -136,28 +142,28 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 				</div>
 				<div className="search-result-container">
 					{
-						fetcher.data?.exact_match?.type === "Video" && (
-							<button className={`exact-match search-result-item${selectedItem === fetcher.data.exact_match ? " selected" : ""}`}
+						data?.exact_match?.type === "Video" && (
+							<button className={`exact-match search-result-item${selectedItem === data.exact_match ? " selected" : ""}`}
 								type="button"
-								onClick={() => setSelectedItem(fetcher.data?.exact_match ?? null)}>
-								<img className="thumbnail" src={fetcher.data.exact_match.thumbnail} alt="" />
+								onClick={() => setSelectedItem(data?.exact_match ?? null)}>
+								<img className="thumbnail" src={data.exact_match.thumbnail} alt="" />
 								<div className="video-info">
-									<p className="title">{fetcher.data.exact_match.title}</p>
-									<p className="channel">{fetcher.data.exact_match.channel}</p>
+									<p className="title">{data.exact_match.title}</p>
+									<p className="channel">{data.exact_match.channel}</p>
 								</div>
 							</button>
 						)
 					}
 					{
-						fetcher.data?.exact_match?.type === "Channel" && (
-							<button className={`exact-match search-result-item${selectedItem === fetcher.data.exact_match ? " selected" : ""}`}
+						data?.exact_match?.type === "Channel" && (
+							<button className={`exact-match search-result-item${selectedItem === data.exact_match ? " selected" : ""}`}
 								type="button"
-								onClick={() => setSelectedItem(fetcher.data?.exact_match ?? null)}>
+								onClick={() => setSelectedItem(data.exact_match ?? null)}>
 								<div className="channel-icon-container">
-									<img className="channel-icon" src={fetcher.data.exact_match.icon} alt="" />
+									<img className="channel-icon" src={data.exact_match.icon} alt="" />
 								</div>
 								<div className="channel-info">
-									<p className="name">{fetcher.data.exact_match.name}</p>
+									<p className="name">{data.exact_match.name}</p>
 								</div>
 							</button>
 						)
@@ -168,7 +174,7 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 						)
 					}
 					{
-						fetcher.data?.contents?.map((content, i) => (
+						data?.contents?.map((content, i) => (
 							<button className={`search-result-item${selectedItem === content ? " selected" : ""}`}
 								key={i}
 								type="button"
