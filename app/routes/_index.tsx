@@ -1,4 +1,5 @@
 import { type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { google } from "googleapis";
 import { useSetAtom } from "jotai";
 import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
 import { videoDataListAtom } from "~/atoms";
@@ -41,7 +42,35 @@ export async function action({ request }: ActionFunctionArgs) {
 
     const platform = formData.get("platform") as string;
     switch (platform) {
-        case "youtube": return {};
+        case "youtube": {
+            const youtube = google.youtube({
+                version: "v3",
+                auth: process.env.GOOGLE_API_KEY
+            });
+
+            const response = await youtube.search.list({
+                part: ["snippet"],
+                q: query,
+                type: ["video"],
+                maxResults: 20,
+                order: "relevance",
+                videoEmbeddable: "true"
+            });
+
+            const contents = response.data.items?.map(item => {
+                return {
+                    type: "Video",
+                    value: item.id?.videoId ?? "",
+                    title: item.snippet?.title ?? "",
+                    channel: item.snippet?.channelTitle ?? "",
+                    thumbnail: item.snippet?.thumbnails?.default?.url ?? ""
+                } as VideoContent;
+            }) ?? [];
+
+            return {
+                contents: contents
+            };
+        }
         case "twitch": {
             let exactMatch: ChannelContent | VideoContent | undefined = undefined;
             const contents = [] as VideoContent[];
