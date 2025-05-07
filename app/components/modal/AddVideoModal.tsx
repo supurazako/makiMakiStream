@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useSetAtom } from "jotai";
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
-import { ClearIcon } from "~/components/common/icons";
+import { ClearIcon, SpinnerIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
 import { ChannelContent, SearchActionResult, VideoContent } from "~/routes/_index";
 
@@ -133,11 +133,15 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 						value={searchText}
 						onChange={handleSearchTextChange} />
 					{
-						searchText.length === 0 && (
-							<button className="clear-button" type="button" onClick={() => setSearchText("")}>
-								<ClearIcon />
-							</button>
-						)
+						fetcher.state === "submitting"
+							? (
+								<SpinnerIcon />
+							)
+							: searchText.length > 0 && (
+								<button className="clear-button" type="button" onClick={() => setSearchText("")}>
+									<ClearIcon />
+								</button>
+							)
 					}
 				</div>
 				<div className="search-result-container">
@@ -166,11 +170,6 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 									<p className="name">{data.exact_match.name}</p>
 								</div>
 							</button>
-						)
-					}
-					{
-						fetcher.state === "submitting" && (
-							<p className="loading-text">Loading...</p>
 						)
 					}
 					{
