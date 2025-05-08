@@ -2,9 +2,13 @@ import { PlayerEvent, PlayerModel } from "~/models/playerModel";
 
 export class YoutubePlayerModel implements PlayerModel {
 	private _player: YT.Player;
+	private _title: string;
+	private _channelName: string;
 
-	constructor(player: YT.Player) {
+	constructor(player: YT.Player, title: string, channelName: string) {
 		this._player = player;
+		this._title = title;
+		this._channelName = channelName;
 	}
 
 	public isPlaying(): boolean {
@@ -48,13 +52,11 @@ export class YoutubePlayerModel implements PlayerModel {
 	}
 
 	public getTitle(): string {
-		// 内部的には存在するけどドキュメントには載ってなさそう。YouTube Data APIで取得するほうがよいかも
-		return this._player.videoTitle;
+		return this._title;
 	}
 
 	public getChannelName(): string {
-		// YouTube Data APIで取得する以外方法がなさそう。
-		return "TODO: YouTube Data APIから取得するようにする";
+		return this._channelName;
 	}
 
 	private _cleanupMap = new Map<string, () => void>();

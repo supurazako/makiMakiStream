@@ -44,15 +44,23 @@
 		row-gap: 5px;
 
 		& .video-title {
+			width: 100%;
 			height: 25px;
 			font-size: 1.125rem;
-			color: #323332
+			color: #323332;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 		}
 
 		& .channel-name {
+			width: 100%;
 			height: 20px;
 			font-size: 0.875rem;
 			color: #5A5A5A;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 		}
 
 		& .video-title-skeleton {

@@ -77,19 +77,16 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 					platform: "youtube",
 					videoId: selectedItem!.value,
 					id: crypto.randomUUID(),
+					meta: {
+						title: (selectedItem! as VideoContent).title,
+						channelName: (selectedItem! as VideoContent).channel
+					}
 				};
 				break;
 			case "twitch":
 				data = {
 					platform: "twitch",
 					channel: selectedItem!.value,
-					id: crypto.randomUUID(),
-				};
-				break;
-			case "other":
-				data = {
-					platform: "youtube",
-					videoId: selectedItem!.value,
 					id: crypto.randomUUID(),
 				};
 				break;

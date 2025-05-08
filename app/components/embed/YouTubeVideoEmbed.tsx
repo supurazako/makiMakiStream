@@ -27,7 +27,7 @@ export function YouTubeVideoEmbed({ data, elementId }: { data: VideoDataModel & 
 					events: {
 						onReady: (event) => {
 							event.target.playVideo();
-							resolve(new YoutubePlayerModel(event.target));
+							resolve(new YoutubePlayerModel(event.target, data.meta.title, data.meta.channelName));
 							setPlayer(event.target);
 						},
 					},
@@ -40,7 +40,7 @@ export function YouTubeVideoEmbed({ data, elementId }: { data: VideoDataModel & 
 		// TODO: クリーンアップがうまくできてなさそう！
 		// TODO: YouTubePlayerにはリサイズメソッドがありそうなので、マウントごとにインスタンスを再生成するんじゃなくて、
 		//       マウント時にインスタンスがすでに存在する場合はリサイズする...みたいにするとよさそう
-	}, [data.videoId, resolve]);
+	}, [data.meta.channelName, data.meta.title, data.videoId, resolve]);
 
 	useEffect(() => {
 		if (!player) return () => {};

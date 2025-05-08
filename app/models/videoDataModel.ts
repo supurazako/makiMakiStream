@@ -4,6 +4,10 @@ export type VideoDataModel = ({
 } | {
 	platform: "youtube";
 	videoId: string;
+	meta: {
+		title: string;
+		channelName: string;
+	}
 }) & {
 	id: string;
 }
