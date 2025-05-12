@@ -5,6 +5,7 @@ import { PauseIcon, PlayIcon } from "~/components/common/icons";
 
 export function GlobalPlayControl(): JSX.Element {
 	const players = useAtomValue(allPlayerModelsAtom);
+	// optimisticな処理。他のボタンやビデオコントローラでも同様の仕組みで実装しています
 	const [isPlaying, setPlaying] = useState(players.every(v => v.isPlaying()));
 	const playStates = useAtomValue(allPlayStateAtom);
 	const actualPlaying = playStates.every(v => v);
