@@ -115,7 +115,7 @@ export async function action({ request }: ActionFunctionArgs) {
             streamsJson.data.map(item => {
                 return {
                     type: "Video",
-                    value: item.user_id,
+                    value: item.user_login,
                     title: item.title,
                     channel: item.user_name,
                     thumbnail: item.thumbnail_url.replace("{width}", "320").replace("{height}", "180")
