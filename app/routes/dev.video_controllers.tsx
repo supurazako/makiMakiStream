@@ -1,7 +1,6 @@
 import { LinksFunction } from "@remix-run/node";
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
-import { Modal } from "~/components/common/Modal";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video_controllers";
 import YoutubePlayer from "~/components/YoutubeBox";
@@ -27,7 +26,6 @@ export default function App(): JSX.Element {
             border: "1px solid black",
             background: "#F5F5F5"
         }}>
-            <Modal />
             <VideoControllersContainer />
 
             {

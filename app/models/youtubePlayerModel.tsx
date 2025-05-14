@@ -2,9 +2,13 @@ import { PlayerEvent, PlayerModel } from "~/models/playerModel";
 
 export class YoutubePlayerModel implements PlayerModel {
 	private _player: YT.Player;
+	private _title: string;
+	private _channelName: string;
 
-	constructor(player: YT.Player) {
+	constructor(player: YT.Player, title: string, channelName: string) {
 		this._player = player;
+		this._title = title;
+		this._channelName = channelName;
 	}
 
 	public isPlaying(): boolean {
@@ -45,6 +49,14 @@ export class YoutubePlayerModel implements PlayerModel {
 
 	public setVolume(volume: number): void {
 		this._player.setVolume(volume * 100.0);
+	}
+
+	public getTitle(): string {
+		return this._title;
+	}
+
+	public getChannelName(): string {
+		return this._channelName;
 	}
 
 	private _cleanupMap = new Map<string, () => void>();

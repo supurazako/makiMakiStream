@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
-import { Modal } from "~/components/common/Modal";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
@@ -20,7 +19,6 @@ export default function Index(): JSX.Element {
 		}}>
 			<LayoutSelector />
 			<VideoControllersContainer />
-			<Modal />
 
 			{
 				videoDataList.map((v, i) => {

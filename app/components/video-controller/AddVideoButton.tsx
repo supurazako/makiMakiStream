@@ -1,14 +1,16 @@
-import { useSetAtom } from "jotai";
-import { modalContentAtom } from "~/atoms";
+import { useRef } from "react";
+import { Modal } from "~/components/common/Modal";
 import { AddVideoModal } from "~/components/modal/AddVideoModal";
 
-import "~/styles/add-video-button.css"
+import "~/styles/add-video-button.css";
 
 export function AddVideoButton(): JSX.Element {
-	const dispatchModalContent = useSetAtom(modalContentAtom);
+	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	function handleClick() {
-		dispatchModalContent({ type: "open", content: <AddVideoModal /> });
+		if (dialogRef.current) {
+			dialogRef.current.showModal();
+		}
 	}
 
 	return (
@@ -18,6 +20,10 @@ export function AddVideoButton(): JSX.Element {
 				onClick={handleClick}>
 				<PlusClipIcon />
 			</button>
+
+			<Modal dialogRef={dialogRef}>
+				<AddVideoModal dialogRef={dialogRef} />
+			</Modal>
 		</div>
 	);
 }

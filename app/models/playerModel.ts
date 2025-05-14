@@ -9,6 +9,8 @@ export interface PlayerModel {
 	toggleMuted(): void;
 	getVolume(): number;
 	setVolume(volume: number): void;
+	getTitle(): string;
+	getChannelName(): string;
 	addEventListener(event: string, callback: () => void): void;
 	removeEventListener(event: string, callback: () => void): void;
 }

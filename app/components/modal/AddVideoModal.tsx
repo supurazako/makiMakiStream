@@ -1,104 +1,198 @@
+import { useFetcher } from "@remix-run/react";
 import { useSetAtom } from "jotai";
-import { FormEvent, useState } from "react";
-import { modalContentAtom, videoDataListAtom } from "~/atoms";
+import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
+import { videoDataListAtom } from "~/atoms";
+import { ClearIcon, SpinnerIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
-import { detectSite, getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
+import { ChannelContent, SearchActionResult, VideoContent } from "~/routes/_index";
 
 import "~/styles/modal/add-video-modal.css";
-import { ArrowDownIcon } from "../common/icons";
 
-export function AddVideoModal(): JSX.Element {
-	const [platform, setPlatform] = useState<string>("");
-	const [videoTarget, setVideoTarget] = useState<string>("");
+type Tab = "youtube" | "twitch" | "other";
+
+export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }): JSX.Element {
+	const [activeTab, setActiveTab] = useState<Tab>("youtube");
+	const [searchText, setSearchText] = useState<string>("");
+	const fetcher = useFetcher<SearchActionResult>();
+	const [selectedItem, setSelectedItem] = useState<VideoContent | ChannelContent | null>(null);
 	const setVideoDataList = useSetAtom(videoDataListAtom);
+	const tabIndicatorRef = useRef<HTMLDivElement>(null);
 
-	const dispatchModalContent = useSetAtom(modalContentAtom);
+	const data: SearchActionResult | null = searchText.length > 0
+		? (fetcher.data ?? null)
+		: null;
 
-	function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-		event.preventDefault();
+	useEffect(() => {
+		const resizeObserver = new ResizeObserver(entries => {
+			const activeTabElement = entries.map(e => e.target)
+				.find(e => e.classList.contains("active")) as HTMLElement | undefined;
+			tabIndicatorRef.current!.style.left = `${activeTabElement!.offsetLeft}px`;
+			tabIndicatorRef.current!.style.width = `${activeTabElement!.offsetWidth}px`;
+		});
 
+		[...tabIndicatorRef.current!.parentElement!.getElementsByClassName("tab")].forEach(e => {
+			resizeObserver.observe(e);
+		});
+
+		return () => {
+			resizeObserver.disconnect();
+		};
+	}, []);
+
+	function handleTabChange(e: MouseEvent<HTMLButtonElement>, tab: Tab): void {
+		setActiveTab(tab);
+		tabIndicatorRef.current!.style.left = `${e.currentTarget.offsetLeft}px`;
+		tabIndicatorRef.current!.style.width = `${e.currentTarget.offsetWidth}px`;
+
+		if (searchText.length > 0) {
+			updateFetcherData(tab, searchText);
+		}
+	}
+
+	function handleSearchTextChange(e: React.ChangeEvent<HTMLInputElement>): void {
+		setSearchText(e.currentTarget.value);
+
+		// _index.tsxのactionを呼び出す🪄
+		if (e.currentTarget.value.length > 0) {
+			updateFetcherData(activeTab, e.currentTarget.value);
+		}
+	}
+
+	function updateFetcherData(platform: string, param: string): void {
+		fetcher.submit({
+			platform: platform,
+			param: param
+		}, {
+			method: "post"
+		});
+
+		setSelectedItem(null);
+	}
+
+	function handleConfirm(): void {
 		let data: VideoDataModel;
-		switch (platform) {
-			case "twitch": {
-				data = { platform: "twitch", channel: videoTarget, id: crypto.randomUUID() };
+		switch (activeTab) {
+			case "youtube":
+				data = {
+					platform: "youtube",
+					videoId: selectedItem!.value,
+					id: crypto.randomUUID(),
+					meta: {
+						title: (selectedItem! as VideoContent).title,
+						channelName: (selectedItem! as VideoContent).channel
+					}
+				};
 				break;
-			}
-			case "youtube": {
-				data = { platform: "youtube", videoId: videoTarget, id: crypto.randomUUID() };
+			case "twitch":
+				data = {
+					platform: "twitch",
+					channel: selectedItem!.value,
+					id: crypto.randomUUID(),
+				};
 				break;
-			}
-			default: {
-				const detectedPlatform = detectSite(videoTarget);
-				switch (detectedPlatform) {
-					case "youtube": {
-						const videoId = getYoutubeVideoId(videoTarget);
-						if (!videoId) {
-							return;
-						}
-						data = { platform: "youtube", videoId: videoId, id: crypto.randomUUID() };
-						break;
-					}
-					case "twitch": {
-						const channel = getTwitchChannelName(videoTarget);
-						if (!channel) {
-							return;
-						}
-						data = { platform: "twitch", channel: channel, id: crypto.randomUUID() };
-						break;
-					}
-					default: {
-						alert("Unsupported platform or invalid URL.");
-						return;
-					}
-				}
-			}
 		}
 
-		setVideoDataList((prev) => [...prev, data]);
-
-		dispatchModalContent({ type: "close" });
-
+		setVideoDataList(prev => [...prev, data]);
+		setSelectedItem(null);
+		dialogRef.current?.close();
 	}
 
 	function handleClose(): void {
-		setPlatform("");
-		setVideoTarget("");
-		dispatchModalContent({ type: "close" });
+		setSelectedItem(null);
+		dialogRef.current?.close();
 	}
 
 	return (
 		<div className="add-video-modal">
-			<p className="modal-description">
-				{/* TODO: 説明これでいい？ */}
-				{"https://www.twitch.tv/xxxx のようなURLの場合、プラットフォームを選択する必要はありません。"}
-				<br />
-				{"xxxxのように、アカウントIDや動画のIDを直接入力する場合は、プラットフォームを選択してください。"}
-			</p>
-			<hr className="modal-separator" />
-			<form id="add-video" onSubmit={handleSubmit}>
-				<label>
-					{"プラットフォーム:"}
-					<select value={platform} onChange={(e) => setPlatform(e.target.value)}>
-						<button>
-							<div className="selected-content">
-								<selectedcontent />
-							</div>
-							<div className="picker-icon">
-								<ArrowDownIcon />
-							</div>
-						</button>
-						<option value="" hidden disabled>{"Select Platform (Optional)"}</option>
-						<option value="twitch">Twitch</option>
-						<option value="youtube">YouTube</option>
-					</select>
-				</label>
-				<label>
-					{"URLや動画のID、チャンネルIDなど:"}
-					<input type="text" name="videoTarget" value={videoTarget} onChange={e => setVideoTarget(e.target.value)} />
-				</label>
-			</form>
+			<div className="modal-main">
+				<div className="tab-container">
+					<button className={`tab${activeTab === "youtube" ? " active" : ""}`}
+						type="button"
+						onClick={e => handleTabChange(e, "youtube")}>
+						YouTube
+					</button>
+					<button className={`tab${activeTab === "twitch" ? " active" : ""}`}
+						type="button"
+						onClick={e => handleTabChange(e, "twitch")}>
+						Twitch
+					</button>
+					<button className={`tab${activeTab === "other" ? " active" : ""}`}
+						type="button"
+						onClick={e => handleTabChange(e, "other")}>
+						その他
+					</button>
+					<div className="tab-indicator" ref={tabIndicatorRef} />
+				</div>
+				<div className="search-bar-container">
+					<input className="search-bar"
+						type="text"
+						placeholder="URL、動画のID、キーワードなど"
+						value={searchText}
+						onChange={handleSearchTextChange} />
+					{
+						fetcher.state === "submitting"
+							? (
+								<SpinnerIcon />
+							)
+							: searchText.length > 0 && (
+								<button className="clear-button" type="button" onClick={() => setSearchText("")}>
+									<ClearIcon />
+								</button>
+							)
+					}
+				</div>
+				<div className="search-result-container">
+					{
+						data?.exact_match?.type === "Video" && (
+							<button className={`exact-match search-result-item${selectedItem === data.exact_match ? " selected" : ""}`}
+								type="button"
+								onClick={() => setSelectedItem(data?.exact_match ?? null)}>
+								<img className="thumbnail" src={data.exact_match.thumbnail} alt="" />
+								<div className="video-info">
+									<p className="title">{data.exact_match.title}</p>
+									<p className="channel">{data.exact_match.channel}</p>
+								</div>
+							</button>
+						)
+					}
+					{
+						data?.exact_match?.type === "Channel" && (
+							<button className={`exact-match search-result-item${selectedItem === data.exact_match ? " selected" : ""}`}
+								type="button"
+								onClick={() => setSelectedItem(data.exact_match ?? null)}>
+								<div className="channel-icon-container">
+									<img className="channel-icon" src={data.exact_match.icon} alt="" />
+								</div>
+								<div className="channel-info">
+									<p className="name">{data.exact_match.name}</p>
+								</div>
+							</button>
+						)
+					}
+					{
+						data?.contents?.map((content, i) => (
+							<button className={`search-result-item${selectedItem === content ? " selected" : ""}`}
+								key={i}
+								type="button"
+								onClick={() => setSelectedItem(content)}>
+								<img className="thumbnail" src={content.thumbnail} alt="" />
+								<div className="video-info">
+									<p className="title">{content.title}</p>
+									<p className="channel">{content.channel}</p>
+								</div>
+							</button>
+						))
+					}
+				</div>
+			</div>
+
 			<div className="modal-bottom">
-				<button className="modal-confirm-button" type="submit" form="add-video">OK</button>
+				<button className="modal-confirm-button"
+					type="button"
+					onClick={handleConfirm}
+					disabled={selectedItem === null}>
+					動画を追加
+				</button>
 				<button className="modal-cancel-button" type="button" onClick={handleClose}>キャンセル</button>
 			</div>
 		</div>

@@ -47,6 +47,14 @@ export class TwitchPlayerModel implements PlayerModel {
 		this._player.setVolume(volume);
 	}
 
+	public getTitle(): string {
+		return this._player.getVideo();
+	}
+
+	public getChannelName(): string {
+		return this._player.getChannel();
+	}
+
 	private _cleanupMap = new Map<string, () => void>();
 
 	public addEventListener(event: string, callback: () => void): void {

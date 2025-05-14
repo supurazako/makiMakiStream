@@ -2,8 +2,10 @@ import { useSetAtom } from "jotai";
 import { Suspense, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
 import { ControlItemSkeleton } from "~/components/ControlItemSkeleton";
+import { ChannelNameLabel } from "~/components/video-controller/ChannelNameLabel";
 import { PlayControl } from "~/components/video-controller/PlayControl";
 import { RemoveControl } from "~/components/video-controller/RemoveControl";
+import { VideoTitleLabel } from "~/components/video-controller/VideoTitleLabel";
 import { VolumeControl } from "~/components/video-controller/VolumeControl";
 import { VideoDataModel } from "~/models/videoDataModel";
 
@@ -19,6 +21,7 @@ export function VideoController({ data }: { data: VideoDataModel }): JSX.Element
 
 	return (
 		<div className={`video-controller${isDisappearing ? " disappearing" : ""}`}
+			data-platform={data.platform}
 			onAnimationEnd={() => {
 				if (isDisappearing) {
 					setVideoDataList((prev) => {
@@ -28,8 +31,13 @@ export function VideoController({ data }: { data: VideoDataModel }): JSX.Element
 			}}>
 
 			<div className="labels">
-				<div className="icon" />
-				<div className="url" />
+				<Suspense fallback={<div className="video-title-skeleton" />}>
+					<VideoTitleLabel data={data} />
+				</Suspense>
+
+				<Suspense fallback={<div className="channel-name-skeleton" />}>
+					<ChannelNameLabel data={data} />
+				</Suspense>
 			</div>
 
 			<div className="controls">
