@@ -5,6 +5,11 @@
 	align-items: center;
 	justify-items: center;
 
+	&[data-layout="1A"] {
+		grid-template-rows: 100%;
+		grid-template-columns: 100%;
+	}
+
 	&[data-layout="2A"] {
 		grid-template-rows: repeat(2, 50%);
 		grid-template-columns: 100%;
@@ -153,6 +158,15 @@
 			grid-column: 3 / 4;
 			grid-row: 3 / 4;
 		}
+	}
+
+	&[data-layout="5A"],
+	&[data-layout="6A"],
+	&[data-layout="7A"],
+	&[data-layout="8A"],
+	&[data-layout="9A"] {
+		grid-template-rows: repeat(3, calc(100% / 3));
+		grid-template-columns: repeat(3, calc(100% / 3));
 	}
 
 	& .video-container {
