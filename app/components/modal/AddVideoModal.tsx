@@ -8,7 +8,7 @@ import { ChannelContent, SearchActionResult, VideoContent } from "~/routes/_inde
 
 import "~/styles/modal/add-video-modal.css";
 
-type Tab = "youtube" | "twitch" | "other";
+type Tab = "youtube" | "twitch";
 
 export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }): JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>("youtube");
@@ -115,11 +115,6 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 						type="button"
 						onClick={e => handleTabChange(e, "twitch")}>
 						Twitch
-					</button>
-					<button className={`tab${activeTab === "other" ? " active" : ""}`}
-						type="button"
-						onClick={e => handleTabChange(e, "other")}>
-						その他
 					</button>
 					<div className="tab-indicator" ref={tabIndicatorRef} />
 				</div>

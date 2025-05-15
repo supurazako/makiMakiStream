@@ -129,7 +129,6 @@ export async function action({ request }: ActionFunctionArgs) {
                 contents: contents
             });
         }
-        case "other": return {};
         default: return { error: "Invalid platform" };
     }
 }
