@@ -59,6 +59,12 @@
 					animation-timing-function: ease-in-out;
 				}
 
+				&&[data-value="1A"] {
+					&::before {
+						clip-path: url(/icons/layout-option-1A.svg#clip-path);
+					}
+				}
+
 				&&[data-value="2A"] {
 					&::before {
 						clip-path: url(/icons/layout-option-2A.svg#clip-path);
@@ -110,6 +116,12 @@
 				&&[data-value="4C"] {
 					&::before {
 						clip-path: url(/icons/layout-option-4C.svg#clip-path);
+					}
+				}
+
+				&[data-value="5A"], &[data-value="6A"], &[data-value="7A"], &[data-value="8A"], &[data-value="9A"] {
+					&::before {
+						clip-path: url(/icons/layout-option-above-5.svg#clip-path);
 					}
 				}
 			}

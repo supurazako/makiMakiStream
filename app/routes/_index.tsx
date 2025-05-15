@@ -1,11 +1,12 @@
 import { type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { google } from "googleapis";
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/GlobalController";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/sidebar";
+import { StartScreen } from "~/components/StartScreen";
 import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 import { VideosContainer } from "~/components/VideosContainer";
 import { getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
@@ -110,7 +111,7 @@ export async function action({ request }: ActionFunctionArgs) {
             // その他、queryから検索したチャンネルから配信を取得する。
             const onlineChannelsResponse = await searchChannels(accessToken, query as string, { liveOnly: true, first: 20 });
 
-            const streamsJson = await getStreams(accessToken, { userId: onlineChannelsResponse.data.map(ch => ch.id)});
+            const streamsJson = await getStreams(accessToken, { userId: onlineChannelsResponse.data.map(ch => ch.id) });
 
             streamsJson.data.map(item => {
                 return {
@@ -134,29 +135,38 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-    const setVideoList = useSetAtom(videoDataListAtom);
+    const [videoDataList, setVideoList] = useAtom(videoDataListAtom);
 
     return (
         <main>
-            <aside>
-                <Sidebar>
-                    <LayoutSelector />
-                    <hr className="separator" />
-                    <GlobalController />
-                    <hr className="separator" />
-                    <VideoControllersContainer />
-                    {
-                        /* テスト用ボタン。Modalの修正がマージされたら消してね */
-                        <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "amakipururu", id: crypto.randomUUID() }])}>
-                            {"[test] Add twitch video"}
-                        </button>
-                    }
-                    <button onClick={() => setVideoList(prev => [...prev, { platform: "youtube", videoId: "NnKVD-DZmYQ", id: crypto.randomUUID() }])}>
-                        {"[test] Add youtube video"}
-                    </button>
-                </Sidebar>
-            </aside>
-            <VideosContainer />
+            {
+                videoDataList.length > 0 && (
+                    <aside>
+                        <Sidebar>
+                            <LayoutSelector />
+                            <hr className="separator" />
+                            <GlobalController />
+                            <hr className="separator" />
+                            <VideoControllersContainer />
+                            {
+                                /* テスト用ボタン。Modalの修正がマージされたら消してね */
+                                <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "amakipururu", id: crypto.randomUUID() }])}>
+                                    {"[test] Add twitch video"}
+                                </button>
+                            }
+                            <button onClick={() => setVideoList(prev => [...prev, { platform: "youtube", videoId: "NnKVD-DZmYQ", id: crypto.randomUUID() }])}>
+                                {"[test] Add youtube video"}
+                            </button>
+                        </Sidebar>
+                    </aside>
+                )
+            }
+            {
+                videoDataList.length > 0 && <VideosContainer />
+            }
+            {
+                videoDataList.length === 0 && <StartScreen />
+            }
         </main>
     );
 }
