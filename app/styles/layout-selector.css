@@ -119,7 +119,7 @@
 					}
 				}
 
-				&[data-value="5A"], [data-value="6A"], [data-value="7A"], [data-value="8A"], [data-value="9A"] {
+				&[data-value="5A"], &[data-value="6A"], &[data-value="7A"], &[data-value="8A"], &[data-value="9A"] {
 					&::before {
 						clip-path: url(/icons/layout-option-above-5.svg#clip-path);
 					}
