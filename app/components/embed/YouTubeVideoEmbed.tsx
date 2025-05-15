@@ -1,5 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
+import { loadYouTubeAPI } from "~/.client/utils/loadYouTubeAPI";
 import { resolverAtom } from "~/atoms";
 import { VideoDataModel } from "~/models/videoDataModel";
 import { YoutubePlayerModel } from "~/models/youtubePlayerModel";
@@ -10,36 +11,30 @@ export function YouTubeVideoEmbed({ data, elementId }: { data: VideoDataModel & 
 	const [player, setPlayer] = useState<YT.Player | null>(null);
 
 	useEffect(() => {
-		if (!window.YT) {
-			const script = document.createElement('script');
-			script.src = 'https://www.youtube.com/iframe_api';
-			script.async = true;
-			document.body.appendChild(script);
-			window.onYouTubeIframeAPIReady = createPlayer;
-		} else {
-			createPlayer();
-		}
+		let playerInner: YT.Player | null = null;
 
-		function createPlayer() {
-			if (containerRef.current && window.YT) {
-				new window.YT.Player(containerRef.current, {
-					videoId: data.videoId,
-					events: {
-						onReady: (event) => {
-							event.target.playVideo();
-							resolve(new YoutubePlayerModel(event.target, data.meta.title, data.meta.channelName));
-							setPlayer(event.target);
-						},
+		loadYouTubeAPI().then(() => {
+			new window.YT.Player(containerRef.current!, {
+				videoId: data.videoId,
+				events: {
+					onReady: (event) => {
+						playerInner = event.target;
+						event.target.playVideo();
+						resolve(new YoutubePlayerModel(event.target, data.meta.title, data.meta.channelName));
+						setPlayer(event.target);
 					},
-					width: "100%",
-					height: "100%",
-				});
-			}
-		}
+					onError: (event) => {
+						console.error("YouTube Player Error:", event.data);
+					}
+				},
+				width: "100%",
+				height: "100%",
+			});
+		});
 
-		// TODO: クリーンアップがうまくできてなさそう！
-		// TODO: YouTubePlayerにはリサイズメソッドがありそうなので、マウントごとにインスタンスを再生成するんじゃなくて、
-		//       マウント時にインスタンスがすでに存在する場合はリサイズする...みたいにするとよさそう
+		return () => {
+			playerInner?.destroy();
+		};
 	}, [data.meta.channelName, data.meta.title, data.videoId, resolve]);
 
 	useEffect(() => {
