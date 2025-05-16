@@ -1,4 +1,4 @@
-import { LinksFunction } from "@remix-run/node";
+import { LinksFunction } from "react-router";
 import { useAtom } from "jotai";
 import { videoDataListAtom } from "~/atoms";
 import { TwitchStreamContainer } from "~/components/twitchStreamContainer";

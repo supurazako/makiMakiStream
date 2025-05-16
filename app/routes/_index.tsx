@@ -1,4 +1,4 @@
-import { type ActionFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { type ActionFunctionArgs, type MetaFunction } from "react-router";
 import { google } from "googleapis";
 import { useAtom } from "jotai";
 import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
