@@ -7,13 +7,14 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "react-router-serve build/server/index.js",
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typegen": "wrangler types",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@react-router/cloudflare": "^7.6.0",
     "@react-router/fs-routes": "^7.6.0",
-    "@react-router/node": "^7.6.0",
-    "@react-router/serve": "^7.6.0",
     "@tailwindcss/postcss": "^4.1.7",
     "googleapis": "^148.0.0",
     "isbot": "^5.1.28",
@@ -25,6 +26,7 @@
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250517.0",
     "@react-router/dev": "^7.6.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
@@ -40,7 +42,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "wrangler": "^4.15.2"
   },
   "engines": {
     "node": ">=20.0.0"
