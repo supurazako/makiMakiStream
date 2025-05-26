@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Suspense, useEffect, useState } from "react";
 import { modalContentAtom, muteStateAtom, playerModelAtom, playStateAtom, videoDataListAtom, volumeStateAtom } from "~/atoms";
-import { PlayIcon, RemoveIcon, VolumeIcon } from "~/components/common/icons";
+import { PlayIcon, RemoveIcon, VolumeLevel1Icon } from "~/components/common/icons";
 import { AddVideoModal } from "~/components/modal/AddVideoModal";
 import { PlayerModel } from "~/models/playerModel";
 import { VideoDataModel } from "~/models/videoDataModel";
@@ -101,7 +101,7 @@ function VolumeControl({ player }: { player: PlayerModel }): JSX.Element {
     return (
         <div className="control_item volume_control">
             <button className="control_button volume_button" onClick={toggleMuted} >
-                <VolumeIcon />
+                <VolumeLevel1Icon />
             </button>
             <input
                 className="volume_slider"

@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { allMuteStateAtom, allPlayerModelsAtom } from "~/atoms";
-import { MuteIcon, VolumeIcon } from "~/components/common/icons";
+import { MuteIcon, VolumeLevel2Icon } from "~/components/common/icons";
 
 export function GlobalMuteControl(): JSX.Element {
 	const players = useAtomValue(allPlayerModelsAtom);
@@ -27,7 +27,7 @@ export function GlobalMuteControl(): JSX.Element {
 			type="button"
 			onClick={toggleMuted}>
 			{
-				isMuted ? <MuteIcon /> : <VolumeIcon />
+				isMuted ? <MuteIcon /> : <VolumeLevel2Icon />
 			}
 		</button>
 	);
