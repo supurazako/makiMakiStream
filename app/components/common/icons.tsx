@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export function IconArrowLeft(): JSX.Element {
 	return (
 		<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -453,7 +455,7 @@ export function PauseIcon() {
 	)
 }
 
-export function VolumeIcon() {
+export function VolumeLevel1Icon() {
 	return <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g filter="url(#filter0_ii_172_152)">
 			<path d="M37.6562 25.0094C37.6562 21.6907 35.7438 18.8407 32.9688 17.4532V32.5469C35.7438 31.1782 37.6562 28.3282 37.6562 25.0094ZM12.3438 21.2594V28.7594C12.3438 29.7907 13.1875 30.6344 14.2188 30.6344H19.8438L26.0125 36.8032C27.1937 37.9844 29.2188 37.1407 29.2188 35.4719V14.5282C29.2188 12.8594 27.1937 12.0157 26.0125 13.1969L19.8438 19.3844H14.2188C13.1875 19.3844 12.3438 20.2282 12.3438 21.2594Z" fill="#5A5A5A" />
@@ -477,6 +479,34 @@ export function VolumeIcon() {
 			</filter>
 		</defs>
 	</svg>
+}
+
+export function VolumeLevel2Icon(): JSX.Element {
+	return (
+		<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_ii_381_18)">
+				<path d="M6 20.0036V28.0036C6 29.1036 6.9 30.0036 8 30.0036H14L20.58 36.5836C21.84 37.8436 24 36.9436 24 35.1636V12.8236C24 11.0436 21.84 10.1436 20.58 11.4036L14 18.0036H8C6.9 18.0036 6 18.9036 6 20.0036ZM33 24.0036C33 20.4636 30.96 17.4236 28 15.9436V32.0436C30.96 30.5836 33 27.5436 33 24.0036ZM28 8.90363V9.30363C28 10.0636 28.5 10.7236 29.2 11.0036C34.36 13.0636 38 18.1236 38 24.0036C38 29.8836 34.36 34.9436 29.2 37.0036C28.48 37.2836 28 37.9436 28 38.7036V39.1036C28 40.3636 29.26 41.2436 30.42 40.8036C37.2 38.2236 42 31.6836 42 24.0036C42 16.3236 37.2 9.78363 30.42 7.20363C29.26 6.74363 28 7.64363 28 8.90363Z" fill="#5A5A5A" />
+			</g>
+			<defs>
+				<filter id="filter0_ii_381_18" x="-2" y="-2" width="52" height="52" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="-2" dy="-2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0" />
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_381_18" />
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+					<feOffset dx="2" dy="2" />
+					<feGaussianBlur stdDeviation="2" />
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+					<feBlend mode="normal" in2="effect1_innerShadow_381_18" result="effect2_innerShadow_381_18" />
+				</filter>
+			</defs>
+		</svg>
+	);
 }
 
 export function MuteIcon(): JSX.Element {
