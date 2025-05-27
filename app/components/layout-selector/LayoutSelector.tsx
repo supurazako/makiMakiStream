@@ -18,16 +18,14 @@ export function LayoutSelector() {
 				</div>
 			}
 			{
-				// TODO: 動画が追加されてないときのレイアウト選択ボタンの表示をどうするか
-				(videoCount == 0) && null
+				(videoCount == 1) && <div className="layout-selector">
+					<LayoutSelectButton value="A" />
+				</div>
 			}
 			{
-				// TODO: 動画が1つのときのレイアウト選択ボタンの表示をどうするか
-				(videoCount == 1) && null
-			}
-			{
-				// TODO: 動画が5つ以上のときのレイアウト選択ボタンの表示をどうするか
-				(videoCount > 4) && null
+				(videoCount > 4) && <div className="layout-selector">
+					<LayoutSelectButton value="A" />
+				</div>
 			}
 		</div >
 	);

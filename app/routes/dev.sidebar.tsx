@@ -1,4 +1,4 @@
-import { Links, Meta, Scripts } from "@remix-run/react";
+import { Links, Meta, Scripts } from "react-router";
 import { Sidebar } from "~/components/sidebar";
 
 export default function App() {

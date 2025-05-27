@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1">
+	<clipPath id="clip-path" clipPathUnits="objectBoundingBox">
+		<path d="M20 7H4V17H20V7ZM22 17C22 18.0042 21.1046 18.8182 20 18.8182H4C2.89543 18.8182 2 18.0042 2 17V7C2 5.99584 2.89543 5.18182 4 5.18182H20L20.2041 5.19158C21.2128 5.28455 22 6.0585 22 7V17Z" transform="scale(0.04166666666)"/>
+
+	</clipPath>
+</svg>
