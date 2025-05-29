@@ -111,7 +111,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
             // その他、queryから検索したチャンネルから配信を取得する。
             const onlineChannelsResponse = await searchChannels(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, query as string, { liveOnly: true, first: 20 });
 
-            const streamsJson = await getStreams(accessToken, { userId: onlineChannelsResponse.data.map(ch => ch.id) });
+            const streamsJson = await getStreams(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, { userId: onlineChannelsResponse.data.map(ch => ch.id) });
 
             streamsJson.data.map(item => {
                 return {
