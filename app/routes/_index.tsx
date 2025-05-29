@@ -97,7 +97,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
 
             // 完全一致するチャンネルがあれば取得する。urlが渡された場合チャンネル名を取得したうえで検索する。
             const channelName = getTwitchChannelName(query) ?? query;
-            const channelsResponse = await searchChannels(accessToken, channelName, { first: 1 });
+            const channelsResponse = await searchChannels(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, channelName, { first: 1 });
             const exactMatchChannel = channelsResponse.data.find(ch => ch.broadcaster_login === channelName);
             if (exactMatchChannel) {
                 exactMatch = {
@@ -109,7 +109,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
             }
 
             // その他、queryから検索したチャンネルから配信を取得する。
-            const onlineChannelsResponse = await searchChannels(accessToken, query as string, { liveOnly: true, first: 20 });
+            const onlineChannelsResponse = await searchChannels(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, query as string, { liveOnly: true, first: 20 });
 
             const streamsJson = await getStreams(accessToken, { userId: onlineChannelsResponse.data.map(ch => ch.id) });
 

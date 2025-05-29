@@ -29,6 +29,7 @@ export async function getTwitchAccessToken(clientID: any, clientSecret: any): Pr
 
 export async function searchChannels(
 	token: string,
+	clientID: string,
 	query: string,
 	options?: {
 		liveOnly?: boolean;
@@ -41,7 +42,7 @@ export async function searchChannels(
 	const res = await fetch(url, {
 		headers: {
 			"Authorization": `Bearer ${token}`,
-			"Client-ID": process.env.TWITCH_CLIENT_ID!,
+			"Client-ID": clientID,
 		},
 	});
 
@@ -50,6 +51,7 @@ export async function searchChannels(
 
 export async function getStreams(
 	token: string,
+	clientID: string,
 	options: {
 		userId?: string | string[],
 		userLogin?: string | string[],
@@ -76,7 +78,7 @@ export async function getStreams(
 	const res = await fetch(url.toString(), {
 		headers: {
 			"Authorization": `Bearer ${token}`,
-			"Client-ID": process.env.TWITCH_CLIENT_ID!,
+			"Client-ID": clientID!,
 		},
 	});
 
