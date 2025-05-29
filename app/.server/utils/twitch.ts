@@ -3,7 +3,7 @@ import { TwitchGetStreamsResponse, TwitchSearchChannelsResponse } from "twitch-a
 let cachedToken: string | null = null;
 let tokenExpiresAt: number | null = null;
 
-export async function getTwitchAccessToken(): Promise<string> {
+export async function getTwitchAccessToken(clientID: any, clientSecret: any): Promise<string> {
 	const now = Date.now();
 	if (cachedToken && tokenExpiresAt && now < tokenExpiresAt) {
 		return cachedToken;
@@ -13,8 +13,8 @@ export async function getTwitchAccessToken(): Promise<string> {
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
 		body: new URLSearchParams({
-			client_id: process.env.TWITCH_CLIENT_ID!,
-			client_secret: process.env.TWITCH_CLIENT_SECRET!,
+			client_id: clientID!,
+			client_secret: clientSecret!,
 			grant_type: "client_credentials",
 		}),
 	});
