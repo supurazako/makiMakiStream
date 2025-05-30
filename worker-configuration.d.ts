@@ -5,7 +5,11 @@ declare namespace Cloudflare {
 	interface Env {
 	}
 }
-interface Env extends Cloudflare.Env {}
+interface Env extends Cloudflare.Env {
+    TWITCH_CLIENT_ID: string;
+    TWITCH_CLIENT_SECRET: string;
+    GOOGLE_API_KEY: string;
+}
 
 // Begin runtime types
 /*! *****************************************************************************
