@@ -46,7 +46,7 @@ export function VolumeControl({ data }: { data: VideoDataModel }): JSX.Element {
 				type="button"
 				onClick={toggleMuted}>
 				{
-					isMuted ? <MuteIcon /> : (volume <= 0.5 ? <VolumeLevel1Icon /> : <VolumeLevel2Icon />)
+					isMuted ? <MuteIcon /> : (volume <= LOW_VOLUME_THRESHOLD ? <VolumeLevel1Icon /> : <VolumeLevel2Icon />)
 				}
 			</button>
 
