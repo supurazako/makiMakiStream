@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     filter: drop-shadow(5px 5px 4px #0000004D) drop-shadow(-5px -5px 4px #FFFFFFB8);
+    pointer-events: none;
 }
 
 .sidebar_container.close {
@@ -23,6 +24,7 @@
 
 .sidebar_element {
     background-color: var(--background-color);
+    pointer-events: auto;
 }
 
 .menubar {
