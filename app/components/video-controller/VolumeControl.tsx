@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { muteStateAtom, playerModelAtom, volumeStateAtom } from "~/atoms";
-import { MuteIcon, VolumeIcon } from "~/components/common/icons";
+import { MuteIcon, VolumeLevel1Icon, VolumeLevel2Icon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
 
 export function VolumeControl({ data }: { data: VideoDataModel }): JSX.Element {
@@ -46,7 +46,7 @@ export function VolumeControl({ data }: { data: VideoDataModel }): JSX.Element {
 				type="button"
 				onClick={toggleMuted}>
 				{
-					isMuted ? <MuteIcon /> : <VolumeIcon />
+					isMuted ? <MuteIcon /> : (volume <= LOW_VOLUME_THRESHOLD ? <VolumeLevel1Icon /> : <VolumeLevel2Icon />)
 				}
 			</button>
 
