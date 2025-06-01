@@ -46,28 +46,34 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		tabIndicatorRef.current!.style.width = `${e.currentTarget.offsetWidth}px`;
 
 		if (searchText.length > 0) {
-			updateFetcherData(tab, searchText);
+			fetcher.submit({
+				platform: tab,
+				param: searchText
+			}, {
+				method: "post"
+			});
+
+			setSelectedItem(null);
 		}
 	}
 
+	const debounceRef = useRef<NodeJS.Timeout | null>(null);
 	function handleSearchTextChange(e: React.ChangeEvent<HTMLInputElement>): void {
-		setSearchText(e.currentTarget.value);
+		const value = e.currentTarget.value;
 
-		// _index.tsxのactionを呼び出す🪄
-		if (e.currentTarget.value.length > 0) {
-			updateFetcherData(activeTab, e.currentTarget.value);
+		setSearchText(value);
+
+		debounceRef.current && clearTimeout(debounceRef.current);
+		if (value.length > 0) {
+			debounceRef.current = setTimeout(() => {
+				fetcher.submit({
+					platform: activeTab,
+					param: value
+				}, {
+					method: "post"
+				});
+			}, 500);
 		}
-	}
-
-	function updateFetcherData(platform: string, param: string): void {
-		fetcher.submit({
-			platform: platform,
-			param: param
-		}, {
-			method: "post"
-		});
-
-		setSelectedItem(null);
 	}
 
 	function handleConfirm(): void {
