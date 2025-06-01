@@ -1,8 +1,9 @@
 import { atom } from "jotai";
 import { atomFamily, atomWithObservable, atomWithReducer, atomWithStorage } from "jotai/utils";
-import { LayoutType } from "./models/layoutOption";
-import { PlayerEvent, PlayerModel } from "./models/playerModel";
-import { VideoDataModel } from "./models/videoDataModel";
+import { JSX } from "react";
+import { LayoutType } from "~/models/layoutOption";
+import { PlayerEvent, PlayerModel } from "~/models/playerModel";
+import { VideoDataModel } from "~/models/videoDataModel";
 
 /**
  * 追加されている動画のデータを保持するatom。
