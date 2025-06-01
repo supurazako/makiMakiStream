@@ -1,6 +1,6 @@
-import { useFetcher } from "react-router";
 import { useSetAtom } from "jotai";
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
+import { useFetcher } from "react-router";
 import { videoDataListAtom } from "~/atoms";
 import { ClearIcon, SpinnerIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
@@ -26,6 +26,7 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		const resizeObserver = new ResizeObserver(entries => {
 			const activeTabElement = entries.map(e => e.target)
 				.find(e => e.classList.contains("active")) as HTMLElement | undefined;
+			if (tabIndicatorRef.current === null || activeTabElement === undefined) return;
 			tabIndicatorRef.current!.style.left = `${activeTabElement!.offsetLeft}px`;
 			tabIndicatorRef.current!.style.width = `${activeTabElement!.offsetWidth}px`;
 		});

@@ -10,7 +10,11 @@
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["@react-router/node", "vite/client", "youtube"],
+    "types": [
+      "@react-router/cloudflare",
+      "@cloudflare/workers-types",
+      "youtube"
+    ],
     "rootDirs": [".react-router/types/**/*"],
     "isolatedModules": true,
     "esModuleInterop": true,
