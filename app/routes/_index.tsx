@@ -1,6 +1,6 @@
-import { type ActionFunctionArgs, type MetaFunction } from "react-router";
 import { google } from "googleapis";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
+import { type ActionFunctionArgs, type MetaFunction } from "react-router";
 import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/GlobalController";
@@ -135,7 +135,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-    const [videoDataList, setVideoList] = useAtom(videoDataListAtom);
+    const videoDataList = useAtomValue(videoDataListAtom);
 
     return (
         <main>
@@ -148,15 +148,6 @@ export default function Index() {
                             <GlobalController />
                             <hr className="separator" />
                             <VideoControllersContainer />
-                            {
-                                /* テスト用ボタン。Modalの修正がマージされたら消してね */
-                                <button onClick={() => setVideoList(prev => [...prev, { platform: "twitch", channel: "amakipururu", id: crypto.randomUUID() }])}>
-                                    {"[test] Add twitch video"}
-                                </button>
-                            }
-                            <button onClick={() => setVideoList(prev => [...prev, { platform: "youtube", videoId: "NnKVD-DZmYQ", id: crypto.randomUUID() }])}>
-                                {"[test] Add youtube video"}
-                            </button>
                         </Sidebar>
                     </aside>
                 )
