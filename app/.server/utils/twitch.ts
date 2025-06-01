@@ -19,7 +19,7 @@ export async function getTwitchAccessToken(clientID: any, clientSecret: any): Pr
 		}),
 	});
 
-	const json = await res.json();
+	const json = await res.json() as { access_token: string; expires_in: number };
 
 	cachedToken = json.access_token;
 	tokenExpiresAt = now + json.expires_in * 1000 - 60 * 1000; // 1分早めに失効と見なす
@@ -84,4 +84,3 @@ export async function getStreams(
 
 	return await res.json() as TwitchGetStreamsResponse;
 }
-
