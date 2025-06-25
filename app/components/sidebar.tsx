@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { IconArrowLeft, IconArrowRight } from "./common/icons";
 
-import "~/components/sidebar.css";
+import "~/styles/sidebar.css";
 
 export function Sidebar({ children }: { children?: React.ReactNode }): JSX.Element {
     const [open, setOpen] = useState(false);

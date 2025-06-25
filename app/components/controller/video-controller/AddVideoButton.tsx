@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { JSX, useRef } from "react";
 import { Modal } from "~/components/common/Modal";
 import { AddVideoModal } from "~/components/modal/AddVideoModal";
 

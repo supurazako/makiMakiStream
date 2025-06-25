@@ -3,11 +3,11 @@ import { useAtomValue } from "jotai";
 import { type ActionFunctionArgs, type MetaFunction } from "react-router";
 import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
 import { videoDataListAtom } from "~/atoms";
-import { GlobalController } from "~/components/GlobalController";
+import { GlobalController } from "~/components/controller/global-controller/GlobalController";
+import { VideoControllersContainer } from "~/components/controller/video-controller/VideoControllersContainer";
 import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
-import { Sidebar } from "~/components/sidebar";
+import { Sidebar } from "~/components/Sidebar";
 import { StartScreen } from "~/components/StartScreen";
-import { VideoControllersContainer } from "~/components/video-controller/VideoControllersContainer";
 import { VideosContainer } from "~/components/VideosContainer";
 import { getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
 

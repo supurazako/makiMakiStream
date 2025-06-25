@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import "~/styles/control-item-skeleton.css";
 
 export function ControlItemSkeleton(): JSX.Element {

@@ -1,10 +1,10 @@
 import { useAtomValue } from "jotai";
-import { useEffect, useRef } from "react";
+import { JSX, useEffect, useRef } from "react";
 import { resolverAtom } from "~/atoms";
 import { TwitchPlayerModel } from "~/models/twitchPlayerModel";
 import { VideoDataModel } from "~/models/videoDataModel";
 
-export function TwitchStreamContainer({ data, elementId }: { data: VideoDataModel & { platform: "twitch" }, elementId: string }): JSX.Element {
+export function TwitchVideoEmbed({ data, elementId }: { data: VideoDataModel & { platform: "twitch" }, elementId: string }): JSX.Element {
 	const resolve = useAtomValue(resolverAtom(data));
 	const containerRef = useRef<HTMLDivElement>(null);
 

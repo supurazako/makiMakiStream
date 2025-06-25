@@ -1,7 +1,7 @@
-import { Suspense } from "react";
-import { ControlItemSkeleton } from "~/components/ControlItemSkeleton";
-import { GlobalMuteControl } from "~/components/GlobalMuteControl";
-import { GlobalPlayControl } from "~/components/GlobalPlayControl";
+import { JSX, Suspense } from "react";
+import { ControlItemSkeleton } from "~/components/controller/ControlItemSkeleton";
+import { GlobalMuteControl } from "~/components/controller/global-controller/GlobalMuteControl";
+import { GlobalPlayControl } from "~/components/controller/global-controller/GlobalPlayControl";
 
 import "~/styles/global-controller.css";
 

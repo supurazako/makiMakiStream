@@ -1,12 +1,12 @@
 import { useSetAtom } from "jotai";
-import { Suspense, useState } from "react";
+import { JSX, Suspense, useState } from "react";
 import { videoDataListAtom } from "~/atoms";
-import { ControlItemSkeleton } from "~/components/ControlItemSkeleton";
-import { ChannelNameLabel } from "~/components/video-controller/ChannelNameLabel";
-import { PlayControl } from "~/components/video-controller/PlayControl";
-import { RemoveControl } from "~/components/video-controller/RemoveControl";
-import { VideoTitleLabel } from "~/components/video-controller/VideoTitleLabel";
-import { VolumeControl } from "~/components/video-controller/VolumeControl";
+import { ControlItemSkeleton } from "~/components/controller/ControlItemSkeleton";
+import { PlayControl } from "~/components/controller/PlayControl";
+import { RemoveControl } from "~/components/controller/RemoveControl";
+import { ChannelNameLabel } from "~/components/controller/video-controller/ChannelNameLabel";
+import { VideoTitleLabel } from "~/components/controller/video-controller/VideoTitleLabel";
+import { VolumeControl } from "~/components/controller/VolumeControl";
 import { VideoDataModel } from "~/models/videoDataModel";
 
 import "~/styles/video-controller.css";

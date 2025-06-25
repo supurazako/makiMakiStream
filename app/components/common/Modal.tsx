@@ -1,9 +1,9 @@
-import { RefObject } from "react";
+import { JSX, RefObject } from "react";
 import { CloseIcon } from "~/components/common/icons";
 
 import "~/styles/common/modal.css";
 
-export function Modal({ dialogRef, children }: { dialogRef: RefObject<HTMLDialogElement>, children: React.ReactNode }): JSX.Element {
+export function Modal({ dialogRef, children }: { dialogRef: RefObject<HTMLDialogElement | null>, children: React.ReactNode }): JSX.Element {
 	const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
 		if (e.target === dialogRef.current) {
 			dialogRef.current?.close();
