@@ -11,31 +11,31 @@ import { VideoDataModel } from "~/models/videoDataModel";
  */
 export const videoDataListAtom = atomWithStorage<VideoDataModel[]>("videoDataList", []);
 videoDataListAtom.onMount = (set) => {
-    const savedData = localStorage.getItem("videoDataList");
-    if (savedData) {
-        try {
-            const parsedData = JSON.parse(savedData) as VideoDataModel[];
-            set(parsedData);
-        } catch (error) {
-            console.error("Failed to parse video data list from localStorage:", error);
-        }
-    }
+	const savedData = localStorage.getItem("videoDataList");
+	if (savedData) {
+		try {
+			const parsedData = JSON.parse(savedData) as VideoDataModel[];
+			set(parsedData);
+		} catch (error) {
+			console.error("Failed to parse video data list from localStorage:", error);
+		}
+	}
 }
 
 /**
  * 動画のPromiseとそのResolverを保持するatom。
  */
 const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
-    let resolve: (v: PlayerModel) => void;
-    const promise = new Promise<PlayerModel>((r) => {
-        resolve = r;
-    });
+	let resolve: (v: PlayerModel) => void;
+	const promise = new Promise<PlayerModel>((r) => {
+		resolve = r;
+	});
 
-    return atom({
-        data: data,
-        promise: promise,
-        resolve: resolve!,
-    });
+	return atom({
+		data: data,
+		promise: promise,
+		resolve: resolve!,
+	});
 });
 
 // TODO: プレーヤーのインスタンスを生成するコンポーネントがresolver使えるようなカスタムフック作りたいかも
@@ -44,10 +44,10 @@ const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
  * 生成したインスタンスを該当するresolverに渡してください。Read-onlyです。
  */
 export const resolverAtom = atomFamily((data: VideoDataModel) => {
-    return atom((get) => {
-        const promiseList = get(videoPromiseAtom(data));
-        return promiseList.resolve;
-    });
+	return atom((get) => {
+		const promiseList = get(videoPromiseAtom(data));
+		return promiseList.resolve;
+	});
 })
 
 /**
@@ -56,10 +56,10 @@ export const resolverAtom = atomFamily((data: VideoDataModel) => {
  * それらの値を読み取り(read)UIを更新する場合は、playStateAtomやvolumeStateAtomを使用してください。
  */
 export const playerModelAtom = atomFamily((data: VideoDataModel) => {
-    return atom(async (get) => {
-        const promiseList = get(videoPromiseAtom(data));
-        return await promiseList.promise;
-    });
+	return atom(async (get) => {
+		const promiseList = get(videoPromiseAtom(data));
+		return await promiseList.promise;
+	});
 });
 
 /**
@@ -68,24 +68,24 @@ export const playerModelAtom = atomFamily((data: VideoDataModel) => {
  * プレーヤーのインスタンスを変更する必要がある場合は、直接PlayerModelインスタンスのメソッドを使用してください。
  */
 export const playStateAtom = atomFamily((player: PlayerModel) => atomWithObservable<boolean>(() => {
-    return {
-        subscribe(observer: { next: (value: boolean) => void }) {
-            observer.next(player.isPlaying());
+	return {
+		subscribe(observer: { next: (value: boolean) => void }) {
+			observer.next(player.isPlaying());
 
-            const onPlay = () => observer.next(true);
-            const onPause = () => observer.next(false);
+			const onPlay = () => observer.next(true);
+			const onPause = () => observer.next(false);
 
-            player.addEventListener(PlayerEvent.PLAY, onPlay);
-            player.addEventListener(PlayerEvent.PAUSE, onPause);
+			player.addEventListener(PlayerEvent.PLAY, onPlay);
+			player.addEventListener(PlayerEvent.PAUSE, onPause);
 
-            return {
-                unsubscribe: () => {
-                    player.removeEventListener(PlayerEvent.PLAY, onPlay);
-                    player.removeEventListener(PlayerEvent.PAUSE, onPause);
-                }
-            };
-        }
-    }
+			return {
+				unsubscribe: () => {
+					player.removeEventListener(PlayerEvent.PLAY, onPlay);
+					player.removeEventListener(PlayerEvent.PAUSE, onPause);
+				}
+			};
+		}
+	}
 }));
 
 /**
@@ -94,24 +94,24 @@ export const playStateAtom = atomFamily((player: PlayerModel) => atomWithObserva
  * プレーヤーのインスタンスを変更する必要がある場合は、直接PlayerModelインスタンスのメソッドを使用してください。
  */
 export const muteStateAtom = atomFamily((player: PlayerModel) => atomWithObservable<boolean>(() => {
-    return {
-        subscribe(observer: { next: (value: boolean) => void }) {
-            observer.next(player.isMuted());
+	return {
+		subscribe(observer: { next: (value: boolean) => void }) {
+			observer.next(player.isMuted());
 
-            const onMute = () => observer.next(true);
-            const onUnmute = () => observer.next(false);
+			const onMute = () => observer.next(true);
+			const onUnmute = () => observer.next(false);
 
-            player.addEventListener(PlayerEvent.MUTE, onMute);
-            player.addEventListener(PlayerEvent.UNMUTE, onUnmute);
+			player.addEventListener(PlayerEvent.MUTE, onMute);
+			player.addEventListener(PlayerEvent.UNMUTE, onUnmute);
 
-            return {
-                unsubscribe: () => {
-                    player.removeEventListener(PlayerEvent.MUTE, onMute);
-                    player.removeEventListener(PlayerEvent.UNMUTE, onUnmute);
-                }
-            };
-        }
-    }
+			return {
+				unsubscribe: () => {
+					player.removeEventListener(PlayerEvent.MUTE, onMute);
+					player.removeEventListener(PlayerEvent.UNMUTE, onUnmute);
+				}
+			};
+		}
+	}
 }));
 
 /**
@@ -120,56 +120,56 @@ export const muteStateAtom = atomFamily((player: PlayerModel) => atomWithObserva
  * プレーヤーのインスタンスを変更する必要がある場合は、直接PlayerModelインスタンスのメソッドを使用してください。
  */
 export const volumeStateAtom = atomFamily((player: PlayerModel) => atomWithObservable<number>(() => {
-    return {
-        subscribe(observer: { next: (value: number) => void }) {
-            observer.next(player.getVolume());
+	return {
+		subscribe(observer: { next: (value: number) => void }) {
+			observer.next(player.getVolume());
 
-            const onVolumeChange = () => observer.next(player.getVolume());
+			const onVolumeChange = () => observer.next(player.getVolume());
 
-            player.addEventListener(PlayerEvent.CHANGE_VOLUME, onVolumeChange);
+			player.addEventListener(PlayerEvent.CHANGE_VOLUME, onVolumeChange);
 
-            return {
-                unsubscribe: () => {
-                    player.removeEventListener(PlayerEvent.CHANGE_VOLUME, onVolumeChange);
-                }
-            };
-        }
-    }
+			return {
+				unsubscribe: () => {
+					player.removeEventListener(PlayerEvent.CHANGE_VOLUME, onVolumeChange);
+				}
+			};
+		}
+	}
 }));
 
 export const allPlayerModelsAtom = atom(async (get) => {
-    const dataList = get(videoDataListAtom);
-    return await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+	const dataList = get(videoDataListAtom);
+	return await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
 });
 
 export const allPlayStateAtom = atom(async (get) => {
-    const dataList = get(videoDataListAtom);
-    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
-    return await Promise.all(players.map((player) => get(playStateAtom(player))));
+	const dataList = get(videoDataListAtom);
+	const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+	return await Promise.all(players.map((player) => get(playStateAtom(player))));
 });
 
 export const allMuteStateAtom = atom(async (get) => {
-    const dataList = get(videoDataListAtom);
-    const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
-    return await Promise.all(players.map((player) => get(muteStateAtom(player))));
+	const dataList = get(videoDataListAtom);
+	const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+	return await Promise.all(players.map((player) => get(muteStateAtom(player))));
 });
 
 type ModalAction = {
-    type: "open";
-    content: JSX.Element;
+	type: "open";
+	content: JSX.Element;
 } | {
-    type: "close";
+	type: "close";
 };
 
 export const modalContentAtom = atomWithReducer<JSX.Element | null, ModalAction>(null, (_prev: JSX.Element | null, action: ModalAction) => {
-    switch (action.type) {
-        case "open":
-            return action.content;
-        case "close":
-            return null;
-        default:
-            throw new Error("Unknown action type");
-    }
+	switch (action.type) {
+		case "open":
+			return action.content;
+		case "close":
+			return null;
+		default:
+			throw new Error("Unknown action type");
+	}
 });
 
 export const selectedLayoutTypeAtom = atom<LayoutType>("A");

@@ -4,9 +4,9 @@ import { AddVideoButton } from "~/components/controller/video-controller/AddVide
 import "~/styles/start-screen.css";
 
 export function StartScreen(): JSX.Element {
-    return (
-        <section id="start-screen">
-            <AddVideoButton />
-        </section>
-    )
+	return (
+		<section id="start-screen">
+			<AddVideoButton />
+		</section>
+	)
 }
