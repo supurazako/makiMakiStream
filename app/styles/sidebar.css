@@ -1,0 +1,81 @@
+@import url(/app/common/common.css);
+
+:root {
+	--sidebar-width: 500px;
+	--drawer-width: 50px;
+}
+
+.sidebar_container {
+	position: fixed;
+	box-sizing: border-box;
+	width: var(--sidebar-width);
+	height: 100%;
+	transform: translateX(0px);
+	transition: all 0.3s ease-in-out;
+	display: flex;
+	align-items: center;
+	filter: drop-shadow(5px 5px 4px #0000004D) drop-shadow(-5px -5px 4px #FFFFFFB8);
+	pointer-events: none;
+}
+
+.sidebar_container.close {
+	transform: translateX(calc(var(--drawer-width) - var(--sidebar-width)));
+}
+
+.sidebar_element {
+	background-color: var(--background-color);
+	pointer-events: auto;
+}
+
+.menubar {
+	height: 100%;
+	flex-grow: 1;
+	overflow-y: auto;
+
+	& .menubar-container {
+		height: fit-content;
+		padding-block: 20px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		row-gap: 30px;
+
+		& .separator {
+			border: none;
+			box-sizing: border-box;
+			width: calc(100% - 100px);
+			height: 3px;
+			border-radius: 99px;
+			background-color: #D9D9D9;
+			box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25), inset -2px -2px 4px rgba(255, 255, 255, 0.25);
+		}
+	}
+}
+
+.drawer {
+	width: var(--drawer-width);
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0px 15px 15px 0px;
+	box-shadow: inset 2px 0px 4px #00000027;
+}
+
+.drawer_button {
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	transition: all 0.3s ease-out;
+}
+
+.drawer_button:hover {
+	background-color: var(--background-color-hover);
+}
+
+.drawer_button:active {
+	background-color: var(--background-color-active);
+}

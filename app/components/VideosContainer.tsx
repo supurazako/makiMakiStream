@@ -1,7 +1,8 @@
 import { useAtomValue } from "jotai";
+import { JSX } from "react";
 import { selectedLayoutTypeAtom, videoDataListAtom } from "~/atoms";
+import { TwitchVideoEmbed } from "~/components/embed/TwitchVideoEmbed";
 import { YouTubeVideoEmbed } from "~/components/embed/YouTubeVideoEmbed";
-import { TwitchStreamContainer } from "~/components/twitchStreamContainer";
 
 import "~/styles/videos-container.css";
 
@@ -18,7 +19,7 @@ export function VideosContainer(): JSX.Element {
 
 					switch (v.platform) {
 						case "twitch":
-							videoElement = <TwitchStreamContainer data={v} elementId={`player_${i}`} />
+							videoElement = <TwitchVideoEmbed data={v} elementId={`player_${i}`} />
 							break;
 						case "youtube":
 							videoElement = <YouTubeVideoEmbed data={v} elementId={`player_${i}`} />

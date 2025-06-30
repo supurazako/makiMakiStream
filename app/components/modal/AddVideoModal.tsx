@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
+import { JSX, MouseEvent, RefObject, useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router";
 import { videoDataListAtom } from "~/atoms";
 import { ClearIcon, SpinnerIcon } from "~/components/common/icons";
@@ -10,7 +10,7 @@ import "~/styles/modal/add-video-modal.css";
 
 type Tab = "youtube" | "twitch";
 
-export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement> }): JSX.Element {
+export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement | null> }): JSX.Element {
 	const [activeTab, setActiveTab] = useState<Tab>("youtube");
 	const [searchText, setSearchText] = useState<string>("");
 	const fetcher = useFetcher<SearchActionResult>();
@@ -57,7 +57,7 @@ export function AddVideoModal({ dialogRef }: { dialogRef: RefObject<HTMLDialogEl
 		}
 	}
 
-	const debounceRef = useRef<NodeJS.Timeout | null>(null);
+	const debounceRef = useRef<number | null>(null);
 	function handleSearchTextChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const value = e.currentTarget.value;
 

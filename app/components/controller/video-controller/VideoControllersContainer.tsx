@@ -1,7 +1,8 @@
 import { useAtomValue } from "jotai";
+import { JSX } from "react";
 import { videoDataListAtom } from "~/atoms";
-import { AddVideoButton } from "~/components/video-controller/AddVideoButton";
-import { VideoController } from "~/components/video-controller/VideoController";
+import { AddVideoButton } from "~/components/controller/video-controller/AddVideoButton";
+import { VideoController } from "~/components/controller/video-controller/VideoController";
 
 import "~/styles/video-controllers-container.css";
 

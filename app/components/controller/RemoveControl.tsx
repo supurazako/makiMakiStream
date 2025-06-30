@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { RemoveIcon } from "~/components/common/icons";
 
 export function RemoveControl({ handleRemove }: { handleRemove: () => void }): JSX.Element {

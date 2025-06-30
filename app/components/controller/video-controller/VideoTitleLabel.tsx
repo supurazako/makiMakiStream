@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { JSX } from "react";
 import { playerModelAtom } from "~/atoms";
 import { VideoDataModel } from "~/models/videoDataModel";
 

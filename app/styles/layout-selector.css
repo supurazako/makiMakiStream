@@ -59,61 +59,61 @@
 					animation-timing-function: ease-in-out;
 				}
 
-				&&[data-value="1A"] {
+				&[data-value="1A"] {
 					&::before {
 						clip-path: url(/icons/layout-option-1A.svg#clip-path);
 					}
 				}
 
-				&&[data-value="2A"] {
+				&[data-value="2A"] {
 					&::before {
 						clip-path: url(/icons/layout-option-2A.svg#clip-path);
 					}
 				}
 
-				&&[data-value="2B"] {
+				&[data-value="2B"] {
 					&::before {
 						clip-path: url(/icons/layout-option-2B.svg#clip-path);
 					}
 				}
 
-				&&[data-value="2C"] {
+				&[data-value="2C"] {
 					&::before {
 						clip-path: url(/icons/layout-option-2C.svg#clip-path);
 					}
 				}
 
-				&&[data-value="3A"] {
+				&[data-value="3A"] {
 					&::before {
 						clip-path: url(/icons/layout-option-3A.svg#clip-path);
 					}
 				}
 
-				&&[data-value="3B"] {
+				&[data-value="3B"] {
 					&::before {
 						clip-path: url(/icons/layout-option-3B.svg#clip-path);
 					}
 				}
 
-				&&[data-value="3C"] {
+				&[data-value="3C"] {
 					&::before {
 						clip-path: url(/icons/layout-option-3C.svg#clip-path);
 					}
 				}
 
-				&&[data-value="4A"] {
+				&[data-value="4A"] {
 					&::before {
 						clip-path: url(/icons/layout-option-4A.svg#clip-path);
 					}
 				}
 
-				&&[data-value="4B"] {
+				&[data-value="4B"] {
 					&::before {
 						clip-path: url(/icons/layout-option-4B.svg#clip-path);
 					}
 				}
 
-				&&[data-value="4C"] {
+				&[data-value="4C"] {
 					&::before {
 						clip-path: url(/icons/layout-option-4C.svg#clip-path);
 					}
