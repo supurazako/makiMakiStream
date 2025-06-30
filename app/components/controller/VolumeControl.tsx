@@ -4,6 +4,8 @@ import { muteStateAtom, playerModelAtom, volumeStateAtom } from "~/atoms";
 import { MuteIcon, VolumeLevel1Icon, VolumeLevel2Icon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
 
+const LOW_VOLUME_THRESHOLD = 0.5;
+
 export function VolumeControl({ data }: { data: VideoDataModel }): JSX.Element {
 	const player = useAtomValue(playerModelAtom(data));
 	const [isMuted, setMuted] = useState(player.isMuted());
