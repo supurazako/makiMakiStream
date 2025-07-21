@@ -43,7 +43,7 @@ export type SearchActionResult = {
 export async function loader({ request, context }: LoaderFunctionArgs) {
 	const url = new URL(request.url);
 	const initialVideoData = await parseVideoDataFromUrl(url, {
-		GOOGLE_API_KEY: context.cloudflare.env.GOOGLE_API_KEY
+		GOOGLE_API_KEY: context.context.cloudflare.env.GOOGLE_API_KEY
 	});
 	return { initialVideoData };
 }
@@ -57,7 +57,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
 		case "youtube": {
 			const youtube = google.youtube({
 				version: "v3",
-				auth: context.cloudflare.env.GOOGLE_API_KEY
+				auth: context.context.cloudflare.env.GOOGLE_API_KEY
 			});
 
 			let exactMatch: VideoContent | undefined = undefined;
@@ -104,11 +104,11 @@ export async function action({ request, context }: ActionFunctionArgs) {
 		case "twitch": {
 			let exactMatch: ChannelContent | VideoContent | undefined = undefined;
 			const contents = [] as VideoContent[];
-			const accessToken = await getTwitchAccessToken(context.cloudflare.env.TWITCH_CLIENT_ID, context.cloudflare.env.TWITCH_CLIENT_SECRET);
+			const accessToken = await getTwitchAccessToken(context.context.cloudflare.env.TWITCH_CLIENT_ID, context.context.cloudflare.env.TWITCH_CLIENT_SECRET);
 
 			// 完全一致するチャンネルがあれば取得する。urlが渡された場合チャンネル名を取得したうえで検索する。
 			const channelName = getTwitchChannelName(query) ?? query;
-			const channelsResponse = await searchChannels(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, channelName, { first: 1 });
+			const channelsResponse = await searchChannels(accessToken, context.context.cloudflare.env.TWITCH_CLIENT_ID, channelName, { first: 1 });
 			const exactMatchChannel = channelsResponse.data.find(ch => ch.broadcaster_login === channelName);
 			if (exactMatchChannel) {
 				exactMatch = {
@@ -120,9 +120,9 @@ export async function action({ request, context }: ActionFunctionArgs) {
 			}
 
 			// その他、queryから検索したチャンネルから配信を取得する。
-			const onlineChannelsResponse = await searchChannels(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, query as string, { liveOnly: true, first: 20 });
+			const onlineChannelsResponse = await searchChannels(accessToken, context.context.cloudflare.env.TWITCH_CLIENT_ID, query as string, { liveOnly: true, first: 20 });
 
-			const streamsJson = await getStreams(accessToken, context.cloudflare.env.TWITCH_CLIENT_ID, { userId: onlineChannelsResponse.data.map(ch => ch.id) });
+			const streamsJson = await getStreams(accessToken, context.context.cloudflare.env.TWITCH_CLIENT_ID, { userId: onlineChannelsResponse.data.map(ch => ch.id) });
 
 			streamsJson.data.map(item => {
 				return {
