@@ -7,7 +7,7 @@ import { VideoDataModel } from "~/models/videoDataModel";
 const LOW_VOLUME_THRESHOLD = 0.5;
 
 export function VolumeControl({ data }: { data: VideoDataModel }): JSX.Element {
-	const player = useAtomValue(playerModelAtom(data));
+	const player = useAtomValue(playerModelAtom(data.id));
 	const [isMuted, setMuted] = useState(player.isMuted());
 	const actualMuted = useAtomValue(muteStateAtom(player));
 	const [volume, setVolume] = useState(player.getVolume());
