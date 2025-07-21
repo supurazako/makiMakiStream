@@ -1,6 +1,7 @@
 import { google } from "googleapis";
-import { useAtomValue } from "jotai";
-import { type ActionFunctionArgs, type MetaFunction } from "react-router";
+import { useAtomValue, useSetAtom } from "jotai";
+import { useEffect } from "react";
+import { type ActionFunctionArgs, type LoaderFunctionArgs, type MetaFunction, useLoaderData } from "react-router";
 import { getStreams, getTwitchAccessToken, searchChannels } from "~/.server/utils/twitch";
 import { videoDataListAtom } from "~/atoms";
 import { GlobalController } from "~/components/controller/global-controller/GlobalController";
@@ -9,7 +10,9 @@ import { LayoutSelector } from "~/components/layout-selector/LayoutSelector";
 import { Sidebar } from "~/components/Sidebar";
 import { StartScreen } from "~/components/StartScreen";
 import { VideosContainer } from "~/components/VideosContainer";
+import { VideoDataModel } from "~/models/videoDataModel";
 import { getTwitchChannelName, getYoutubeVideoId } from "~/utils/RegularExpression";
+import { parseVideoDataFromUrl } from "~/utils/urlParser";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -35,6 +38,14 @@ export type ChannelContent = {
 export type SearchActionResult = {
 	exact_match?: ChannelContent | VideoContent;
 	contents: VideoContent[];
+}
+
+export async function loader({ request, context }: LoaderFunctionArgs) {
+	const url = new URL(request.url);
+	const initialVideoData = await parseVideoDataFromUrl(url, {
+		GOOGLE_API_KEY: context.cloudflare.env.GOOGLE_API_KEY
+	});
+	return { initialVideoData };
 }
 
 export async function action({ request, context }: ActionFunctionArgs) {
@@ -135,7 +146,15 @@ export async function action({ request, context }: ActionFunctionArgs) {
 }
 
 export default function Index() {
+	const { initialVideoData } = useLoaderData<typeof loader>();
 	const videoDataList = useAtomValue(videoDataListAtom);
+	const setVideoDataList = useSetAtom(videoDataListAtom);
+
+	useEffect(() => {
+		if (initialVideoData.length > 0) {
+			setVideoDataList(initialVideoData as VideoDataModel[]);
+		}
+	}, [initialVideoData, setVideoDataList]);
 
 	return (
 		<main>

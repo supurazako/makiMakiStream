@@ -1,6 +1,6 @@
 import type { LinksFunction } from "react-router";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-
+import { useShareUrl } from "~/hooks/useShareUrl";
 import "~/tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -40,5 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+	useShareUrl();
+
 	return <Outlet />;
 }
