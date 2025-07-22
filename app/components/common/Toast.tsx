@@ -49,14 +49,14 @@ export function Toast({ message, show, onClose, position }: ToastProps) {
 					opacity: 0,
 					y: 50,
 					transition: { duration: TOAST_HIDE_DURATION, ease: "easeOut" } as Transition,
-			  },
+			},
 		show: prefersReducedMotion
 			? { opacity: 1 }
 			: {
 					opacity: 1,
 					y: 0,
 					transition: { duration: TOAST_SHOW_DURATION, ease: "easeOut" } as Transition,
-			  },
+			},
 	};
 
 	const toastStyle = position
@@ -65,7 +65,7 @@ export function Toast({ message, show, onClose, position }: ToastProps) {
 				top: position.top + TOAST_OFFSET,
 				left: position.left + position.width / 2, // ボタンの中央に配置
 				transform: "translateX(-50%)", // Toast自体を中央揃え
-		  }
+		}
 		: {};
 
 	return createPortal(
