@@ -3,9 +3,14 @@ import {
 	motion,
 	useAnimationControls,
 	useReducedMotion,
+	Transition,
 } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+
+const TOAST_HIDE_DURATION = 0.2;
+const TOAST_SHOW_DURATION = 0.3;
+const TOAST_DISPLAY_TIME = 3000;
 
 type ToastProps = {
 	message: string;
@@ -17,14 +22,14 @@ type ToastProps = {
 export function Toast({ message, show, onClose, position }: ToastProps) {
 	const controls = useAnimationControls();
 	const prefersReducedMotion = useReducedMotion();
-	const timeoutRef = useRef<NodeJS.Timeout>();
+	const timeoutRef = useRef<number | null>(null);
 
 	useEffect(() => {
 		if (show) {
 			controls.start("show");
 			timeoutRef.current = setTimeout(() => {
 				onClose();
-			}, 3000); // 3秒後に非表示
+			}, TOAST_DISPLAY_TIME);
 		} else {
 			controls.start("hide");
 		}
@@ -42,20 +47,20 @@ export function Toast({ message, show, onClose, position }: ToastProps) {
 			: {
 					opacity: 0,
 					y: 50,
-					transition: { duration: 0.2, ease: "easeOut" },
+					transition: { duration: TOAST_HIDE_DURATION, ease: "easeOut" } as Transition,
 			  },
 		show: prefersReducedMotion
 			? { opacity: 1 }
 			: {
 					opacity: 1,
 					y: 0,
-					transition: { duration: 0.3, ease: "easeOut" },
+					transition: { duration: TOAST_SHOW_DURATION, ease: "easeOut" } as Transition,
 			  },
 	};
 
 	const toastStyle = position
 		? {
-				position: "fixed",
+				position: "fixed" as const,
 				top: position.top + 20, // ボタンの下に20pxのオフセット
 				left: position.left + position.width / 2, // ボタンの中央に配置
 				transform: "translateX(-50%)", // Toast自体を中央揃え
