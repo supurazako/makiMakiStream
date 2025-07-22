@@ -8,9 +8,10 @@ import {
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
+const TOAST_DISPLAY_TIME = 3000;
 const TOAST_HIDE_DURATION = 0.2;
 const TOAST_SHOW_DURATION = 0.3;
-const TOAST_DISPLAY_TIME = 3000;
+const TOAST_OFFSET = 20;
 
 type ToastProps = {
 	message: string;
@@ -61,7 +62,7 @@ export function Toast({ message, show, onClose, position }: ToastProps) {
 	const toastStyle = position
 		? {
 				position: "fixed" as const,
-				top: position.top + 20, // ボタンの下に20pxのオフセット
+				top: position.top + TOAST_OFFSET,
 				left: position.left + position.width / 2, // ボタンの中央に配置
 				transform: "translateX(-50%)", // Toast自体を中央揃え
 		  }
