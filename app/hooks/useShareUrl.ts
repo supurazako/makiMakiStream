@@ -14,5 +14,5 @@ export function useShareUrl() {
 		if (window.location.href !== newUrl) {
 			navigate(newUrl.replace(window.location.origin, ""), { replace: true });
 		}
-	}, [videoDataList]);
+	}, [videoDataList, navigate]);
 }
