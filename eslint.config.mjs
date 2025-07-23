@@ -69,43 +69,41 @@ export default defineConfig([
                 typescript: {},
             },
         },
-    })), {
-    files: ["**/*.{ts,tsx}"],
-
-    languageOptions: {
-        parser: tsParser,
-    },
-
-    settings: {
-        "import/internal-regex": "^~/",
-
-        "import/resolver": {
-            node: {
-                extensions: [".ts", ".tsx"],
-            },
-
-            typescript: {
-                alwaysTryTypes: true,
-            },
-        },
-    },
-
-    extends: fixupConfigRules(compat.extends(
+    })), ...fixupConfigRules(compat.extends(
         "plugin:@typescript-eslint/recommended",
         "plugin:import/recommended",
         "plugin:import/typescript",
-    )),
-    rules: {
-        "@typescript-eslint/no-unused-vars": [
-            "warn",
-            {
-                "argsIgnorePattern": "^_",
-                "varsIgnorePattern": "^_",
-                "caughtErrorsIgnorePattern": "^_"
-            }
-        ]
-    },
-}, {
+    )).map((config) => ({
+        ...config,
+        files: ["**/*.{ts,tsx}"],
+        languageOptions: {
+            ...config.languageOptions,
+            parser: tsParser,
+        },
+        settings: {
+            ...config.settings,
+            "import/internal-regex": "^~/",
+            "import/resolver": {
+                node: {
+                    extensions: [".ts", ".tsx"],
+                },
+                typescript: {
+                    alwaysTryTypes: true,
+                },
+            },
+        },
+        rules: {
+            ...config.rules,
+            "@typescript-eslint/no-unused-vars": [
+                "warn",
+                {
+                    "argsIgnorePattern": "^_",
+                    "varsIgnorePattern": "^_",
+                    "caughtErrorsIgnorePattern": "^_"
+                }
+            ]
+        }
+    })), {
     files: ["**/.eslintrc.cjs"],
 
     languageOptions: {
