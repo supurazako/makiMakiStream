@@ -21,25 +21,27 @@ const compat = new FlatCompat({
     allConfig: js.configs.all
 });
 
-export default defineConfig([{
-    languageOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
+export default defineConfig([
+    ...compat.extends("eslint:recommended"),
+    {
+        languageOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
 
-        parserOptions: {
-            ecmaFeatures: {
-                jsx: true,
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+
+            globals: {
+                ...globals.browser,
+                ...globals.commonjs,
             },
         },
-
-        globals: {
-            ...globals.browser,
-            ...globals.commonjs,
-        },
     },
-
-    extends: compat.extends("eslint:recommended"),
-}, globalIgnores(["!**/.server", "!**/.client", "build/", ".react-router/", ".wrangler/", "@types/", "node_modules/", "public/"]), {
+    globalIgnores(["!**/.server", "!**/.client", "build/", ".react-router/", ".wrangler/", "@types/", "node_modules/", "public/"]),
+    {
     files: ["**/*.{js,jsx,ts,tsx}"],
 
     plugins: {
