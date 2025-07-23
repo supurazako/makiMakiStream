@@ -5,7 +5,7 @@ import { TwitchPlayerModel } from "~/models/twitchPlayerModel";
 import { VideoDataModel } from "~/models/videoDataModel";
 
 export function TwitchVideoEmbed({ data, elementId }: { data: VideoDataModel & { platform: "twitch" }, elementId: string }): JSX.Element {
-	const resolve = useAtomValue(resolverAtom(data));
+	const resolve = useAtomValue(resolverAtom(data.id));
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {

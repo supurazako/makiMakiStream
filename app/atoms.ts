@@ -25,14 +25,13 @@ videoDataListAtom.onMount = (set) => {
 /**
  * 動画のPromiseとそのResolverを保持するatom。
  */
-const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
+const videoPromiseAtom = atomFamily((_id: VideoDataModel["id"]) => {
 	let resolve: (v: PlayerModel) => void;
 	const promise = new Promise<PlayerModel>((r) => {
 		resolve = r;
 	});
 
 	return atom({
-		data: data,
 		promise: promise,
 		resolve: resolve!,
 	});
@@ -43,9 +42,9 @@ const videoPromiseAtom = atomFamily((data: VideoDataModel) => {
  * 各プレーヤーのインスタンスを生成するコンポーネントはこのatomを使用してください。
  * 生成したインスタンスを該当するresolverに渡してください。Read-onlyです。
  */
-export const resolverAtom = atomFamily((data: VideoDataModel) => {
+export const resolverAtom = atomFamily((id: VideoDataModel["id"]) => {
 	return atom((get) => {
-		const promiseList = get(videoPromiseAtom(data));
+		const promiseList = get(videoPromiseAtom(id));
 		return promiseList.resolve;
 	});
 })
@@ -55,9 +54,9 @@ export const resolverAtom = atomFamily((data: VideoDataModel) => {
  * 再生・停止、音量変更などの操作(write)にはこのatomを使用してください。
  * それらの値を読み取り(read)UIを更新する場合は、playStateAtomやvolumeStateAtomを使用してください。
  */
-export const playerModelAtom = atomFamily((data: VideoDataModel) => {
+export const playerModelAtom = atomFamily((id: VideoDataModel["id"]) => {
 	return atom(async (get) => {
-		const promiseList = get(videoPromiseAtom(data));
+		const promiseList = get(videoPromiseAtom(id));
 		return await promiseList.promise;
 	});
 });
@@ -139,18 +138,18 @@ export const volumeStateAtom = atomFamily((player: PlayerModel) => atomWithObser
 
 export const allPlayerModelsAtom = atom(async (get) => {
 	const dataList = get(videoDataListAtom);
-	return await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+	return await Promise.all(dataList.map((data) => get(playerModelAtom(data.id))));
 });
 
 export const allPlayStateAtom = atom(async (get) => {
 	const dataList = get(videoDataListAtom);
-	const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+	const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data.id))));
 	return await Promise.all(players.map((player) => get(playStateAtom(player))));
 });
 
 export const allMuteStateAtom = atom(async (get) => {
 	const dataList = get(videoDataListAtom);
-	const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data))));
+	const players = await Promise.all(dataList.map((data) => get(playerModelAtom(data.id))));
 	return await Promise.all(players.map((player) => get(muteStateAtom(player))));
 });
 

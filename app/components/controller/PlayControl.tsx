@@ -5,7 +5,7 @@ import { PauseIcon, PlayIcon } from "~/components/common/icons";
 import { VideoDataModel } from "~/models/videoDataModel";
 
 export function PlayControl({ data }: { data: VideoDataModel }): JSX.Element {
-	const player = useAtomValue(playerModelAtom(data));
+	const player = useAtomValue(playerModelAtom(data.id));
 	const [isPlaying, setPlaying] = useState(player.isPlaying());
 	const actualPlaying = useAtomValue(playStateAtom(player));
 
