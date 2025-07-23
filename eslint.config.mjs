@@ -41,39 +41,35 @@ export default defineConfig([
         },
     },
     globalIgnores(["!**/.server", "!**/.client", "build/", ".react-router/", ".wrangler/", "@types/", "node_modules/", "public/"]),
-    {
-    files: ["**/*.{js,jsx,ts,tsx}"],
-
-    plugins: {
-    },
-
-    extends: fixupConfigRules(compat.extends(
+    ...fixupConfigRules(compat.extends(
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
-    )),
+    )).map((config) => ({
+        ...config,
+        files: ["**/*.{js,jsx,ts,tsx}"],
+        settings: {
+            ...config.settings,
+            react: {
+                version: "detect",
+            },
 
-    settings: {
-        react: {
-            version: "detect",
+            formComponents: ["Form"],
+
+            linkComponents: [{
+                name: "Link",
+                linkAttribute: "to",
+            }, {
+                name: "NavLink",
+                linkAttribute: "to",
+            }],
+
+            "import/resolver": {
+                typescript: {},
+            },
         },
-
-        formComponents: ["Form"],
-
-        linkComponents: [{
-            name: "Link",
-            linkAttribute: "to",
-        }, {
-            name: "NavLink",
-            linkAttribute: "to",
-        }],
-
-        "import/resolver": {
-            typescript: {},
-        },
-    },
-}, {
+    })), {
     files: ["**/*.{ts,tsx}"],
 
     languageOptions: {
