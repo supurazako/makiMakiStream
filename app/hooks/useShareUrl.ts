@@ -10,8 +10,10 @@ export function useShareUrl() {
 
 	useEffect(() => {
 		const newUrl = generateUrlFromVideoData(videoDataList);
-		// URLが変更された場合のみnavigateを呼び出す
-		if (window.location.href !== newUrl) {
+
+		const currentUrl = new URL(window.location.href);
+		const targetUrl = new URL(newUrl);
+		if (currentUrl.pathname + currentUrl.search !== targetUrl.pathname + targetUrl.search) {
 			navigate(newUrl.replace(window.location.origin, ""), { replace: true });
 		}
 	}, [videoDataList, navigate]);
