@@ -13,8 +13,8 @@ export function useShareUrl() {
 
 		const currentUrl = new URL(window.location.href);
 		const targetUrl = new URL(newUrl);
-		if (currentUrl.pathname + currentUrl.search !== targetUrl.pathname + targetUrl.search) {
-			navigate(newUrl.replace(window.location.origin, ""), { replace: true });
+		if (currentUrl.pathname !== targetUrl.pathname || currentUrl.search !== targetUrl.search) {
+			navigate(`${targetUrl.pathname}${targetUrl.search}`, { replace: true });
 		}
 	}, [videoDataList, navigate]);
 }
