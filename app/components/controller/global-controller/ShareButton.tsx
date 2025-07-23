@@ -7,12 +7,19 @@ export function ShareButton() {
 	const [toastPosition, setToastPosition] = useState<{ top: number; left: number; width: number } | null>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
+	const [toastMessage, setToastMessage] = useState("");
+
 	const handleCopyClick = () => {
 		if (buttonRef.current) {
 			const rect = buttonRef.current.getBoundingClientRect();
 			setToastPosition({ top: rect.bottom, left: rect.left, width: rect.width });
 		}
 		navigator.clipboard.writeText(window.location.href).then(() => {
+			setToastMessage("URLをコピーしました！");
+			setShowToast(true);
+		}).catch(err => {
+			console.error("Failed to copy URL: ", err);
+			setToastMessage("URLのコピーに失敗しました");
 			setShowToast(true);
 		});
 	};
@@ -20,6 +27,7 @@ export function ShareButton() {
 	const handleCloseToast = () => {
 		setShowToast(false);
 		setToastPosition(null);
+		setToastMessage("");
 	};
 
 	return (
@@ -35,7 +43,7 @@ export function ShareButton() {
 			</button>
 			{toastPosition && (
 				<Toast
-					message="URLをコピーしました！"
+					message={toastMessage}
 					show={showToast}
 					onClose={handleCloseToast}
 					position={toastPosition}
