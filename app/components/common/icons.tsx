@@ -836,3 +836,31 @@ export function LayoutOption4CIcon(): JSX.Element {
 		</svg>
 	);
 }
+
+export function ShareIcon(props: React.SVGProps<SVGSVGElement>) {
+	return (
+		<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+			<g filter="url(#filter0_ii_shareicon)">
+				<path d="M33.75 30C32.0625 30 30.5625 30.6562 29.5312 31.7812L18.8438 25.5938C18.9375 25.2188 18.9375 24.75 18.9375 24.375C18.9375 23.9062 18.9375 23.5312 18.8438 23.1562L29.5312 16.9688C30.5625 18.0938 32.0625 18.75 33.75 18.75C36.0938 18.75 37.9688 16.875 37.9688 14.5312C37.9688 12.1875 36.0938 10.3125 33.75 10.3125C31.4062 10.3125 29.5312 12.1875 29.5312 14.5312C29.5312 14.9062 29.5312 15.2812 29.625 15.6562L18.9375 21.8438C17.9062 20.7188 16.4062 20.0625 14.7188 20.0625C12.375 20.0625 10.5 21.9375 10.5 24.2812C10.5 26.625 12.375 28.5 14.7188 28.5C16.4062 28.5 17.9062 27.8438 18.9375 26.7188L29.625 32.9062C29.5312 33.2812 29.5312 33.6562 29.5312 34.0312C29.5312 36.375 31.4062 38.25 33.75 38.25C36.0938 38.25 37.9688 36.375 37.9688 34.0312C37.9688 31.6875 36.0938 30 33.75 30Z" fill="#5A5A5A"/>
+			</g>
+			<defs>
+				<filter id="filter0_ii_shareicon" x="-2" y="-2" width="49" height="49" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+					<feFlood floodOpacity="0" result="BackgroundImageFix"/>
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+					<feOffset dx="-2" dy="-2"/>
+					<feGaussianBlur stdDeviation="2"/>
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+					<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"/>
+					<feBlend mode="normal" in2="shape" result="effect1_innerShadow_shareicon"/>
+					<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+					<feOffset dx="2" dy="2"/>
+					<feGaussianBlur stdDeviation="2"/>
+					<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+					<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+					<feBlend mode="normal" in2="effect1_innerShadow_shareicon" result="effect2_innerShadow_shareicon"/>
+				</filter>
+			</defs>
+		</svg>
+	);
+}

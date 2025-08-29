@@ -6,7 +6,7 @@ import { VideoDataModel } from "~/models/videoDataModel";
 import { YoutubePlayerModel } from "~/models/youtubePlayerModel";
 
 export function YouTubeVideoEmbed({ data, elementId }: { data: VideoDataModel & { platform: "youtube" }, elementId: string }): JSX.Element {
-	const resolve = useAtomValue(resolverAtom(data));
+	const resolve = useAtomValue(resolverAtom(data.id));
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const [player, setPlayer] = useState<YT.Player | null>(null);
 

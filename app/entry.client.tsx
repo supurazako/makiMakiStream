@@ -7,12 +7,15 @@
 import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { HydratedRouter } from "react-router/dom";
+import { Provider as JotaiProvider } from "jotai";
 
 startTransition(() => {
 	hydrateRoot(
 		document,
 		<StrictMode>
-			<HydratedRouter />
+			<JotaiProvider>
+				<HydratedRouter />
+			</JotaiProvider>
 		</StrictMode>
 	);
 });
